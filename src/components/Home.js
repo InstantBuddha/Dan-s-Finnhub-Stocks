@@ -8,7 +8,7 @@ const apiUrlParts = {
   filterNY: "&mic=XNYS"
 }
 
-class MainWrapper extends Component {
+class Home extends Component {
     constructor(props) {
       super(props)
     
@@ -38,4 +38,4 @@ class MainWrapper extends Component {
   }
 }
 
-export default MainWrapper
+export default Home
