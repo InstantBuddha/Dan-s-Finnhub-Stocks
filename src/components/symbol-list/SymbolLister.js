@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import axios from 'axios'
+import SymbolCard from './SymbolCard'
 
 const apiUrlParts = {
   base: "https://finnhub.io/api/v1",
@@ -39,12 +40,22 @@ class SymbolLister extends Component {
       .catch(error => { console.log(error) })
   }
 
+  
+
   render() {
     console.log(this.state.stockData)
+    const mappedSymbolCards = this.state.stockData.map(
+      symbol => <SymbolCard key={symbol.symbol}
+                            symbol={symbol.symbol}
+                            currency={symbol.currency}
+                            description={symbol.description} 
+                            type={symbol.type} />
+    )
+
     return (<div>
                <h1>SymbolLister</h1>
                {this.state.stockData.length > 0 ?
-                <p>ready</p> : <p>Downloading data</p>}
+                mappedSymbolCards : <p>Downloading data...</p>}
 
     </div>
      
