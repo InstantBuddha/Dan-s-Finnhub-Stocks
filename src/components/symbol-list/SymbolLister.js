@@ -15,7 +15,8 @@ class SymbolLister extends Component {
     super(props)
 
     this.state = {
-      stockData: []
+      stockData: [],
+      filteredObjects: []
     }
 
     this.getJSON = this.getJSON.bind(this)
@@ -44,6 +45,8 @@ class SymbolLister extends Component {
 
   searchSymbol(searchTerm){
     console.log(searchTerm)
+    this.state.stockData.map( item => {
+      if(Object.values(item).includes(searchTerm)){console.log(item)}})
   }
 
   render() {
