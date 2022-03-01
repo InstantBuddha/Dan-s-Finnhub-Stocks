@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 import SymbolCard from './SymbolCard'
+import Searchbar from './Searchbar'
 
 const apiUrlParts = {
   base: "https://finnhub.io/api/v1",
@@ -18,6 +19,7 @@ class SymbolLister extends Component {
     }
 
     this.getJSON = this.getJSON.bind(this)
+    this.searchSymbol = this.searchSymbol.bind(this)
   }
 
   async componentDidMount() {
@@ -40,7 +42,9 @@ class SymbolLister extends Component {
       .catch(error => { console.log(error) })
   }
 
-  
+  searchSymbol(searchTerm){
+    console.log(searchTerm)
+  }
 
   render() {
     console.log(this.state.stockData)
@@ -54,6 +58,7 @@ class SymbolLister extends Component {
 
     return (<div>
                <h1>SymbolLister</h1>
+               <Searchbar searchSymbol={this.searchSymbol} />
                {this.state.stockData.length > 0 ?
                 mappedSymbolCards : <p>Downloading data...</p>}
 
