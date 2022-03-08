@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import axios from 'axios'
 import SymbolCard from './SymbolCard'
 import Searchbar from './Searchbar'
+import SearchMessage from './SearchMessage'
 
 const apiUrlParts = {
   base: "https://finnhub.io/api/v1",
@@ -16,7 +17,8 @@ class SymbolLister extends Component {
 
     this.state = {
       stockData: [],
-      searchResults: []
+      searchResults: [],
+      isSearchPerformed: false
     }
 
     this.getJSON = this.getJSON.bind(this)
@@ -51,6 +53,7 @@ class SymbolLister extends Component {
       return this.isTermIncluded(searchTerm, [stockObject.symbol, stockObject.description])
     })
     copiedTempState.searchResults = searchResults
+    copiedTempState.isSearchPerformed = true
     this.setState(copiedTempState)
   }
 
@@ -61,15 +64,22 @@ class SymbolLister extends Component {
   }
 
   mapSymbolResults() {
-    const symbols = this.state.searchResults.length > 0 ?
-                    this.state.searchResults : this.state.stockData
-    return symbols.map(
-      symbol => <SymbolCard key={symbol.symbol}
-        symbol={symbol.symbol}
-        currency={symbol.currency}
-        description={symbol.description}
-        type={symbol.type} />
-    )
+
+    if (this.state.isSearchPerformed && this.state.searchResults.length < 1) {
+      console.log("nothing")
+      return <SearchMessage message={"Nothing found"} />
+    } else {
+      const symbols = this.state.searchResults.length > 0 ?
+        this.state.searchResults : this.state.stockData
+      return symbols.map(
+        symbol => <SymbolCard key={symbol.symbol}
+          symbol={symbol.symbol}
+          currency={symbol.currency}
+          description={symbol.description}
+          type={symbol.type} />
+      )
+    }
+
   }
 
   render() {
