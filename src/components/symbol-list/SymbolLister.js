@@ -7,7 +7,7 @@ const apiUrlParts = {
   base: "https://finnhub.io/api/v1",
   stockSymbols: "/stock/symbol?exchange=",
   token: "&token=c1mrjdi37fktai5sgaog"
-  
+
 }
 
 class SymbolLister extends Component {
@@ -16,18 +16,20 @@ class SymbolLister extends Component {
 
     this.state = {
       stockData: [],
-      filteredObjects: []
+      searchResults: []
     }
 
     this.getJSON = this.getJSON.bind(this)
-    this.searchSymbol = this.searchSymbol.bind(this)
+    this.updateSearchResult = this.updateSearchResult.bind(this)
+    this.isTermIncluded = this.isTermIncluded.bind(this)
+    this.mapSymbolResults = this.mapSymbolResults.bind(this)
   }
 
   async componentDidMount() {
     const country = "US"
     const filterNY = "&mic=XNYS"
     const stockSymbolsUrl = `${apiUrlParts.base}${apiUrlParts.stockSymbols}${country}${apiUrlParts.token}${filterNY}`
-    
+
 
     this.getJSON(stockSymbolsUrl)
   }
@@ -43,30 +45,42 @@ class SymbolLister extends Component {
       .catch(error => { console.log(error) })
   }
 
-  searchSymbol(searchTerm){
-    console.log(searchTerm)
-    this.state.stockData.map( item => {
-      if(Object.values(item).includes(searchTerm)){console.log(item)}})
+  updateSearchResult(searchTerm) {
+    let copiedTempState = { ...this.state }
+    const searchResults = this.state.stockData.flat().filter(stockObject => {
+      return this.isTermIncluded(searchTerm, [stockObject.symbol, stockObject.description])
+    })
+    copiedTempState.searchResults = searchResults
+    this.setState(copiedTempState)
+  }
+
+  isTermIncluded(searchTerm, valuesToCheck) {
+    return valuesToCheck.some(value => {
+      return value.toLowerCase().includes(searchTerm.toLowerCase())
+    })
+  }
+
+  mapSymbolResults() {
+    const symbols = this.state.searchResults.length > 0 ?
+                    this.state.searchResults : this.state.stockData
+    return symbols.map(
+      symbol => <SymbolCard key={symbol.symbol}
+        symbol={symbol.symbol}
+        currency={symbol.currency}
+        description={symbol.description}
+        type={symbol.type} />
+    )
   }
 
   render() {
-    console.log(this.state.stockData)
-    const mappedSymbolCards = this.state.stockData.map(
-      symbol => <SymbolCard key={symbol.symbol}
-                            symbol={symbol.symbol}
-                            currency={symbol.currency}
-                            description={symbol.description} 
-                            type={symbol.type} />
-    )
-
     return (<div>
-               <h1>SymbolLister</h1>
-               <Searchbar searchSymbol={this.searchSymbol} />
-               {this.state.stockData.length > 0 ?
-                mappedSymbolCards : <p>Downloading data...</p>}
+      <h1>SymbolLister</h1>
+      <Searchbar searchSymbol={this.updateSearchResult} />
+      {this.state.stockData.length > 0 ?
+        this.mapSymbolResults() : <p>Downloading data...</p>}
 
     </div>
-     
+
     )
   }
 }
