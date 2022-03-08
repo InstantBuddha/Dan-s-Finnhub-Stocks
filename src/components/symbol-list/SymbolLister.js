@@ -31,8 +31,6 @@ class SymbolLister extends Component {
     const country = "US"
     const filterNY = "&mic=XNYS"
     const stockSymbolsUrl = `${apiUrlParts.base}${apiUrlParts.stockSymbols}${country}${apiUrlParts.token}${filterNY}`
-
-
     this.getJSON(stockSymbolsUrl)
   }
 
@@ -40,7 +38,9 @@ class SymbolLister extends Component {
     await axios.get(url)
       .then(response => {
         let copiedTempState = { ...this.state }
-        copiedTempState.stockData = response.data
+        copiedTempState.stockData = response.data.sort((a,b)=>{
+          return a.symbol.localeCompare(b.symbol)
+        })
         copiedTempState.isReady = true
         this.setState(copiedTempState)
       })
@@ -66,7 +66,6 @@ class SymbolLister extends Component {
   mapSymbolResults() {
 
     if (this.state.isSearchPerformed && this.state.searchResults.length < 1) {
-      console.log("nothing")
       return <SearchMessage message={"Nothing found"} />
     } else {
       const symbols = this.state.searchResults.length > 0 ?
