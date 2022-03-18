@@ -18,13 +18,16 @@ class SymbolLister extends Component {
     this.state = {
       stockData: [],
       searchResults: [],
-      isSearchPerformed: false
+      isSearchPerformed: false,
+      paginateAmount: 25,
+      currentPage: 0
     }
 
     this.getJSON = this.getJSON.bind(this)
     this.updateSearchResult = this.updateSearchResult.bind(this)
     this.isTermIncluded = this.isTermIncluded.bind(this)
     this.mapSymbolResults = this.mapSymbolResults.bind(this)
+    this.displayContent = this.displayContent.bind(this)
   }
 
   async componentDidMount() {
@@ -38,7 +41,7 @@ class SymbolLister extends Component {
     await axios.get(url)
       .then(response => {
         let copiedTempState = { ...this.state }
-        copiedTempState.stockData = response.data.sort((a,b)=>{
+        copiedTempState.stockData = response.data.flat().sort((a, b) => {
           return a.symbol.localeCompare(b.symbol)
         })
         copiedTempState.isReady = true
@@ -49,7 +52,7 @@ class SymbolLister extends Component {
 
   updateSearchResult(searchTerm) {
     let copiedTempState = { ...this.state }
-    const searchResults = this.state.stockData.flat().filter(stockObject => {
+    const searchResults = this.state.stockData.filter(stockObject => {
       return this.isTermIncluded(searchTerm, [stockObject.symbol, stockObject.description])
     })
     copiedTempState.searchResults = searchResults
@@ -63,21 +66,29 @@ class SymbolLister extends Component {
     })
   }
 
-  mapSymbolResults() {
-
+  displayContent() {
     if (this.state.isSearchPerformed && this.state.searchResults.length < 1) {
       return <SearchMessage message={"Nothing found"} />
     } else {
       const symbols = this.state.searchResults.length > 0 ?
-        this.state.searchResults : this.state.stockData
-      return symbols.map(
-        symbol => <SymbolCard key={symbol.symbol}
-          symbol={symbol.symbol}
-          currency={symbol.currency}
-          description={symbol.description}
-          type={symbol.type} />
-      )
+        this.state.searchResults
+        :
+        this.state.stockData.slice(this.state.currentPage * this.state.paginateAmount,
+          (this.state.currentPage + 1) * this.state.paginateAmount)
+
+      return this.mapSymbolResults(symbols)
     }
+  }
+
+  mapSymbolResults(symbolsToMap) {
+    return symbolsToMap.map(
+      symbol => <SymbolCard key={symbol.symbol}
+        symbol={symbol.symbol}
+        currency={symbol.currency}
+        description={symbol.description}
+        type={symbol.type} />
+    )
+
 
   }
 
@@ -86,7 +97,7 @@ class SymbolLister extends Component {
       <h1>SymbolLister</h1>
       <Searchbar searchSymbol={this.updateSearchResult} />
       {this.state.stockData.length > 0 ?
-        this.mapSymbolResults() : <p>Downloading data...</p>}
+        this.displayContent() : <p>Downloading data...</p>}
 
     </div>
 
