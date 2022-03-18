@@ -29,6 +29,7 @@ class SymbolLister extends Component {
     this.isTermIncluded = this.isTermIncluded.bind(this)
     this.mapSymbolResults = this.mapSymbolResults.bind(this)
     this.displayContent = this.displayContent.bind(this)
+    this.changeCurrentPage =this.changeCurrentPage.bind(this)
   }
 
   async componentDidMount() {
@@ -75,7 +76,7 @@ class SymbolLister extends Component {
         this.state.searchResults
         :
         this.state.stockData.slice(this.state.currentPage * this.state.paginateAmount,
-          (this.state.currentPage + 1) * this.state.paginateAmount)   
+          (this.state.currentPage + 1) * this.state.paginateAmount)
 
       return this.mapSymbolResults(symbols)
         
@@ -90,19 +91,35 @@ class SymbolLister extends Component {
         description={symbol.description}
         type={symbol.type} />
     )
+  }
 
-
+  changeCurrentPage(isAddition){
+    
+    let copiedTempState = { ...this.state }
+    isAddition ?
+    copiedTempState.currentPage++ :
+    copiedTempState>0 && copiedTempState.currentPage--
+    console.log(copiedTempState.currentPage)
+    this.setState(copiedTempState)
   }
 
   render() {
     return (<div>
       <h1>SymbolLister</h1>
       <Searchbar searchSymbol={this.updateSearchResult} />
-      {!this.state.isSearchPerformed && <Paginator currentPage={this.state.currentPage} />}
+      {!this.state.isSearchPerformed &&
+        this.state.stockData.length > 0 &&
+        <Paginator currentPage={this.state.currentPage}
+                   changeCurrentPage={this.changeCurrentPage} />
+      }
+
       {this.state.stockData.length > 0 ?
         this.displayContent() : <p>Downloading data...</p>}
-      {!this.state.isSearchPerformed && <Paginator currentPage={this.state.currentPage} />} 
 
+      {!this.state.isSearchPerformed &&
+        this.state.stockData.length > 0 &&
+        <Paginator currentPage={this.state.currentPage} />
+      }
     </div>
 
     )
