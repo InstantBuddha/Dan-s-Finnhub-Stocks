@@ -29,7 +29,8 @@ class SymbolLister extends Component {
     this.isTermIncluded = this.isTermIncluded.bind(this)
     this.mapSymbolResults = this.mapSymbolResults.bind(this)
     this.displayContent = this.displayContent.bind(this)
-    this.changeCurrentPage =this.changeCurrentPage.bind(this)
+    this.changeCurrentPage = this.changeCurrentPage.bind(this)
+    this.changePaginateAmount = this.changePaginateAmount.bind(this)
   }
 
   async componentDidMount() {
@@ -93,13 +94,20 @@ class SymbolLister extends Component {
     )
   }
 
-  changeCurrentPage(isAddition){
-    
+  changeCurrentPage(isAddition){    
     let copiedTempState = { ...this.state }
+    
     isAddition ?
-    copiedTempState.currentPage++ :
-    copiedTempState>0 && copiedTempState.currentPage--
-    console.log(copiedTempState.currentPage)
+      copiedTempState.currentPage++ :
+      copiedTempState.currentPage>0 && copiedTempState.currentPage--
+
+    this.setState(copiedTempState)
+  }
+
+  changePaginateAmount(newAmount){
+    let copiedTempState = { ...this.state }
+    copiedTempState.paginateAmount = newAmount
+    copiedTempState.currentPage = 0
     this.setState(copiedTempState)
   }
 
@@ -110,7 +118,8 @@ class SymbolLister extends Component {
       {!this.state.isSearchPerformed &&
         this.state.stockData.length > 0 &&
         <Paginator currentPage={this.state.currentPage}
-                   changeCurrentPage={this.changeCurrentPage} />
+                   changeCurrentPage={this.changeCurrentPage}
+                   changePaginateAmount={this.changePaginateAmount} />
       }
 
       {this.state.stockData.length > 0 ?
@@ -118,7 +127,9 @@ class SymbolLister extends Component {
 
       {!this.state.isSearchPerformed &&
         this.state.stockData.length > 0 &&
-        <Paginator currentPage={this.state.currentPage} />
+        <Paginator currentPage={this.state.currentPage}
+                   changeCurrentPage={this.changeCurrentPage}
+                   changePaginateAmount={this.changePaginateAmount} />
       }
     </div>
 
