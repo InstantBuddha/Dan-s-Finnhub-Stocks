@@ -3,6 +3,7 @@ import axios from 'axios'
 import SymbolCard from './SymbolCard'
 import Searchbar from './Searchbar'
 import SearchMessage from './SearchMessage'
+import Paginator from '../Paginator'
 
 const apiUrlParts = {
   base: "https://finnhub.io/api/v1",
@@ -74,9 +75,10 @@ class SymbolLister extends Component {
         this.state.searchResults
         :
         this.state.stockData.slice(this.state.currentPage * this.state.paginateAmount,
-          (this.state.currentPage + 1) * this.state.paginateAmount)
+          (this.state.currentPage + 1) * this.state.paginateAmount)   
 
       return this.mapSymbolResults(symbols)
+        
     }
   }
 
@@ -96,8 +98,10 @@ class SymbolLister extends Component {
     return (<div>
       <h1>SymbolLister</h1>
       <Searchbar searchSymbol={this.updateSearchResult} />
+      {!this.state.isSearchPerformed && <Paginator currentPage={this.state.currentPage} />}
       {this.state.stockData.length > 0 ?
         this.displayContent() : <p>Downloading data...</p>}
+      {!this.state.isSearchPerformed && <Paginator currentPage={this.state.currentPage} />} 
 
     </div>
 
