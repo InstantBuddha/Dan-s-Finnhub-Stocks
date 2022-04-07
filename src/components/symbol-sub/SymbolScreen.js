@@ -10,36 +10,25 @@ const apiUrlParts = {
 class SymbolScreen extends Component {
     constructor(props) {
         super(props)
-
         this.state = {
             company: this.props.company,
             isDownloaded: false,
-            compnyData: {},
-            /*
-            country: "",
-            currency: "",
-            exchange: "",
-            industry: "",
-            ipo: null,
-            logo: "",
-            marketCapitalization: 0,
-            shareOutstanding: 0,
-            web: ""*/
+            compnyData: {}
         }
 
         this.getJSON = this.getJSON.bind(this)
     }
 
+    
+
     async componentDidMount() {
         const companyDetailsUrl = `${apiUrlParts.base}${apiUrlParts.companyDetail}${this.state.company}${apiUrlParts.token}`
-
         this.getJSON(companyDetailsUrl)
     }
 
     async getJSON(url) {
         await axios.get(url)
             .then(response => {
-                console.log(response)
                 let copiedTempState = { ...this.state }
                 copiedTempState.isDownloaded = true
                 copiedTempState.compnyData = response.data

@@ -13,8 +13,6 @@ class Home extends Component {
   render() {
     return <div>
       <h1>Finnhub Stocks</h1>
-      {/*just for testing: */}
-      <SymbolScreen company="TSLA"/>
     </div>
   }
 }

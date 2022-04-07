@@ -35,8 +35,7 @@ class SymbolLister extends Component {
 
   async componentDidMount() {
     const country = "US"
-    const filterNY = "&mic=XNYS"
-    const stockSymbolsUrl = `${apiUrlParts.base}${apiUrlParts.stockSymbols}${country}${apiUrlParts.token}${filterNY}`
+    const stockSymbolsUrl = `${apiUrlParts.base}${apiUrlParts.stockSymbols}${country}${apiUrlParts.token}`
     this.getJSON(stockSymbolsUrl)
   }
 
