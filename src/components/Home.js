@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import SymbolScreen from './symbol-sub/SymbolScreen'
 
 class Home extends Component {
   constructor(props) {
