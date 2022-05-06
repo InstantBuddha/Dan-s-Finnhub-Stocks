@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import axios from 'axios'
+import { Link } from 'react-router-dom'
 
 const apiUrlParts = {
     base: "https://finnhub.io/api/v1",
@@ -45,6 +46,7 @@ class SymbolInformation extends Component {
                 <div>
                     <h1>{this.state.company}</h1>
                     <h2>{this.state.companyData.name}</h2>
+                    <h3><Link to={`/realtime-${this.state.company}`} className="link" symbol={this.state.company}>Click for real time price</Link></h3>
                     <a href={this.state.companyData.weburl} target="_blank" >{this.state.companyData.weburl}</a>
                 </div>
                 <div>

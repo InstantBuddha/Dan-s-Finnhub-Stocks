@@ -12,10 +12,8 @@ class Home extends Component {
   }
 
   render() {
-    const symbol = "TSLA"
     return <div>
       <h1>Finnhub Stocks</h1>
-      <Link to={`/realtime-${symbol}`} className="link">For testing</Link>
     </div>
   }
 }

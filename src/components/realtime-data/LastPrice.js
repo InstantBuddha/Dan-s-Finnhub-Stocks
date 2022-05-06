@@ -1,35 +1,41 @@
 import React from 'react'
 import { useState, useEffect, useRef } from "react"
+import { useParams } from 'react-router-dom'
+import LastPriceCard from './LastPriceCard'
 
-function LastPrice(props) {
+function LastPrice() {
+
+    const { symbol } = useParams()
+    const socketData = {
+        url: "wss://ws.finnhub.io?token=c1mrjdi37fktai5sgaog",
+        subscribeJSON: { 'type': 'subscribe', 'symbol': symbol },
+        unsubscribeJSON: { 'type': 'unsubscribe', 'symbol': symbol }
+    }
 
     const [stockData, setStockData] = useState({})
     const socket = useRef()
-    //now it is for binance for testing!!!!!!!!!!!!!!
-    const socketData = {
-        url: "wss://ws.finnhub.io?token=c1mrjdi37fktai5sgaog",
-        subscribeJSON: { 'type': 'subscribe', 'symbol': 'BINANCE:BTCUSDT' },
-        unsubscribeJSON: { 'type': 'unsubscribe', 'symbol': 'BINANCE:BTCUSDT' }
-    }
 
-    useEffect( () => {
-        //this is for componentDidMount
+
+
+    useEffect(() => {
+        //this is for componentDidMount        
         socket.current = new WebSocket(socketData.url)
-        socket.current.addEventListener("open", (event)=>{
+        socket.current.addEventListener("open", (event) => {
             socket.current.send(JSON.stringify(socketData.subscribeJSON))
         })
-        socket.current.addEventListener("message", (event)=>{
+        socket.current.addEventListener("message", (event) => {
             try {
                 const tempData = JSON.parse(event.data)
+                console.log(tempData)
                 setStockData(tempData.data[0])
-            } catch(error){
+            } catch (error) {
                 console.log(error)
             }
         })
 
     }, [])
 
-    useEffect( () => {
+    useEffect(() => {
         return () => {
             //this is for componentWillUnmount
             socket.current.send(JSON.stringify(socketData.unsubscribeJSON))
@@ -37,10 +43,16 @@ function LastPrice(props) {
         }
     }, [])
 
+
     return (
+
         <div>
-        <h1>Last price:</h1>
-        <h1>{stockData.p ? stockData.p : "Downloading data..."}</h1>
+            <h1>Up to date information for { symbol }</h1>
+            <h2>{stockData.p ? 
+                <LastPriceCard lastPrice={stockData.p}
+                               timeStamp={stockData.t} /> 
+                : "Downloading data..."}</h2>
+            
         </div>
     )
 }
