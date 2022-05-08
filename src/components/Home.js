@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import LastPrice from './realtime-data/LastPrice'
 import { Link } from 'react-router-dom'
 
 class Home extends Component {

@@ -3,9 +3,9 @@ import { useState, useEffect, useRef } from "react"
 import { useParams } from 'react-router-dom'
 import LastPriceCard from './LastPriceCard'
 
-function LastPrice() {
+function LastPrice(props) {
 
-    const { symbol } = useParams()
+    const { symbol } = useParams()  //ez azért ilyen, hogy link is legyen
     const socketData = {
         url: "wss://ws.finnhub.io?token=c1mrjdi37fktai5sgaog",
         subscribeJSON: { 'type': 'subscribe', 'symbol': symbol },
@@ -47,11 +47,10 @@ function LastPrice() {
     return (
 
         <div>
-            <h1>Up to date information for { symbol }</h1>
             <h2>{stockData.p ? 
                 <LastPriceCard lastPrice={stockData.p}
                                timeStamp={stockData.t} /> 
-                : "Downloading data..."}</h2>
+                : props.lastKnownPrice} USD</h2>
             
         </div>
     )

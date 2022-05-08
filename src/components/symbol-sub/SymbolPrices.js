@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import axios from 'axios'
+import LastPrice from './realtime-data/LastPrice'
 
 const apiUrlParts = {
     base: "https://finnhub.io/api/v1",
@@ -40,8 +41,8 @@ const apiUrlParts = {
 
   render() {
     return (
-      <div>
-          <p>Current stock price: {this.state.priceData.c} USD</p>
+      <div>         
+          <LastPrice symbol={this.props.symbol} lastKnownPrice={this.state.priceData.c} />
           <p>Change: {this.state.priceData.d} USD</p>
           <p>High price of the day: {this.state.priceData.h} USD</p>
           <p>Low price of the day: {this.state.priceData.l} USD</p>

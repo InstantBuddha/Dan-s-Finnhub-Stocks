@@ -1,5 +1,6 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
+import LastPrice from './realtime-data/LastPrice'
 import SymbolInformation from './SymbolInformation'
 import SymbolPrices from './SymbolPrices'
 
