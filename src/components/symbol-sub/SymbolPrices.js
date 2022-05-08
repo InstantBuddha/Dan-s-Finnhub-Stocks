@@ -1,56 +1,44 @@
-import React, { Component } from 'react'
+import React from 'react'
+import { useState, useEffect, useRef } from "react"
 import axios from 'axios'
 import LastPrice from './realtime-data/LastPrice'
 
 const apiUrlParts = {
-    base: "https://finnhub.io/api/v1",
-    quoteSymbol: "/quote?symbol=",
-    token: "&token=c1mrjdi37fktai5sgaog",
+  base: "https://finnhub.io/api/v1",
+  quoteSymbol: "/quote?symbol=",
+  token: "&token=c1mrjdi37fktai5sgaog",
 }
 
- class SymbolPrices extends Component {
-    constructor(props) {
-      super(props)
-    
-      this.state = {
-        company: this.props.company,
-        isDownloaded: false,
-        priceData: {}
-      }
+function SymbolPrices(props) {
 
-      this.getJSON = this.getJSON.bind(this)
+  const [isDownloaded, setIsDownloaded] = useState(false)
+  const [priceData, setPriceData] = useState({})
+
+  useEffect(() => {
+    const companyQuoteUrl = `${apiUrlParts.base}${apiUrlParts.quoteSymbol}${props.company}${apiUrlParts.token}`
+    const fetchData = async (companyQuoteUrl) => {
+      await axios.get(companyQuoteUrl)
+        .then(response => {
+          console.log(response)
+          setIsDownloaded(true)
+          setPriceData(response.data)
+        })
+        .catch(error => { console.log(error) })
     }
 
-    async componentDidMount() {
-        const companyQuoteUrl = `${apiUrlParts.base}${apiUrlParts.quoteSymbol}${this.state.company}${apiUrlParts.token}`
-        this.getJSON(companyQuoteUrl)
-    }
+    fetchData(companyQuoteUrl)
+  }, [])
 
-    async getJSON(url) {
-        await axios.get(url)
-            .then(response => {
-                console.log(response)
-                let copiedTempState = { ...this.state }
-                copiedTempState.isDownloaded = true
-                copiedTempState.priceData = response.data
-                this.setState(copiedTempState)
-            })
-            .catch(error => { console.log(error) })
-
-    }
-
-  render() {
-    return (
-      <div>         
-          <LastPrice symbol={this.props.symbol} lastKnownPrice={this.state.priceData.c} />
-          <p>Change: {this.state.priceData.d} USD</p>
-          <p>High price of the day: {this.state.priceData.h} USD</p>
-          <p>Low price of the day: {this.state.priceData.l} USD</p>
-          <p>Open price of the day: {this.state.priceData.o} USD</p>
-          <p>Previous close price: {this.state.priceData.pc} USD</p>
-      </div>
-    )
-  }
+  return (
+    <div>
+      <LastPrice symbol={props.symbol} lastKnownPrice={priceData.c} />
+      <p>Change: {priceData.d} USD</p>
+      <p>High price of the day: {priceData.h} USD</p>
+      <p>Low price of the day: {priceData.l} USD</p>
+      <p>Open price of the day: {priceData.o} USD</p>
+      <p>Previous close price: {priceData.pc} USD</p>
+    </div>
+  )
 }
 
 export default SymbolPrices
