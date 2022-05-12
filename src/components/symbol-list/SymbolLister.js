@@ -112,7 +112,6 @@ class SymbolLister extends Component {
 
   render() {
     return (<div>
-      <h1>SymbolLister</h1>
       <Searchbar searchSymbol={this.updateSearchResult} />
       {!this.state.isSearchPerformed &&
         this.state.stockData.length > 0 &&

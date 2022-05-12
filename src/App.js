@@ -1,4 +1,5 @@
 import './App.css';
+import "./styles.css"
 import {BrowserRouter  as Router, Route, Routes } from 'react-router-dom'
 import Home from './components/Home';
 import Navbar from './components/navbar/Navbar';
@@ -10,7 +11,7 @@ function App() {
     <Router>
     <div className="App">
       <Navbar />
-      <div>
+      <div className='main-wrapper'>
         <Routes>
           <Route exact path="/" element={<Home />} />
           <Route exact path='/symbols' element={<SymbolLister />} />
