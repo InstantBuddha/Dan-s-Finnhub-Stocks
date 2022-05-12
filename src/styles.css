@@ -6,7 +6,9 @@ body {
     margin-top: 3rem;
 }
 .navbar {
-    list-style-type: none;
+    list-style-type: none;    
+    margin: 0;
+    padding: 0;
     overflow: hidden;
     background-color: #333;
     position: fixed;
@@ -33,9 +35,15 @@ body {
     background-color: #111;
 }
 
-@media screen and (max-width: 600px) {
-    .fancy {
-        color: green;
+@media only screen and (orientation: portrait) {
+    .navbar{        
+        height: 5.5rem;
+    }
+    .navLink {
+        padding: 0.5rem;
         float: none;
+    }
+    .main-wrapper {
+        margin-top: 5.5rem;
     }
 }
