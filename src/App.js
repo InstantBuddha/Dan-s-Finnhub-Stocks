@@ -11,7 +11,7 @@ function App() {
     <Router>
     <div className="App">
       <Navbar />
-      <div className='main-wrapper'>
+      <div className='mainWrapper'>
         <Routes>
           <Route exact path="/" element={<Home />} />
           <Route exact path='/symbols' element={<SymbolLister />} />

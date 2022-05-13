@@ -1,12 +1,13 @@
 body {
-    margin:0;    
+    margin: 0;
     background-color: lightgray;
-  }
-.main-wrapper {
+}
+
+.mainWrapper {
     margin-top: 3rem;
 }
+
 .navbar {
-    list-style-type: none;    
     margin: 0;
     padding: 0;
     overflow: hidden;
@@ -35,15 +36,55 @@ body {
     background-color: #111;
 }
 
+.searchBarMain {
+    padding: 0.5rem;
+}
+
+button {
+    margin: 0 0.5rem 0 0.5rem;
+    border: 1px solid;
+    border-radius: 0.30rem;
+}
+
+input {
+    border: 1px solid;
+    border-radius: 0.30rem;
+}
+
+.symbolCardWrapper{
+    border: 1px solid;
+    padding: 0 0 1rem 0;
+}
+
+.symbolCardWrapper h1{
+    margin: 0.5rem 0 0 0;
+}
+
+.symbolCardGridContainer {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+}
+
+.symbolCardGridItem {
+    font-weight: bold;
+    padding:0 0.5rem 0 0.5rem; 
+}
+.symbolCardGridItem a{
+    text-decoration: none;
+}
+
 @media only screen and (orientation: portrait) {
-    .navbar{        
+    .navbar {
         height: 5.5rem;
     }
+
     .navLink {
         padding: 0.5rem;
         float: none;
     }
-    .main-wrapper {
+
+    .mainWrapper {
         margin-top: 5.5rem;
     }
 }

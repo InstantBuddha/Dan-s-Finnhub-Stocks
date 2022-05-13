@@ -3,11 +3,20 @@ import { Link } from 'react-router-dom'
 
 function SymbolCard(props) {
   return (
-    <div>
-    <h1>{props.symbol}</h1>
-    <Link to={`/${props.symbol}`} className="link">{props.symbol}</Link>
-    <h5>{props.type}</h5>
-    <p>{props.description}</p>
+    <div className='symbolCardWrapper'>
+      <h1>{props.description}</h1>
+      <div className='symbolCardGridContainer'>
+        <div className='symbolCardGridItem'>
+          <p>Symbol: {props.symbol}</p>
+        </div>
+        <div className='symbolCardGridItem'>
+          <p> Stock type: {props.type}</p>
+        </div>
+      </div>
+      <Link to={`/${props.symbol}`} className="link">Open datasheet</Link>
+
+
+
     </div>
   )
 }

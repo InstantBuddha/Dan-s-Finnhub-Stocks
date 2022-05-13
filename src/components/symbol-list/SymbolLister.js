@@ -3,7 +3,7 @@ import axios from 'axios'
 import SymbolCard from './SymbolCard'
 import Searchbar from './Searchbar'
 import SearchMessage from './SearchMessage'
-import Paginator from '../Paginator'
+import Paginator from './Paginator'
 
 const apiUrlParts = {
   base: "https://finnhub.io/api/v1",
