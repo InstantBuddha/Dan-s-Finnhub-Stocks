@@ -8,7 +8,7 @@ function SymbolScreen() {
     const {symbol} = useParams()
 
   return (
-    <div>
+    <div className='gridContainer responsiveGrid'>
         <SymbolInformation company={symbol}/>
         <SymbolPrices company={symbol}/>
     </div>

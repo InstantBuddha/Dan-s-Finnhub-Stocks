@@ -42,14 +42,20 @@ class SymbolInformation extends Component {
 
     render() {
         return (            
-            <div>
-                <div>
-                    <h1>{this.state.company}</h1>
-                    <h2>{this.state.companyData.name}</h2>
-                    <a href={this.state.companyData.weburl} target="_blank" >{this.state.companyData.weburl}</a>
+            <div className='symbolSubGridItem'>
+                <div className='gridContainer leftAlignedInfo'>
+                    <div>
+                        <img src={this.state.companyData.logo} alt={this.state.company} className='companyLogo'/>
+                    </div>
+                    <div>
+                        <h1>{this.state.company}</h1>
+                        <h2>{this.state.companyData.name}</h2>
+                        <a href={this.state.companyData.weburl} target="_blank" >{this.state.companyData.weburl}</a>
+                    </div>
+                    
                 </div>
                 <div>
-                    <div>
+                    <div className='leftAlignedInfo'>
                         <p>Country: {this.state.companyData.country}</p>
                         <p>Currency: {this.state.companyData.currency}</p>
                         <p>Exchange: {this.state.companyData.exchange}</p>
@@ -57,9 +63,7 @@ class SymbolInformation extends Component {
                         <p>IPO: {this.state.companyData.ipo}</p>
                         <p>Share outsanding: {this.state.companyData.shareOutstanding}</p>
                     </div>
-                    <div>
-                        <img src={this.state.companyData.logo} alt={this.state.company} />
-                    </div>
+                    
                 </div>
             </div>
         )

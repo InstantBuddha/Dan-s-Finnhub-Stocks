@@ -30,7 +30,7 @@ function SymbolPrices(props) {
   }, [])
 
   return (
-    <div>
+    <div className='symbolSubGridItem leftAlignedInfo'>
       <LastPrice symbol={props.symbol} lastKnownPrice={priceData.c} />
       <p>Change: {priceData.d} USD</p>
       <p>High price of the day: {priceData.h} USD</p>

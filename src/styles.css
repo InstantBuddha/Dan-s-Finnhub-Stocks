@@ -7,6 +7,7 @@ body {
     margin-top: 3rem;
 }
 
+
 .navbar {
     margin: 0;
     padding: 0;
@@ -17,7 +18,6 @@ body {
     width: 100%;
     height: 3rem;
 }
-
 .navLink {
     float: left;
     font-size: larger;
@@ -27,45 +27,40 @@ body {
     text-align: center;
     text-decoration: none;
 }
-
 .homeLink {
     background-color: #1db954;
 }
-
 .navLink:hover {
     background-color: #111;
 }
 
+
 .searchBarMain {
     padding: 0.5rem;
 }
-
 button {
     margin: 0 0.5rem 0 0.5rem;
     border: 1px solid;
     border-radius: 0.30rem;
 }
-
 input {
     border: 1px solid;
     border-radius: 0.30rem;
 }
 
+
 .symbolCardWrapper{
     border: 1px solid;
     padding: 0 0 1rem 0;
 }
-
 .symbolCardWrapper h1{
     margin: 0.5rem 0 0 0;
 }
-
-.symbolCardGridContainer {
+.gridContainer {
     display: flex;
     justify-content: center;
     flex-direction: row;
 }
-
 .symbolCardGridItem {
     font-weight: bold;
     padding:0 0.5rem 0 0.5rem; 
@@ -74,11 +69,24 @@ input {
     text-decoration: none;
 }
 
+
+.symbolSubGridItem{
+    padding: 1rem;
+}
+.leftAlignedInfo{
+    text-align: left;
+}
+.companyLogo{
+    width: auto;
+    height: 100%;
+    object-fit: fill;
+    padding-right: 3rem;
+}
+
 @media only screen and (orientation: portrait) {
     .navbar {
         height: 5.5rem;
     }
-
     .navLink {
         padding: 0.5rem;
         float: none;
@@ -86,5 +94,9 @@ input {
 
     .mainWrapper {
         margin-top: 5.5rem;
+    }
+
+    .responsiveGrid{
+        flex-direction: column;
     }
 }

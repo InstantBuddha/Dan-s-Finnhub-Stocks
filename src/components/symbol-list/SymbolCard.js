@@ -5,7 +5,7 @@ function SymbolCard(props) {
   return (
     <div className='symbolCardWrapper'>
       <h1>{props.description}</h1>
-      <div className='symbolCardGridContainer'>
+      <div className='gridContainer'>
         <div className='symbolCardGridItem'>
           <p>Symbol: {props.symbol}</p>
         </div>
@@ -14,9 +14,6 @@ function SymbolCard(props) {
         </div>
       </div>
       <Link to={`/${props.symbol}`} className="link">Open datasheet</Link>
-
-
-
     </div>
   )
 }
