@@ -37,9 +37,7 @@ function SymbolScreen() {
       <SymbolTitle companyData={companyData} />
       <div className='gridContainer responsiveGrid'>
 
-        <SymbolInformation company={symbol}
-          companyData={companyData}
-        />
+        <SymbolInformation companyData={companyData} />
         <SymbolPrices company={symbol} />
       </div>
     </div>

@@ -47,10 +47,10 @@ function LastPrice(props) {
     return (
 
         <div>
-            <h2>{stockData.p ? 
+            {stockData.p ? 
                 <LastPriceCard lastPrice={stockData.p}
                                timeStamp={stockData.t} /> 
-                : props.lastKnownPrice} USD</h2>
+                : <p className='importantText'>{props.lastKnownPrice} USD</p>} 
             
         </div>
     )

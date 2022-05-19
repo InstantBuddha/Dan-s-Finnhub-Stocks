@@ -5,6 +5,7 @@ body {
 
 .mainWrapper {
     margin-top: 3rem;
+    padding-top: 0.5rem;
 }
 
 
@@ -81,6 +82,10 @@ input {
     height: 100%;
     object-fit: fill;
     padding-right: 3rem;
+}
+
+.importantText{
+    font-weight: bold;
 }
 
 @media only screen and (orientation: portrait) {
