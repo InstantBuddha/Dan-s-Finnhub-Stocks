@@ -19,7 +19,7 @@ function SymbolPrices(props) {
     const fetchData = async (companyQuoteUrl) => {
       await axios.get(companyQuoteUrl)
         .then(response => {
-          console.log(response)
+          //console.log(response)
           setIsDownloaded(true)
           setPriceData(response.data)
         })

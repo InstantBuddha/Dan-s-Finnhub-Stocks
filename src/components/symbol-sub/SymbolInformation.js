@@ -13,8 +13,7 @@ class SymbolInformation extends Component {
         super(props)
         this.state = {
             company: this.props.company,
-            isDownloaded: false,
-            companyData: {}
+            isDownloaded: false
         }
 
         this.getJSON = this.getJSON.bind(this)
@@ -45,23 +44,23 @@ class SymbolInformation extends Component {
             <div className='symbolSubGridItem'>
                 <div className='gridContainer leftAlignedInfo'>
                     <div>
-                        <img src={this.state.companyData.logo} alt={this.state.company} className='companyLogo'/>
+                        <img src={this.props.companyData.logo} alt={this.props.companyData.company} className='companyLogo'/>
                     </div>
                     <div>
-                        <h1>{this.state.company}</h1>
-                        <h2>{this.state.companyData.name}</h2>
-                        <a href={this.state.companyData.weburl} target="_blank" >{this.state.companyData.weburl}</a>
+                        <h1>{this.props.companyData.company}</h1>
+                        <h2>{this.props.companyData.name}</h2>
+                        <a href={this.props.companyData.weburl} target="_blank" >{this.props.companyData.weburl}</a>
                     </div>
                     
                 </div>
                 <div>
                     <div className='leftAlignedInfo'>
-                        <p>Country: {this.state.companyData.country}</p>
-                        <p>Currency: {this.state.companyData.currency}</p>
-                        <p>Exchange: {this.state.companyData.exchange}</p>
-                        <p>Industry: {this.state.companyData.finnhubIndustry}</p>
-                        <p>IPO: {this.state.companyData.ipo}</p>
-                        <p>Share outsanding: {this.state.companyData.shareOutstanding}</p>
+                        <p>Country: {this.props.companyData.country}</p>
+                        <p>Currency: {this.props.companyData.currency}</p>
+                        <p>Exchange: {this.props.companyData.exchange}</p>
+                        <p>Industry: {this.props.companyData.finnhubIndustry}</p>
+                        <p>IPO: {this.props.companyData.ipo}</p>
+                        <p>Share outsanding: {this.props.companyData.shareOutstanding}</p>
                     </div>
                     
                 </div>
