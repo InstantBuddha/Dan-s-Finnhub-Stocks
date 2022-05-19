@@ -5,6 +5,7 @@ import axios from 'axios'
 import LastPrice from './realtime-data/LastPrice'
 import SymbolInformation from './SymbolInformation'
 import SymbolPrices from './SymbolPrices'
+import SymbolTitle from './SymbolTitle'
 
 const apiUrlParts = {
   base: "https://finnhub.io/api/v1",
@@ -13,31 +14,36 @@ const apiUrlParts = {
 }
 
 function SymbolScreen() {
-    const {symbol} = useParams()
-    const [isCompanyDataDownloaded, setIsCompanyDataDownloaded] = useState(false)
-    const [companyData, setCompanyData] = useState({})
+  const { symbol } = useParams()
+  const [isCompanyDataDownloaded, setIsCompanyDataDownloaded] = useState(false)
+  const [companyData, setCompanyData] = useState({})
 
-    useEffect(() => {
-      const companyDetailsUrl = `${apiUrlParts.base}${apiUrlParts.companyDetail}${symbol}${apiUrlParts.token}`
-      const fetchData = async (companyDetailsUrl) => {
-        await axios.get(companyDetailsUrl)
-          .then(response =>{
-            setIsCompanyDataDownloaded(true)
-            setCompanyData(response.data)
-          })
-          .catch(error => {console.log(error) })
-      }
+  useEffect(() => {
+    const companyDetailsUrl = `${apiUrlParts.base}${apiUrlParts.companyDetail}${symbol}${apiUrlParts.token}`
+    const fetchData = async (companyDetailsUrl) => {
+      await axios.get(companyDetailsUrl)
+        .then(response => {
+          setIsCompanyDataDownloaded(true)
+          setCompanyData(response.data)
+        })
+        .catch(error => { console.log(error) })
+    }
 
-      fetchData(companyDetailsUrl)
-    },[])
+    fetchData(companyDetailsUrl)
+  }, [])
 
   return (
-    <div className='gridContainer responsiveGrid'>
+    <div>
+      <SymbolTitle companyData={companyData} />
+      <div className='gridContainer responsiveGrid'>
+
         <SymbolInformation company={symbol}
-                           companyData={companyData}
+          companyData={companyData}
         />
-        <SymbolPrices company={symbol}/>
+        <SymbolPrices company={symbol} />
+      </div>
     </div>
+
   )
 }
 
