@@ -28,11 +28,11 @@ function SymbolPrices(props) {
     fetchData(companyQuoteUrl)
   }, [])
 
-  const textToDisplay = [`Change: ${priceData.d} USD`,
-                         `High price of the day: ${priceData.h} USD`,
-                         `Low price of the day: ${priceData.l} USD`,
-                         `Open price of the day: ${priceData.o} USD`,
-                         `Previous close price: ${priceData.pc} USD`,]
+  const textToDisplay = [`Change: ${priceData.d} ${props.currency}`,
+                         `High price of the day: ${priceData.h} ${props.currency}`,
+                         `Low price of the day: ${priceData.l} ${props.currency}`,
+                         `Open price of the day: ${priceData.o} ${props.currency}`,
+                         `Previous close price: ${priceData.pc} ${props.currency}`]
 
   return (
     <div className='symbolSubGridItem leftAlignedInfo'>
