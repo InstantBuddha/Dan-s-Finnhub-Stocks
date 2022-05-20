@@ -28,14 +28,18 @@ function SymbolPrices(props) {
     fetchData(companyQuoteUrl)
   }, [])
 
+  const textToDisplay = [`Change: ${priceData.d} USD`,
+                         `High price of the day: ${priceData.h} USD`,
+                         `Low price of the day: ${priceData.l} USD`,
+                         `Open price of the day: ${priceData.o} USD`,
+                         `Previous close price: ${priceData.pc} USD`,]
+
   return (
     <div className='symbolSubGridItem leftAlignedInfo'>
       <LastPrice symbol={props.symbol} lastKnownPrice={priceData.c} />
-      <p>Change: {priceData.d} USD</p>
-      <p>High price of the day: {priceData.h} USD</p>
-      <p>Low price of the day: {priceData.l} USD</p>
-      <p>Open price of the day: {priceData.o} USD</p>
-      <p>Previous close price: {priceData.pc} USD</p>
+      {textToDisplay.map(
+        textItem => <p key={textItem}>{textItem}</p>
+      )}
     </div>
   )
 }
