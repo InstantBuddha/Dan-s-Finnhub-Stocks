@@ -9,7 +9,6 @@ const apiUrlParts = {
   base: "https://finnhub.io/api/v1",
   stockSymbols: "/stock/symbol?exchange=",
   token: "&token=c1mrjdi37fktai5sgaog"
-
 }
 
 class SymbolLister extends Component {
