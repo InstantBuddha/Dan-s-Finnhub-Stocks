@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
+import SymbolScreen from './symbol-sub/SymbolScreen'
 
 class Home extends Component {
   constructor(props) {

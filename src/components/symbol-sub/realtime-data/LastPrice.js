@@ -13,6 +13,10 @@ function LastPrice(props) {
     }
 
     const [stockData, setStockData] = useState({})
+    //console.log(props) 
+    const [previousPrice, setPreviousPrice] = useState(props.lastKnownPrice)    
+    const [newPrice, setNewPrice] = useState(props.lastKnownPrice)
+    const [priceChangeDirection, setpriceChangeDirection] = useState("no change")
     const socket = useRef()
 
 
@@ -26,14 +30,22 @@ function LastPrice(props) {
         socket.current.addEventListener("message", (event) => {
             try {
                 const tempData = JSON.parse(event.data)
-                console.log(tempData)
-                setStockData(tempData.data[0])
+                if(tempData.type == "ping"){
+                    console.log("it's a ping baby")
+                }else{
+                    console.log(tempData)
+                    setPreviousPrice(newPrice)
+                    setNewPrice(tempData.data[0].p)
+                }
+                
+                
             } catch (error) {
                 console.log(error)
             }
         })
 
     }, [])
+
 
     useEffect(() => {
         return () => {
@@ -44,14 +56,16 @@ function LastPrice(props) {
     }, [])
 
 
+
     return (
 
         <div>
-            {stockData.p ? 
+            {stockData.p ?
                 <LastPriceCard lastPrice={stockData.p}
-                               timeStamp={stockData.t} /> 
-                : <p className='importantText'>{props.lastKnownPrice} USD</p>} 
-            
+                    timeStamp={stockData.t}
+                    currency={props.currency} />
+                : <p className='importantText'>{props.lastKnownPrice} {props.currency}</p>}
+
         </div>
     )
 }

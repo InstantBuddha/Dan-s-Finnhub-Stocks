@@ -2,6 +2,7 @@ import React from 'react'
 import { useState, useEffect, useRef } from "react"
 import axios from 'axios'
 import LastPrice from './realtime-data/LastPrice'
+import LastPriceCard from './realtime-data/LastPriceCard'
 
 const apiUrlParts = {
   base: "https://finnhub.io/api/v1",
@@ -19,8 +20,8 @@ function SymbolPrices(props) {
     const fetchData = async (companyQuoteUrl) => {
       await axios.get(companyQuoteUrl)
         .then(response => {
-          setIsDownloaded(true)
           setPriceData(response.data)
+          setIsDownloaded(true)
         })
         .catch(error => { console.log(error) })
     }
@@ -29,14 +30,21 @@ function SymbolPrices(props) {
   }, [])
 
   const textToDisplay = [`Change: ${priceData.d} ${props.currency}`,
-                         `High price of the day: ${priceData.h} ${props.currency}`,
-                         `Low price of the day: ${priceData.l} ${props.currency}`,
-                         `Open price of the day: ${priceData.o} ${props.currency}`,
-                         `Previous close price: ${priceData.pc} ${props.currency}`]
+  `High price of the day: ${priceData.h} ${props.currency}`,
+  `Low price of the day: ${priceData.l} ${props.currency}`,
+  `Open price of the day: ${priceData.o} ${props.currency}`,
+  `Previous close price: ${priceData.pc} ${props.currency}`]
 
   return (
     <div className='symbolSubGridItem leftAlignedInfo'>
-      <LastPrice symbol={props.symbol} lastKnownPrice={priceData.c} />
+      {isDownloaded ?
+        <LastPrice lastKnownPrice={priceData.c}
+          currency={props.currency} />
+        :
+        <LastPriceCard lastPrice={0}
+          currency={""} />
+      }
+
       {textToDisplay.map(
         textItem => <p key={textItem}>{textItem}</p>
       )}

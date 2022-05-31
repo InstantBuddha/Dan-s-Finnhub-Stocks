@@ -4,8 +4,8 @@ import React from 'react'
  
   return (
     <div>
-        <p className='importantText'>Last price: {props.lastPrice} USD</p>
-        <p>Timestamp: {props.timeStamp} </p>
+        <p className='importantText'>{props.lastPrice} {props.currency}</p>
+        
     </div>
   )
 }
