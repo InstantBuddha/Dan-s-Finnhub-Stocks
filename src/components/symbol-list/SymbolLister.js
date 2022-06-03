@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import axios from 'axios'
+import { useEffect, useState } from 'react'
 import SymbolCard from './SymbolCard'
 import Searchbar from './Searchbar'
 import SearchMessage from './SearchMessage'
@@ -11,80 +12,62 @@ const apiUrlParts = {
   token: "&token=c1mrjdi37fktai5sgaog"
 }
 
-class SymbolLister extends Component {
-  constructor(props) {
-    super(props)
+function SymbolLister(props) {
+  const [stockData, setStockData] = useState([])
+  const [isDataDownloaded, setIsDataDownloaded] = useState(false)
+  const [searchResults, setSearchResults] = useState([])
+  const [isSearchPerformed, setIsSearchPerformed] = useState(false)
+  const [paginateAmount, setPaginateAmount] = useState(25)
+  const [currentPage, setCurrentPage] = useState(0)
 
-    this.state = {
-      stockData: [],
-      searchResults: [],
-      isSearchPerformed: false,
-      paginateAmount: 25,
-      currentPage: 0
-    }
-
-    this.getJSON = this.getJSON.bind(this)
-    this.updateSearchResult = this.updateSearchResult.bind(this)
-    this.isTermIncluded = this.isTermIncluded.bind(this)
-    this.mapSymbolResults = this.mapSymbolResults.bind(this)
-    this.displayContent = this.displayContent.bind(this)
-    this.changeCurrentPage = this.changeCurrentPage.bind(this)
-    this.changePaginateAmount = this.changePaginateAmount.bind(this)
-  }
-
-  async componentDidMount() {
+  useEffect(() => {
     const country = "US"
     const stockSymbolsUrl = `${apiUrlParts.base}${apiUrlParts.stockSymbols}${country}${apiUrlParts.token}`
-    this.getJSON(stockSymbolsUrl)
-  }
-
-  async getJSON(url) {
-    await axios.get(url)
-      .then(response => {
-        let copiedTempState = { ...this.state }
-        copiedTempState.stockData = response.data.flat().sort((a, b) => {
-          return a.symbol.localeCompare(b.symbol)
+    const fetchData = async (stockSymbolsUrl) => {
+      await axios.get(stockSymbolsUrl)
+        .then(response => {
+          const flatStockData = response.data.flat().sort((a, b) => {
+            return a.symbol.localeCompare(b.symbol)
+          })
+          setStockData(flatStockData)
+          setIsDataDownloaded(true)
         })
-        copiedTempState.isReady = true
-        this.setState(copiedTempState)
-      })
-      .catch(error => { console.log(error) })
-  }
+        .catch(error => { console.log(error) })
+    }
+    fetchData(stockSymbolsUrl)
+  }, [])
 
-  updateSearchResult(searchTerm) {
-    let copiedTempState = { ...this.state }
-    const searchResults = this.state.stockData.filter(stockObject => {
-      return this.isTermIncluded(searchTerm, [stockObject.symbol, stockObject.description])
+  const updateSearchResult = (searchTerm) => {
+    const updatedSearchResults = stockData.filter(stockObject => {
+      return isTermIncluded(searchTerm, [stockObject.symbol, stockObject.description])
     })
-    copiedTempState.searchResults = searchResults
-    copiedTempState.isSearchPerformed = true
-    this.setState(copiedTempState)
+    setSearchResults(updatedSearchResults)
+    setIsSearchPerformed(true)
   }
 
-  isTermIncluded(searchTerm, valuesToCheck) {
+  const isTermIncluded = (searchTerm, valuesToCheck) => {
     return valuesToCheck.some(value => {
       return value.toLowerCase().includes(searchTerm.toLowerCase())
     })
   }
 
-  displayContent() {
-    if (this.state.isSearchPerformed && this.state.searchResults.length < 1) {
+  const displayContent = () => {
+    if (isSearchPerformed && searchResults.length < 1) {
       return <SearchMessage message={"Nothing found"} />
     } else {
-      const symbols = this.state.searchResults.length > 0 ?
-        this.state.searchResults
+      const symbols = searchResults.length > 0 ?
+        searchResults
         :
-        this.state.stockData.slice(this.state.currentPage * this.state.paginateAmount,
-          (this.state.currentPage + 1) * this.state.paginateAmount)
+        stockData.slice(currentPage * paginateAmount,
+          (currentPage + 1) * paginateAmount)
 
-      return this.mapSymbolResults(symbols)
-        
+      return mapSymbolResults(symbols)
     }
   }
 
-  mapSymbolResults(symbolsToMap) {
+  const mapSymbolResults = (symbolsToMap) => {
     return symbolsToMap.map(
-      symbol => <SymbolCard key={symbol.symbol}
+        symbol => <SymbolCard key={symbol.symbol}
         symbol={symbol.symbol}
         currency={symbol.currency}
         description={symbol.description}
@@ -92,46 +75,38 @@ class SymbolLister extends Component {
     )
   }
 
-  changeCurrentPage(isAddition){    
-    let copiedTempState = { ...this.state }
-    
+  const changeCurrentPage = (isAddition) => {
     isAddition ?
-      copiedTempState.currentPage++ :
-      copiedTempState.currentPage>0 && copiedTempState.currentPage--
-
-    this.setState(copiedTempState)
+      setCurrentPage(currentPage+1)
+      :
+      currentPage>0 && setCurrentPage(currentPage-1)
   }
 
-  changePaginateAmount(newAmount){
-    let copiedTempState = { ...this.state }
-    copiedTempState.paginateAmount = newAmount
-    copiedTempState.currentPage = 0
-    this.setState(copiedTempState)
+  const changePaginateAmount = (newAmount) =>{
+    return setPaginateAmount(newAmount)
   }
 
-  render() {
-    return (<div>
-      <Searchbar searchSymbol={this.updateSearchResult} />
-      {!this.state.isSearchPerformed &&
-        this.state.stockData.length > 0 &&
-        <Paginator currentPage={this.state.currentPage}
-                   changeCurrentPage={this.changeCurrentPage}
-                   changePaginateAmount={this.changePaginateAmount} />
+  return (
+    <div>
+      <Searchbar searchSymbol={updateSearchResult} />
+      {!isSearchPerformed &&
+        stockData.length > 0 &&
+        <Paginator currentPage={currentPage}
+                   changeCurrentPage={changeCurrentPage}
+                   changePaginateAmount={changePaginateAmount} />
       }
 
-      {this.state.stockData.length > 0 ?
-        this.displayContent() : <p>Downloading data...</p>}
+      {stockData.length > 0 ?
+        displayContent() : <p>Downloading data...</p>}
 
-      {!this.state.isSearchPerformed &&
-        this.state.stockData.length > 0 &&
-        <Paginator currentPage={this.state.currentPage}
-                   changeCurrentPage={this.changeCurrentPage}
-                   changePaginateAmount={this.changePaginateAmount} />
+      {!isSearchPerformed &&
+        stockData.length > 0 &&
+        <Paginator currentPage={currentPage}
+                   changeCurrentPage={changeCurrentPage}
+                   changePaginateAmount={changePaginateAmount} />
       }
     </div>
-
-    )
-  }
+  )
 }
 
 export default SymbolLister
