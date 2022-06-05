@@ -15,8 +15,8 @@ function App() {
       <div className='mainWrapper'>
         <Routes>
           <Route exact path="/" element={<Home />} />
-          <Route exact path='/symbols' element={<SymbolLister />} />
-          <Route exact path="/:symbol" element={<SymbolScreen />} />
+          <Route exact path='/stock-market' element={<SymbolLister />} />
+          <Route exact path="/stock-market/:symbol" element={<SymbolScreen />} />
           <Route exact path='/crypto' element={<CryptoLister />} />
         </Routes>
       </div>
