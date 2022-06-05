@@ -4,8 +4,8 @@ import React from 'react'
  
   return (
     <div>
-        <p className='importantText'>{props.lastPrice} {props.currency}</p>
-        
+        <p className='importantText'>{props.lastPrice} {props.currency} </p>
+        {props.priceChangeDirection}
     </div>
   )
 }

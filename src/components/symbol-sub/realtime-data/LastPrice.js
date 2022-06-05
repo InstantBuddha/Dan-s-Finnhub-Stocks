@@ -3,6 +3,12 @@ import { useState, useEffect, useRef } from "react"
 import { useParams } from 'react-router-dom'
 import LastPriceCard from './LastPriceCard'
 
+const changeSymbols = {
+    increase: <p>&#9650;</p>,
+    decrease: <p>&#9660;</p>,
+    noChange: <p> </p>
+}
+
 function LastPrice(props) {
 
     const { symbol } = useParams()  //ez azért ilyen, hogy link is legyen
@@ -13,10 +19,9 @@ function LastPrice(props) {
     }
 
     const [stockData, setStockData] = useState({})
-    //console.log(props) 
-    const [previousPrice, setPreviousPrice] = useState(props.lastKnownPrice)    
-    const [newPrice, setNewPrice] = useState(props.lastKnownPrice)
-    const [priceChangeDirection, setpriceChangeDirection] = useState("no change")
+    const [prices, setPrices] = useState({newPrice: props.lastKnownPrice,
+                                          oldPrice: props.lastKnownPrice})
+    const [priceChangeDirection, setPriceChangeDirection] = useState(changeSymbols.noChange)
     const socket = useRef()
 
 
@@ -30,21 +35,32 @@ function LastPrice(props) {
         socket.current.addEventListener("message", (event) => {
             try {
                 const tempData = JSON.parse(event.data)
-                if(tempData.type == "ping"){
+                if (tempData.type == "ping") {
                     console.log("it's a ping baby")
-                }else{
-                    console.log(tempData)
-                    setPreviousPrice(newPrice)
-                    setNewPrice(tempData.data[0].p)
+                } else {
+                    setPrices(previousState => {
+                        return {...previousState, newPrice: tempData.data[0].p, oldPrice: previousState.newPrice}
+                    })
+
+                    setPriceChangeDirection(()=>{
+                        if( prices.newPrice == prices.oldPrice ){
+                            return changeSymbols.noChange
+                        }
+                        return prices.newPrice < prices.oldPrice ? changeSymbols.decrease : changeSymbols.increase
+                    })
                 }
-                
-                
+
+
             } catch (error) {
                 console.log(error)
             }
         })
 
     }, [])
+
+    const updatePrices = () =>{
+
+    }
 
 
     useEffect(() => {
@@ -55,17 +71,13 @@ function LastPrice(props) {
         }
     }, [])
 
-
-
     return (
 
-        <div>
-            {stockData.p ?
-                <LastPriceCard lastPrice={stockData.p}
-                    timeStamp={stockData.t}
-                    currency={props.currency} />
-                : <p className='importantText'>{props.lastKnownPrice} {props.currency}</p>}
-
+        <div>   
+        {priceChangeDirection}         
+            <LastPriceCard lastPrice={prices.newPrice}
+                currency={props.currency}
+                priceChangeDirection={priceChangeDirection} />
         </div>
     )
 }
