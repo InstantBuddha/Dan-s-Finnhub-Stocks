@@ -3,10 +3,10 @@ import { useState, useEffect, useRef } from "react"
 import { useParams } from 'react-router-dom'
 import LastPriceCard from './LastPriceCard'
 
-const changeSymbols = {
-    increase: <p>&#9650;</p>,
-    decrease: <p>&#9660;</p>,
-    noChange: <p> </p>
+const changeDirection = {
+    increase: "increase",
+    decrease: "decrease",
+    noChange: "noChange"
 }
 
 function LastPrice(props) {
@@ -18,10 +18,8 @@ function LastPrice(props) {
         unsubscribeJSON: { 'type': 'unsubscribe', 'symbol': symbol }
     }
 
-    const [stockData, setStockData] = useState({})
-    const [prices, setPrices] = useState({newPrice: props.lastKnownPrice,
-                                          oldPrice: props.lastKnownPrice})
-    const [priceChangeDirection, setPriceChangeDirection] = useState(changeSymbols.noChange)
+    const [newPrice, setNewPrice] = useState(props.lastKnownPrice)
+    const [oldPrice, setOldPrice] = useState(props.lastKnownPrice)
     const socket = useRef()
 
 
@@ -35,22 +33,11 @@ function LastPrice(props) {
         socket.current.addEventListener("message", (event) => {
             try {
                 const tempData = JSON.parse(event.data)
-                if (tempData.type == "ping") {
-                    console.log("it's a ping baby")
-                } else {
-                    setPrices(previousState => {
-                        return {...previousState, newPrice: tempData.data[0].p, oldPrice: previousState.newPrice}
-                    })
-
-                    setPriceChangeDirection(()=>{
-                        if( prices.newPrice == prices.oldPrice ){
-                            return changeSymbols.noChange
-                        }
-                        return prices.newPrice < prices.oldPrice ? changeSymbols.decrease : changeSymbols.increase
-                    })
+                if (tempData.type !== "ping") {
+                    setOldPrice(newPrice)
+                    setNewPrice(tempData.data[0].p)
                 }
-
-
+                
             } catch (error) {
                 console.log(error)
             }
@@ -58,8 +45,12 @@ function LastPrice(props) {
 
     }, [])
 
-    const updatePrices = () =>{
-
+    const newPriceChangeDirection = ()=>{
+        console.log(newPrice, oldPrice)
+        if( newPrice === oldPrice ){
+            return changeDirection.noChange
+        }
+        return newPrice < oldPrice ? changeDirection.decrease : changeDirection.increase
     }
 
 
@@ -71,13 +62,12 @@ function LastPrice(props) {
         }
     }, [])
 
+    
     return (
-
-        <div>   
-        {priceChangeDirection}         
-            <LastPriceCard lastPrice={prices.newPrice}
+        <div> 
+            <LastPriceCard lastPrice={newPrice}
                 currency={props.currency}
-                priceChangeDirection={priceChangeDirection} />
+                priceChangeDirection={newPriceChangeDirection()} />
         </div>
     )
 }

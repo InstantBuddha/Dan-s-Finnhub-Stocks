@@ -1,11 +1,17 @@
 import React from 'react'
 
+const changeSymbols = {
+  increase: <p>&#9650;</p>,
+  decrease: <p>&#9660;</p>,
+  noChange: <p> </p>
+}
+
  function LastPriceCard(props) {
- 
+ const changeSymbol = props.priceChangeDirection
   return (
     <div>
         <p className='importantText'>{props.lastPrice} {props.currency} </p>
-        {props.priceChangeDirection}
+        {changeSymbols[changeSymbol]}
     </div>
   )
 }
