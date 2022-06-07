@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { memo } from "react";
 import axios from 'axios'
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
@@ -10,12 +11,13 @@ const apiUrlParts = {
     token: "?token=c1mrjdi37fktai5sgaog"
   }
 
- function ExchangeLister () {
+function ExchangeLister () {
      const { exchange } = useParams()
      const [isListDownloaded, setIsListDownloaded] = useState(false)
      const [exchangeList, setExchangeList] = useState([])
-     const [apiUrl, setApiUrl] = useState(`${apiUrlParts.base}${apiUrlParts[exchange]}${apiUrlParts.token}`)
-     //const apiUrl = `${apiUrlParts.base}${apiUrlParts[exchange]}${apiUrlParts.token}`
+     //const [apiUrl, setApiUrl] = useState(`${apiUrlParts.base}${apiUrlParts[exchange]}${apiUrlParts.token}`)
+     const [presentExchange, setPresentExchange] = useState()
+     const apiUrl = `${apiUrlParts.base}${apiUrlParts[exchange]}${apiUrlParts.token}`
 
      const fetchData = async (apiUrl) => {
         await axios.get(apiUrl)
@@ -23,12 +25,13 @@ const apiUrlParts = {
                setIsListDownloaded(true)
                console.log(response)
                setExchangeList(response.data)
+               setPresentExchange(exchange)
            })
            .catch(error => {console.log(error) })
     }
 
      useEffect(()=>{
-         console.log("didmount")   
+         console.log("didmount")
          fetchData(apiUrl)
      },[])
 
@@ -38,6 +41,7 @@ const apiUrlParts = {
 
      useEffect(() => {
         console.log("componentDidUpdate")
+        exchange !== presentExchange && fetchData(apiUrl)
     })
 
      useEffect(() => {
@@ -54,5 +58,6 @@ const apiUrlParts = {
     </div>
   )
 }
+
 export default React.memo(ExchangeLister)
 
