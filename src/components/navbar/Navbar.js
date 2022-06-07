@@ -8,6 +8,7 @@ export default function Navbar() {
         <Link to="/" className='navLink homeLink'>Dan's finnhub lister</Link>
         <Link to="/stock-market" className='navLink'>Stock exchange</Link>
         <Link to="/crypto" className='navLink'>Crypto</Link>
+        <Link to="/forex" className='navLink'>Forex</Link>
     </div>
   )
 }

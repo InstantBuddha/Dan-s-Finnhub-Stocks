@@ -5,7 +5,7 @@ import Home from './components/Home';
 import Navbar from './components/navbar/Navbar';
 import SymbolLister from './components/symbol-list/SymbolLister';
 import SymbolScreen from './components/symbol-sub/SymbolScreen';
-import CryptoLister from './components/crypto/CryptoLister';
+import ExchangeLister from './components/exchanges/ExchangeLister';
 
 function App() {
   return (
@@ -17,7 +17,7 @@ function App() {
           <Route exact path="/" element={<Home />} />
           <Route exact path='/stock-market' element={<SymbolLister />} />
           <Route exact path="/stock-market/:symbol" element={<SymbolScreen />} />
-          <Route exact path='/crypto' element={<CryptoLister />} />
+          <Route exact path='/:exchange' element={<ExchangeLister />} />
         </Routes>
       </div>
     </div>
