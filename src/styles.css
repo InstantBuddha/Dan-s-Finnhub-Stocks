@@ -50,11 +50,11 @@ input {
 }
 
 
-.symbolCardWrapper{
+.cardWrapper{
     border: 1px solid;
     padding: 0 0 1rem 0;
 }
-.symbolCardWrapper h1{
+.cardWrapper h1{
     margin: 0.5rem 0 0 0;
 }
 .gridContainer {

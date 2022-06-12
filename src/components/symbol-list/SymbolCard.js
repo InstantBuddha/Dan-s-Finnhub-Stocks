@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 
 function SymbolCard(props) {
   return (
-    <div className='symbolCardWrapper'>
+    <div className='cardWrapper'>
       <h1>{props.description}</h1>
       <div className='gridContainer'>
         <div className='symbolCardGridItem'>

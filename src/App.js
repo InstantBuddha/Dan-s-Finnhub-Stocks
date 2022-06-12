@@ -6,6 +6,7 @@ import Navbar from './components/navbar/Navbar';
 import SymbolLister from './components/symbol-list/SymbolLister';
 import SymbolScreen from './components/symbol-sub/SymbolScreen';
 import ExchangeLister from './components/exchanges/ExchangeLister';
+import ExchangeCard from './components/exchanges/ExchangeCard';
 
 function App() {
   return (

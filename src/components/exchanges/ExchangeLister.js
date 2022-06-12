@@ -3,6 +3,7 @@ import { memo } from "react";
 import axios from 'axios'
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
+import ExchangeCard from './ExchangeCard';
 
 const apiUrlParts = {
     base: "https://finnhub.io/api/v1",
@@ -35,8 +36,8 @@ function ExchangeLister () {
          fetchData(apiUrl)
      },[])
 
-     const exchangePs = exchangeList.map(
-         exchange => <p key={exchange}>{exchange}</p>
+     const exchangeDisplayList = exchangeList.map(
+         exchange => <ExchangeCard key={exchange} exchangeName={exchange}/>
      )
 
      useEffect(() => {
@@ -54,7 +55,7 @@ function ExchangeLister () {
     <div>
     <h1>{exchange}</h1>
     {isListDownloaded ? 
-    exchangePs : "Downloading list..."}
+    exchangeDisplayList : "Downloading list..."}
     </div>
   )
 }
