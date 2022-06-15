@@ -1,9 +1,11 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 function ExchangeCard(props) {
+  console.log(props.exchangeType)
   return (
     <div className='cardWrapper'>
-        <h1>{props.exchangeName}</h1>
+        <h1><Link to={`/${props.exchangeType}/${props.exchangeName}`} className="link">{props.exchangeName}</Link></h1>
     </div>
   )
 }

@@ -6,7 +6,7 @@ import Navbar from './components/navbar/Navbar';
 import SymbolLister from './components/symbol-list/SymbolLister';
 import SymbolScreen from './components/symbol-sub/SymbolScreen';
 import ExchangeLister from './components/exchanges/ExchangeLister';
-import ExchangeCard from './components/exchanges/ExchangeCard';
+import UniversalSymbolLister from './components/forex/UniversalSymbolLister';
 
 function App() {
   return (
@@ -19,6 +19,7 @@ function App() {
           <Route exact path='/stock-market' element={<SymbolLister />} />
           <Route exact path="/stock-market/:symbol" element={<SymbolScreen />} />
           <Route exact path='/:exchange' element={<ExchangeLister />} />
+          <Route exact path='/:exchangeType/:market' element={<UniversalSymbolLister />} />
         </Routes>
       </div>
     </div>

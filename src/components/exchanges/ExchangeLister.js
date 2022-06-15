@@ -37,7 +37,7 @@ function ExchangeLister () {
      },[])
 
      const exchangeDisplayList = exchangeList.map(
-         exchange => <ExchangeCard key={exchange} exchangeName={exchange}/>
+         exchangeItem => <ExchangeCard key={exchangeItem} exchangeName={exchangeItem} exchangeType={exchange}/>
      )
 
      useEffect(() => {
