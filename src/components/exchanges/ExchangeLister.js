@@ -14,33 +14,51 @@ const apiUrlParts = {
 
 function ExchangeLister () {
      const { exchange } = useParams()
-     const [isListDownloaded, setIsListDownloaded] = useState(false)
-     const [exchangeList, setExchangeList] = useState([])
-     //const [apiUrl, setApiUrl] = useState(`${apiUrlParts.base}${apiUrlParts[exchange]}${apiUrlParts.token}`)
-     const [presentExchange, setPresentExchange] = useState()
-     const apiUrl = `${apiUrlParts.base}${apiUrlParts[exchange]}${apiUrlParts.token}`
+     const [forexList, setForexList] = useState([])
+     const [forexIsDownloaded, setForexIsDownloaded] = useState(false)
+     const [cryptoList, setCryptoList] = useState([])
+     const [cryptoIsDownloaded, setCryptoIsDownloaded] = useState(false)
+     
+     const forexUrl = `${apiUrlParts.base}${apiUrlParts.forex}${apiUrlParts.token}`
+     const cryptoUrl = `${apiUrlParts.base}${apiUrlParts.crypto}${apiUrlParts.token}`
 
-     const fetchData = async (apiUrl) => {
-        await axios.get(apiUrl)
+
+     const fetchData = async () => {
+        await axios.get(forexUrl)
            .then(response => {
-               setIsListDownloaded(true)
-               setExchangeList(response.data)
-               setPresentExchange(exchange)
+               setForexList(response.data)
+               setForexIsDownloaded(true)
+               return response.data
            })
            .catch(error => {console.log(error) })
+
+           await axios.get(cryptoUrl)
+           .then(response => {
+               setCryptoList(response.data)
+               setCryptoIsDownloaded(true)
+               return response.data
+           })
+           .catch(error => {console.log(error) })   
     }
 
      useEffect(()=>{
-         console.log("didmount")
-         fetchData(apiUrl)
+         console.log("didmount ExchangeLister")
+         fetchData()
+         
      },[])
 
-     const exchangeDisplayList = exchangeList.map(
-         exchangeItem => <ExchangeCard key={exchangeItem} exchangeName={exchangeItem} exchangeType={exchange}/>
-     )
+     const createList = () => {
+      return createExchangeCards(exchange == "forex" ? forexList : cryptoList )
+     }
+
+     const createExchangeCards = (listToDisplay) => {
+        return listToDisplay.map(
+          exchangeItem => <ExchangeCard key={exchangeItem} exchangeName={exchangeItem} exchangeType={exchange}/>
+      )
+     }
 
      useEffect(() => {
-        exchange !== presentExchange && fetchData(apiUrl)
+
     })
 
      useEffect(() => {
@@ -52,8 +70,8 @@ function ExchangeLister () {
   return (  
     <div>
     <h1>{exchange}</h1>
-    {isListDownloaded ? 
-    exchangeDisplayList : "Downloading list..."}
+    {forexIsDownloaded && cryptoIsDownloaded ? 
+      createList() : "Downloading list..."}
     </div>
   )
 }
