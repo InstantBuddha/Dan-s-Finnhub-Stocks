@@ -2,6 +2,7 @@ import React from 'react'
 import { useParams } from 'react-router-dom'
 import axios from 'axios'
 import { useEffect, useState } from 'react'
+import UniversalSymbolCard from './UniversalSymbolCard'
 
 
 
@@ -20,7 +21,6 @@ const apiUrlParts = {
 
   useEffect(() => {
     const url = `${apiUrlParts.base}${apiUrlParts[exchangeType]}${market}${apiUrlParts.token}`
-    console.log(url)
     const fetchData = async (url) => {
       await axios.get(url)
         .then(response => {
@@ -28,7 +28,6 @@ const apiUrlParts = {
             return a.symbol.localeCompare(b.symbol)
           })
           
-          console.log(flatStockData)
           setStockData(flatStockData)
           setIsDataDownloaded(true)
         })
@@ -37,10 +36,30 @@ const apiUrlParts = {
     fetchData(url)
   }, [])
 
-  console.log(exchangeType)
+  const displayContent = () => {
+    
+      return mapSymbolResults(stockData)
+    
+  }
+
+  const mapSymbolResults = (symbolsToMap) => {
+    return symbolsToMap.map(
+        symbol => <UniversalSymbolCard 
+                    key={symbol.symbol}
+                    symbol={symbol.symbol}
+                    description={symbol.description}
+                    displaySymbol={symbol.displaySymbol}
+                    exchangeType={exchangeType}
+                    market={market} />
+    )
+  }
+
   return (
     <div><h1>{market}</h1>
-    <h2>{exchangeType}</h2></div>
+    <h2>{exchangeType}</h2>
+    {stockData.length > 0 ?
+        displayContent() : <p>Downloading data...</p>}
+    </div>
   )
 }
 

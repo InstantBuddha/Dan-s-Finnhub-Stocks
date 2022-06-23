@@ -24,7 +24,6 @@ function ExchangeLister () {
         await axios.get(apiUrl)
            .then(response => {
                setIsListDownloaded(true)
-               console.log(response)
                setExchangeList(response.data)
                setPresentExchange(exchange)
            })
@@ -41,7 +40,6 @@ function ExchangeLister () {
      )
 
      useEffect(() => {
-        console.log("componentDidUpdate")
         exchange !== presentExchange && fetchData(apiUrl)
     })
 

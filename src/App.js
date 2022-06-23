@@ -6,7 +6,7 @@ import Navbar from './components/navbar/Navbar';
 import SymbolLister from './components/symbol-list/SymbolLister';
 import SymbolScreen from './components/symbol-sub/SymbolScreen';
 import ExchangeLister from './components/exchanges/ExchangeLister';
-import UniversalSymbolLister from './components/forex/UniversalSymbolLister';
+import UniversalSymbolLister from './components/universal/UniversalSymbolLister';
 
 function App() {
   return (
