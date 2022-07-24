@@ -3,7 +3,7 @@ import { useState, useEffect, useRef } from "react"
 import { useParams } from 'react-router-dom'
 import LastPriceCard from './LastPriceCard'
 
-const changeDirection = {
+const directions = {
     increase: "increase",
     decrease: "decrease",
     noChange: "noChange"
@@ -20,6 +20,7 @@ function LastPrice(props) {
 
     const [newPrice, setNewPrice] = useState(props.lastKnownPrice)
     const [oldPrice, setOldPrice] = useState(props.lastKnownPrice)
+    const [changeDirection, setChangeDirection] = useState(directions.noChange)
     const socket = useRef()
 
 
@@ -35,7 +36,10 @@ function LastPrice(props) {
                 const tempData = JSON.parse(event.data)
                 if (tempData.type !== "ping") {
                     setOldPrice(newPrice)
+                    console.log(oldPrice)
                     setNewPrice(tempData.data[0].p)
+                    console.log(newPrice)
+                    setChangeDirection(newPriceChangeDirection())
                 }
                 
             } catch (error) {
@@ -47,10 +51,11 @@ function LastPrice(props) {
 
     const newPriceChangeDirection = ()=>{
         console.log(newPrice, oldPrice)
-        if( newPrice === oldPrice ){
-            return changeDirection.noChange
+        if( newPrice == oldPrice ){
+            console.log("noChange return")
+            return directions.noChange
         }
-        return newPrice < oldPrice ? changeDirection.decrease : changeDirection.increase
+        return newPrice < oldPrice ? directions.decrease : directions.increase
     }
 
 
@@ -67,7 +72,7 @@ function LastPrice(props) {
         <div> 
             <LastPriceCard lastPrice={newPrice}
                 currency={props.currency}
-                priceChangeDirection={newPriceChangeDirection()} />
+                priceChangeDirection={changeDirection} />
         </div>
     )
 }

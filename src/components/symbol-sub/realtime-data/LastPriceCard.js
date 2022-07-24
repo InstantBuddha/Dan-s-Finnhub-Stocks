@@ -7,11 +7,11 @@ const changeSymbols = {
 }
 
  function LastPriceCard(props) {
- const changeSymbol = props.priceChangeDirection
+  console.log(props.priceChangeDirection)
   return (
     <div>
         <p className='importantText'>{props.lastPrice} {props.currency} </p>
-        {changeSymbols[changeSymbol]}
+        {changeSymbols[props.priceChangeDirection]}
     </div>
   )
 }
