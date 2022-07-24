@@ -18,8 +18,8 @@ function LastPrice(props) {
         unsubscribeJSON: { 'type': 'unsubscribe', 'symbol': symbol }
     }
 
-    const [newPrice, setNewPrice] = useState(props.lastKnownPrice)
-    const [oldPrice, setOldPrice] = useState(props.lastKnownPrice)
+    const [newPriceSaved, setNewPriceSaved] = useState(props?.lastKnownPrice)
+    const [oldPriceSaved, setOldPriceSaved] = useState(props?.lastKnownPrice)
     const [changeDirection, setChangeDirection] = useState(directions.noChange)
     const socket = useRef()
 
@@ -35,11 +35,9 @@ function LastPrice(props) {
             try {
                 const tempData = JSON.parse(event.data)
                 if (tempData.type !== "ping") {
-                    setOldPrice(newPrice)
-                    console.log(oldPrice)
-                    setNewPrice(tempData.data[0].p)
-                    console.log(newPrice)
-                    setChangeDirection(newPriceChangeDirection())
+                    setNewPriceSaved(tempData.data[0].p)
+                    setChangeDirection(newPriceChangeDirection(tempData.data[0].p, oldPriceSaved))
+                    setOldPriceSaved(tempData.data[0].p)
                 }
                 
             } catch (error) {
@@ -49,13 +47,10 @@ function LastPrice(props) {
 
     }, [])
 
-    const newPriceChangeDirection = ()=>{
-        console.log(newPrice, oldPrice)
-        if( newPrice == oldPrice ){
-            console.log("noChange return")
-            return directions.noChange
-        }
-        return newPrice < oldPrice ? directions.decrease : directions.increase
+    const newPriceChangeDirection = (newPrice, oldPrice)=>{
+        if(newPrice > oldPrice){return directions.increase}
+        if(newPrice < oldPrice){return directions.decrease}
+        return directions.noChange
     }
 
 
@@ -70,7 +65,7 @@ function LastPrice(props) {
     
     return (
         <div> 
-            <LastPriceCard lastPrice={newPrice}
+            <LastPriceCard lastPrice={newPriceSaved}
                 currency={props.currency}
                 priceChangeDirection={changeDirection} />
         </div>
