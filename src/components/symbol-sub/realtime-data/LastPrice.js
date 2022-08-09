@@ -18,9 +18,11 @@ function LastPrice(props) {
         unsubscribeJSON: { 'type': 'unsubscribe', 'symbol': symbol }
     }
 
-    const [newPriceSaved, setNewPriceSaved] = useState(props?.lastKnownPrice)
-    const [oldPriceSaved, setOldPriceSaved] = useState(props?.lastKnownPrice)
-    const [changeDirection, setChangeDirection] = useState(directions.noChange)
+    const [prices, setPrices] = useState({
+        newPrice: props?.lastKnownPrice,
+        oldPrice: props?.lastKnownPrice,
+        changeDirection: directions.noChange
+    })
     const socket = useRef()
 
 
@@ -35,9 +37,13 @@ function LastPrice(props) {
             try {
                 const tempData = JSON.parse(event.data)
                 if (tempData.type !== "ping") {
-                    setNewPriceSaved(tempData.data[0].p)
-                    setChangeDirection(newPriceChangeDirection(tempData.data[0].p, oldPriceSaved))
-                    setOldPriceSaved(tempData.data[0].p)
+                    setPrices(prevPrices=>{
+                        return {
+                            newPrice: tempData.data[0].p,
+                            oldPrice: prevPrices.newPrice,
+                            changeDirection: newPriceChangeDirection(tempData.data[0].p, prevPrices.newPrice)
+                        }
+                    })
                 }
                 
             } catch (error) {
@@ -62,12 +68,12 @@ function LastPrice(props) {
         }
     }, [])
 
-    
+    console.log(prices)
     return (
         <div> 
-            <LastPriceCard lastPrice={newPriceSaved}
+            <LastPriceCard lastPrice={prices.newPrice}
                 currency={props.currency}
-                priceChangeDirection={changeDirection} />
+                priceChangeDirection={prices.changeDirection} />
         </div>
     )
 }
