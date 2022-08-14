@@ -68,7 +68,6 @@ function LastPrice(props) {
         }
     }, [])
 
-    console.log(prices)
     return (
         <div> 
             <LastPriceCard lastPrice={prices.newPrice}

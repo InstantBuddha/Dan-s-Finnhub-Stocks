@@ -3,6 +3,9 @@ import { useParams } from 'react-router-dom'
 import axios from 'axios'
 import { useEffect, useState } from 'react'
 import UniversalSymbolCard from './UniversalSymbolCard'
+import Searchbar from './Searchbar'
+import SearchMessage from './SearchMessage'
+import Paginator from './Paginator'
 
 
 
@@ -16,8 +19,11 @@ const apiUrlParts = {
 
  function UniversalSymbolLister() {
   const {exchangeType, market } = useParams()  
-  const [stockData, setStockData] = useState([])
-  const [isDataDownloaded, setIsDataDownloaded] = useState(false)
+  const [stockData, setStockData] = useState([])  
+  const [isSearchPerformed, setIsSearchPerformed] = useState(false)
+  const [searchResults, setSearchResults] = useState([])
+  const [paginateAmount, setPaginateAmount] = useState(25)
+  const [currentPage, setCurrentPage] = useState(0)
 
   useEffect(() => {
     const url = `${apiUrlParts.base}${apiUrlParts[exchangeType]}${market}${apiUrlParts.token}`
@@ -29,17 +35,38 @@ const apiUrlParts = {
           })
           
           setStockData(flatStockData)
-          setIsDataDownloaded(true)
         })
         .catch(error => { console.log(error) })
     }
     fetchData(url)
   }, [])
 
+  const updateSearchResult = (searchTerm) => {
+    const updatedSearchResults = stockData.filter(stockObject => {
+      return isTermIncluded(searchTerm, [stockObject.symbol, stockObject.description])
+    })
+    setSearchResults(updatedSearchResults)
+    setIsSearchPerformed(true)
+  }
+
+  const isTermIncluded = (searchTerm, valuesToCheck) => {
+    return valuesToCheck.some(value => {
+      return value.toLowerCase().includes(searchTerm.toLowerCase())
+    })
+  }
+
   const displayContent = () => {
-    
-      return mapSymbolResults(stockData)
-    
+    if (isSearchPerformed && searchResults.length < 1) {
+      return <SearchMessage message={"Nothing found"} />
+    } else {
+      const symbols = searchResults.length > 0 ?
+        searchResults
+        :
+        stockData.slice(currentPage * paginateAmount,
+          (currentPage + 1) * paginateAmount)
+
+      return mapSymbolResults(symbols)
+    }
   }
 
   const mapSymbolResults = (symbolsToMap) => {
@@ -54,11 +81,37 @@ const apiUrlParts = {
     )
   }
 
+  const changeCurrentPage = (isAddition) => {
+    isAddition ?
+      setCurrentPage(currentPage+1)
+      :
+      currentPage>0 && setCurrentPage(currentPage-1)
+  }
+
+  const changePaginateAmount = (newAmount) =>{
+    return setPaginateAmount(newAmount)
+  }
+
   return (
-    <div><h1>{market}</h1>
+    <div>
+    <Searchbar searchSymbol={updateSearchResult} />
+      {!isSearchPerformed &&
+        stockData.length > 0 &&
+        <Paginator currentPage={currentPage}
+                   changeCurrentPage={changeCurrentPage}
+                   changePaginateAmount={changePaginateAmount} />
+      }
+    <h1>{market}</h1>
     <h2>{exchangeType}</h2>
     {stockData.length > 0 ?
         displayContent() : <p>Downloading data...</p>}
+
+      {!isSearchPerformed &&
+        stockData.length > 0 &&
+        <Paginator currentPage={currentPage}
+                   changeCurrentPage={changeCurrentPage}
+                   changePaginateAmount={changePaginateAmount} />
+      }
     </div>
   )
 }

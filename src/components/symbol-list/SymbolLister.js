@@ -14,7 +14,6 @@ const apiUrlParts = {
 
 function SymbolLister(props) {
   const [stockData, setStockData] = useState([])
-  const [isDataDownloaded, setIsDataDownloaded] = useState(false)
   const [searchResults, setSearchResults] = useState([])
   const [isSearchPerformed, setIsSearchPerformed] = useState(false)
   const [paginateAmount, setPaginateAmount] = useState(25)
@@ -30,7 +29,6 @@ function SymbolLister(props) {
             return a.symbol.localeCompare(b.symbol)
           })
           setStockData(flatStockData)
-          setIsDataDownloaded(true)
         })
         .catch(error => { console.log(error) })
     }
