@@ -7,6 +7,7 @@ import SymbolLister from './components/symbol-list/SymbolLister';
 import SymbolScreen from './components/symbol-sub/SymbolScreen';
 import ExchangeLister from './components/exchanges/ExchangeLister';
 import UniversalSymbolLister from './components/universal/UniversalSymbolLister';
+import UniSymbolScreen from './components/uni-symbol-sub/UniSymbolScreen';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           <Route exact path="/stock-market/:symbol" element={<SymbolScreen />} />
           <Route exact path='/:exchange' element={<ExchangeLister />} />
           <Route exact path='/:exchangeType/:market' element={<UniversalSymbolLister />} />
+          <Route exact path="/:exchangeType/:market/:symbol" element={<UniSymbolScreen />} />
         </Routes>
       </div>
     </div>

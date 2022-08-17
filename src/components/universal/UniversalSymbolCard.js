@@ -2,6 +2,8 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 
 function UniversalSymbolCard(props) {
+  const urlSafeSymbol = props.symbol.replace(/\//g, "_")
+  
   return (
     <div className='cardWrapper'>
       <h1>{props.displaySymbol}</h1>
@@ -13,7 +15,7 @@ function UniversalSymbolCard(props) {
           <p> Description: {props.description}</p>
         </div>
       </div>
-      <p>Link will come here {props.exchangeType} {props.market}</p>
+      <Link to={`/${props.exchangeType}/${props.market}/${urlSafeSymbol}`} className="link">Open datasheet</Link>
     </div>
   )
 }

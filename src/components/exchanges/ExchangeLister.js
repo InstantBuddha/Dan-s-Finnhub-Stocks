@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { memo } from "react";
 import axios from 'axios'
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
@@ -16,7 +15,6 @@ function ExchangeLister () {
      const { exchange } = useParams()
      const [isListDownloaded, setIsListDownloaded] = useState(false)
      const [exchangeList, setExchangeList] = useState([])
-     //const [apiUrl, setApiUrl] = useState(`${apiUrlParts.base}${apiUrlParts[exchange]}${apiUrlParts.token}`)
      const [presentExchange, setPresentExchange] = useState()
      const apiUrl = `${apiUrlParts.base}${apiUrlParts[exchange]}${apiUrlParts.token}`
 
