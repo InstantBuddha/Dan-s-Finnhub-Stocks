@@ -1,17 +1,12 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
+import { apiUrlParts } from '../../utils/constants'
 import { useState, useEffect, useRef } from "react"
 import axios from 'axios'
 import LastPrice from './realtime-data/LastPrice'
 import SymbolInformation from './SymbolInformation'
 import SymbolPrices from './SymbolPrices'
 import SymbolTitle from './SymbolTitle'
-
-const apiUrlParts = {
-  base: "https://finnhub.io/api/v1",
-  companyDetail: "/stock/profile2?symbol=",
-  token: "&token=c1mrjdi37fktai5sgaog",
-}
 
 function SymbolScreen() {
   const { symbol } = useParams()

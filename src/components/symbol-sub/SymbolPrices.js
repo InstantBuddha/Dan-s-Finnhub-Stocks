@@ -1,14 +1,9 @@
 import React from 'react'
 import { useState, useEffect, useRef } from "react"
+import { apiUrlParts } from '../../utils/constants'
 import axios from 'axios'
 import LastPrice from './realtime-data/LastPrice'
 import LastPriceCard from './realtime-data/LastPriceCard'
-
-const apiUrlParts = {
-  base: "https://finnhub.io/api/v1",
-  quoteSymbol: "/quote?symbol=",
-  token: "&token=c1mrjdi37fktai5sgaog",
-}
 
 function SymbolPrices(props) {
 

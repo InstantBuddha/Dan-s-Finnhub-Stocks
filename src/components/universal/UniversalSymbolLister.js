@@ -6,16 +6,8 @@ import UniversalSymbolCard from './UniversalSymbolCard'
 import Searchbar from './Searchbar'
 import SearchMessage from './SearchMessage'
 import Paginator from './Paginator'
+import { apiUrlParts } from '../../utils/constants'
 
-
-
-const apiUrlParts = {
-  base: "https://finnhub.io/api/v1",
-  stockSymbols: "/stock/symbol?exchange=",
-  forex: "/forex/symbol?exchange=",
-  crypto: "/crypto/symbol?exchange=",
-  token: "&token=c1mrjdi37fktai5sgaog"
-}
 
  function UniversalSymbolLister() {
   const {exchangeType, market } = useParams()  
@@ -26,7 +18,7 @@ const apiUrlParts = {
   const [currentPage, setCurrentPage] = useState(0)
 
   useEffect(() => {
-    const url = `${apiUrlParts.base}${apiUrlParts[exchangeType]}${market}${apiUrlParts.token}`
+    const url = `${apiUrlParts.base}${apiUrlParts.symbolListerTypes[exchangeType]}${market}${apiUrlParts.token}`
     const fetchData = async (url) => {
       await axios.get(url)
         .then(response => {

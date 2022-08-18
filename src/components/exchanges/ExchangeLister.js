@@ -1,13 +1,17 @@
 import React, { Component } from 'react'
 import axios from 'axios'
+
+//import { apiUrlParts } from '../../utils/constants';
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import ExchangeCard from './ExchangeCard';
 
 const apiUrlParts = {
     base: "https://finnhub.io/api/v1",
-    crypto: "/crypto/exchange",
-    forex: "/forex/exchange",
+    exchangeListerTypes: {
+      crypto: "/crypto/exchange",
+      forex: "/forex/exchange"
+    },
     token: "?token=c1mrjdi37fktai5sgaog"
   }
 
@@ -16,7 +20,7 @@ function ExchangeLister () {
      const [isListDownloaded, setIsListDownloaded] = useState(false)
      const [exchangeList, setExchangeList] = useState([])
      const [presentExchange, setPresentExchange] = useState()
-     const apiUrl = `${apiUrlParts.base}${apiUrlParts[exchange]}${apiUrlParts.token}`
+     const apiUrl = `${apiUrlParts.base}${apiUrlParts.exchangeListerTypes[exchange]}${apiUrlParts.token}`
 
      const fetchData = async (apiUrl) => {
         await axios.get(apiUrl)
