@@ -13,3 +13,9 @@ export const apiUrlParts = {
     quoteSymbol: "/quote?symbol=",
     token: "&token=c1mrjdi37fktai5sgaog"
 }
+
+export const directions = {
+    increase: "increase",
+    decrease: "decrease",
+    noChange: "noChange"
+}

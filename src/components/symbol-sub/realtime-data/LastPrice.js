@@ -2,12 +2,13 @@ import React from 'react'
 import { useState, useEffect, useRef } from "react"
 import { useParams } from 'react-router-dom'
 import LastPriceCard from './LastPriceCard'
-
+import { directions } from '../../../utils/constants'
+/*
 const directions = {
     increase: "increase",
     decrease: "decrease",
     noChange: "noChange"
-}
+}*/
 
 function LastPrice(props) {
 
