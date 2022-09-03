@@ -1,16 +1,10 @@
 import React, { Component } from 'react'
-import axios from 'axios'
 import { useEffect, useState } from 'react'
 import SymbolCard from './SymbolCard'
 import Searchbar from './Searchbar'
 import SearchMessage from './SearchMessage'
 import Paginator from './Paginator'
-
-const apiUrlParts = {
-  base: "https://finnhub.io/api/v1",
-  stockSymbols: "/stock/symbol?exchange=",
-  token: "&token=c1mrjdi37fktai5sgaog"
-}
+import { fetchStockExchange } from '../../services/StockApiService'
 
 function SymbolLister(props) {
   const [stockData, setStockData] = useState([])
@@ -21,9 +15,8 @@ function SymbolLister(props) {
 
   useEffect(() => {
     const country = "US"
-    const stockSymbolsUrl = `${apiUrlParts.base}${apiUrlParts.stockSymbols}${country}${apiUrlParts.token}`
-    const fetchData = async (stockSymbolsUrl) => {
-      await axios.get(stockSymbolsUrl)
+    const fetchData = async () => {
+      await fetchStockExchange(country)
         .then(response => {
           const flatStockData = response.data.flat().sort((a, b) => {
             return a.symbol.localeCompare(b.symbol)
@@ -32,7 +25,7 @@ function SymbolLister(props) {
         })
         .catch(error => { console.log(error) })
     }
-    fetchData(stockSymbolsUrl)
+    fetchData()
   }, [])
 
   const updateSearchResult = (searchTerm) => {
