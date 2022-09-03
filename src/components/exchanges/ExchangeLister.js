@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 
-//import { apiUrlParts } from '../../utils/constants';
+//import { apiUrlParts } from '../../utils/Constants';
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import ExchangeCard from './ExchangeCard';

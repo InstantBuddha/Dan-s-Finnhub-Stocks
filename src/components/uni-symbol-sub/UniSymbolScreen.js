@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom'
 import { useState, useEffect, useRef } from "react"
 import axios from 'axios'
 import UniSymbolTitle from './UniSymbolTitle'
-import { directions } from '../../utils/constants'
+import { directions } from '../../utils/Constants'
 
 function UniSymbolScreen() {
   const { exchangeType, market, symbol } = useParams()

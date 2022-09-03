@@ -1,6 +1,6 @@
 import React from 'react'
 import { useState, useEffect, useRef } from "react"
-import { apiUrlParts } from '../../utils/constants'
+import { apiUrlParts } from '../../utils/Constants'
 import axios from 'axios'
 import LastPrice from './realtime-data/LastPrice'
 import LastPriceCard from './realtime-data/LastPriceCard'

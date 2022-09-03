@@ -6,7 +6,7 @@ import UniversalSymbolCard from './UniversalSymbolCard'
 import Searchbar from './Searchbar'
 import SearchMessage from './SearchMessage'
 import Paginator from './Paginator'
-import { apiUrlParts } from '../../utils/constants'
+import { apiUrlParts } from '../../utils/Constants'
 
 
  function UniversalSymbolLister() {

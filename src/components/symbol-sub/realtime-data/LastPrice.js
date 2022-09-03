@@ -2,7 +2,7 @@ import React from 'react'
 import { useState, useEffect, useRef } from "react"
 import { useParams } from 'react-router-dom'
 import LastPriceCard from './LastPriceCard'
-import { directions } from '../../../utils/constants'
+import { directions } from '../../../utils/Constants'
 /*
 const directions = {
     increase: "increase",

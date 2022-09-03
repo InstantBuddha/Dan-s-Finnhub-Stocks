@@ -1,6 +1,6 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
-import { apiUrlParts } from '../../utils/constants'
+import { apiUrlParts } from '../../utils/Constants'
 import { useState, useEffect, useRef } from "react"
 import axios from 'axios'
 import LastPrice from './realtime-data/LastPrice'
