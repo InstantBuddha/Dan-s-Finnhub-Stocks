@@ -1,7 +1,6 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
 import { useState, useEffect, useRef } from "react"
-import axios from 'axios'
 import UniSymbolTitle from './UniSymbolTitle'
 import { directions } from '../../utils/Constants'
 

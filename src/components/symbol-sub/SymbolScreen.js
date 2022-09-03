@@ -14,16 +14,16 @@ function SymbolScreen() {
   const [isCompanyDataDownloaded, setIsCompanyDataDownloaded] = useState(false)
   const [companyData, setCompanyData] = useState({})
 
-  useEffect(() => {
-    const fetchData = async () => {      
-      await fetchCompanyDetails(symbol)
-        .then(response => {
-          setCompanyData(response.data)
-          setIsCompanyDataDownloaded(true)
-        })
-        .catch(error => { console.log(error) })
-    }
+  const fetchData = async () => {      
+    await fetchCompanyDetails(symbol)
+      .then(response => {
+        setCompanyData(response.data)
+        setIsCompanyDataDownloaded(true)
+      })
+      .catch(error => { console.log(error) })
+  }
 
+  useEffect(() => {    
     fetchData()
   }, [])
 

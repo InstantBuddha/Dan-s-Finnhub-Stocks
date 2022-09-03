@@ -1,27 +1,25 @@
 import React from 'react'
 import { useState, useEffect, useRef } from "react"
-import { apiUrlParts } from '../../utils/Constants'
-import axios from 'axios'
 import LastPrice from './realtime-data/LastPrice'
 import LastPriceCard from './realtime-data/LastPriceCard'
+import { fetchCompanyQuote } from '../../services/StockApiService'
 
 function SymbolPrices(props) {
 
   const [isDownloaded, setIsDownloaded] = useState(false)
   const [priceData, setPriceData] = useState({})
 
-  useEffect(() => {
-    const companyQuoteUrl = `${apiUrlParts.base}${apiUrlParts.quoteSymbol}${props.company}${apiUrlParts.token}`
-    const fetchData = async (companyQuoteUrl) => {
-      await axios.get(companyQuoteUrl)
-        .then(response => {
-          setPriceData(response.data)
-          setIsDownloaded(true)
-        })
-        .catch(error => { console.log(error) })
-    }
+  const fetchData = async () => {
+    await fetchCompanyQuote(props.company)
+      .then(response => {
+        setPriceData(response.data)
+        setIsDownloaded(true)
+      })
+      .catch(error => { console.log(error) })
+  }
 
-    fetchData(companyQuoteUrl)
+  useEffect(() => {
+    fetchData()
   }, [])
 
   const textToDisplay = [`Change: ${priceData.d} ${props.currency}`,

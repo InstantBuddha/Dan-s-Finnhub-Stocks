@@ -1,14 +1,16 @@
 import { paths, token } from "../utils/ApiUrlPaths";
 import axios from "axios";
 
-export async function fetchCompanyDetails(symbol) {
-    function companyDetailsParams(symbol) {
-        return {
-            symbol: symbol,
-            token: token
-        }
-    }
+const tokenParam = {token: token}
 
-    const params = companyDetailsParams(symbol)
+export async function fetchCompanyDetails(symbol) {
+    let params = tokenParam
+    params.symbol = symbol
     return axios.get(paths.companyDetails, {params: params})
+}
+
+export async function fetchCompanyQuote(company){
+    let params = tokenParam
+    params.symbol = company
+    return axios.get(paths.quoteSymbol, {params: params})
 }
