@@ -6,8 +6,9 @@ export const paths = {
     companyDetails : `${base}/stock/profile2`,
     forexSymbols: `${base}/forex/symbol`,
     cryptoSymbols: `${base}/crypto/symbol`,
-    forexExchanges: `${base}/forex/exchange`,
-    cryptoExchanges: `${base}/crypto/exchange`,
-    quoteSymbol: `${base}/quote`
+    exchangeListerTypes: {
+        crypto: `${base}/crypto/exchange`,
+        forex: `${base}/forex/exchange`
+      },quoteSymbol: `${base}/quote`
 } 
 

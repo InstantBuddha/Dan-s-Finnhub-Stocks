@@ -20,3 +20,8 @@ export async function fetchStockExchange(country){
     params.exchange = country
     return axios.get(paths.stockSymbols, {params: params})
 }
+
+export async function fetchExchange(exchangeType){
+    let params = tokenParam
+    return axios.get(paths.exchangeListerTypes[exchangeType], {params: params})
+}

@@ -1,9 +1,6 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
-import { apiUrlParts } from '../../utils/Constants'
 import { useState, useEffect, useRef } from "react"
-import axios from 'axios'
-import LastPrice from './realtime-data/LastPrice'
 import SymbolInformation from './SymbolInformation'
 import SymbolPrices from './SymbolPrices'
 import SymbolTitle from './SymbolTitle'

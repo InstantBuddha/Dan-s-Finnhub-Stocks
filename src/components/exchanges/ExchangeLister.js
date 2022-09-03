@@ -1,61 +1,51 @@
 import React, { Component } from 'react'
-import axios from 'axios'
-
-//import { apiUrlParts } from '../../utils/Constants';
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import ExchangeCard from './ExchangeCard';
+import { fetchExchange } from '../../services/StockApiService';
 
-const apiUrlParts = {
-    base: "https://finnhub.io/api/v1",
-    exchangeListerTypes: {
-      crypto: "/crypto/exchange",
-      forex: "/forex/exchange"
-    },
-    token: "?token=c1mrjdi37fktai5sgaog"
+function ExchangeLister() {
+  const { exchange } = useParams()
+  const [isListDownloaded, setIsListDownloaded] = useState(false)
+  const [exchangeList, setExchangeList] = useState([])
+  const [presentExchange, setPresentExchange] = useState()
+
+  const fetchData = async () => {
+    await fetchExchange(exchange)
+      .then(response => {
+        const sortedExchangeList = response.data.sort((a, b) => {
+          return a.localeCompare(b)
+        })
+        setExchangeList(sortedExchangeList)
+        setPresentExchange(exchange)
+        setIsListDownloaded(true)
+      })
+      .catch(error => { console.log(error) })
   }
 
-function ExchangeLister () {
-     const { exchange } = useParams()
-     const [isListDownloaded, setIsListDownloaded] = useState(false)
-     const [exchangeList, setExchangeList] = useState([])
-     const [presentExchange, setPresentExchange] = useState()
-     const apiUrl = `${apiUrlParts.base}${apiUrlParts.exchangeListerTypes[exchange]}${apiUrlParts.token}`
+  useEffect(() => {
+    fetchData()
+  }, [])
 
-     const fetchData = async (apiUrl) => {
-        await axios.get(apiUrl)
-           .then(response => {
-               setIsListDownloaded(true)
-               setExchangeList(response.data)
-               setPresentExchange(exchange)
-           })
-           .catch(error => {console.log(error) })
+  const exchangeDisplayList = exchangeList.map(
+    exchangeItem => <ExchangeCard key={exchangeItem} exchangeName={exchangeItem} exchangeType={exchange} />
+  )
+
+  useEffect(() => {
+    exchange !== presentExchange && fetchData()
+  })
+
+  useEffect(() => {
+    return () => {
+      console.log("unmount")
     }
+  }, [])
 
-     useEffect(()=>{
-         console.log("didmount")
-         fetchData(apiUrl)
-     },[])
-
-     const exchangeDisplayList = exchangeList.map(
-         exchangeItem => <ExchangeCard key={exchangeItem} exchangeName={exchangeItem} exchangeType={exchange}/>
-     )
-
-     useEffect(() => {
-        exchange !== presentExchange && fetchData(apiUrl)
-    })
-
-     useEffect(() => {
-         return () => {
-            console.log("unmount")
-         }
-     }, [])
-
-  return (  
+  return (
     <div>
-    <h1>{exchange}</h1>
-    {isListDownloaded ? 
-    exchangeDisplayList : "Downloading list..."}
+      <h1>{exchange}</h1>
+      {isListDownloaded ?
+        exchangeDisplayList : "Downloading list..."}
     </div>
   )
 }
