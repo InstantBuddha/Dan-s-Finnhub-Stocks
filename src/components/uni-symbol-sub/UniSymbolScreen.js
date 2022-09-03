@@ -2,7 +2,8 @@ import React from 'react'
 import { useParams } from 'react-router-dom'
 import { useState, useEffect, useRef } from "react"
 import UniSymbolTitle from './UniSymbolTitle'
-import { directions } from '../../utils/Constants'
+import { directions, changeSymbols } from '../../utils/Constants'
+import UniLastPriceCard from './UniLastPriceCard'
 
 function UniSymbolScreen() {
   const { exchangeType, market, symbol } = useParams()
@@ -63,11 +64,14 @@ function UniSymbolScreen() {
     }
   }, [])
 
-
+  console.log(prices.newPrice)
   return (
     <div>
       <UniSymbolTitle symbol={symbol} />
-      {dataDownloaded && <h1>Last price: {prices.newPrice} {prices.changeDirection}</h1>}
+      {dataDownloaded && <UniLastPriceCard 
+                            lastPrice={prices.newPrice} 
+                            priceChangeDirection={prices.changeDirection} />
+      }
       <div className='gridContainer responsiveGrid'>
 
       </div>
