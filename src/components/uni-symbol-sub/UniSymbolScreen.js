@@ -24,7 +24,6 @@ function UniSymbolScreen() {
   const socket = useRef()
 
   useEffect(() => {
-    //this is for componentDidMount        
     socket.current = new WebSocket(socketData.url)
     socket.current.addEventListener("open", (event) => {
       socket.current.send(JSON.stringify(socketData.subscribeJSON))
@@ -58,7 +57,6 @@ function UniSymbolScreen() {
 
   useEffect(() => {
     return () => {
-      //this is for componentWillUnmount
       socket.current.send(JSON.stringify(socketData.unsubscribeJSON))
       socket.current.close()
     }
@@ -66,11 +64,14 @@ function UniSymbolScreen() {
 
   console.log(prices.newPrice)
   return (
-    <div>
+    <div className='centerWrapper'>
       <UniSymbolTitle symbol={symbol} />
-      {dataDownloaded && <UniLastPriceCard 
-                            lastPrice={prices.newPrice} 
-                            priceChangeDirection={prices.changeDirection} />
+      {dataDownloaded ?
+        <UniLastPriceCard
+          lastPrice={prices.newPrice}
+          priceChangeDirection={prices.changeDirection} />
+        :
+        <p>Data not yet available</p>
       }
       <div className='gridContainer responsiveGrid'>
 

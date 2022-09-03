@@ -42,8 +42,7 @@ function ExchangeLister() {
   }, [])
 
   return (
-    <div>
-      <h1>{exchange}</h1>
+    <div className='centerWrapper'>
       {isListDownloaded ?
         exchangeDisplayList : "Downloading list..."}
     </div>

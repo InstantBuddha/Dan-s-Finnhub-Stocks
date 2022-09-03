@@ -25,7 +25,7 @@ function SymbolScreen() {
   }, [])
 
   return (
-    <div>
+    <div className='centerWrapper'>
       <SymbolTitle companyData={companyData} />
       <div className='gridContainer responsiveGrid'>
 

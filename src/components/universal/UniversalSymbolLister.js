@@ -8,9 +8,9 @@ import Paginator from './Paginator'
 import { fetchUniversalMarket } from '../../services/StockApiService'
 
 
- function UniversalSymbolLister() {
-  const {exchangeType, market } = useParams()  
-  const [stockData, setStockData] = useState([])  
+function UniversalSymbolLister() {
+  const { exchangeType, market } = useParams()
+  const [stockData, setStockData] = useState([])
   const [isSearchPerformed, setIsSearchPerformed] = useState(false)
   const [searchResults, setSearchResults] = useState([])
   const [paginateAmount, setPaginateAmount] = useState(25)
@@ -23,7 +23,7 @@ import { fetchUniversalMarket } from '../../services/StockApiService'
           const flatStockData = response.data.flat().sort((a, b) => {
             return a.symbol.localeCompare(b.symbol)
           })
-          
+
           setStockData(flatStockData)
         })
         .catch(error => { console.log(error) })
@@ -61,46 +61,45 @@ import { fetchUniversalMarket } from '../../services/StockApiService'
 
   const mapSymbolResults = (symbolsToMap) => {
     return symbolsToMap.map(
-        symbol => <UniversalSymbolCard 
-                    key={symbol.symbol}
-                    symbol={symbol.symbol}
-                    description={symbol.description}
-                    displaySymbol={symbol.displaySymbol}
-                    exchangeType={exchangeType}
-                    market={market} />
+      symbol => <UniversalSymbolCard
+        key={symbol.symbol}
+        symbol={symbol.symbol}
+        description={symbol.description}
+        displaySymbol={symbol.displaySymbol}
+        exchangeType={exchangeType}
+        market={market} />
     )
   }
 
   const changeCurrentPage = (isAddition) => {
     isAddition ?
-      setCurrentPage(currentPage+1)
+      setCurrentPage(currentPage + 1)
       :
-      currentPage>0 && setCurrentPage(currentPage-1)
+      currentPage > 0 && setCurrentPage(currentPage - 1)
   }
 
-  const changePaginateAmount = (newAmount) =>{
+  const changePaginateAmount = (newAmount) => {
     return setPaginateAmount(newAmount)
   }
 
   return (
-    <div>
-    <Searchbar searchSymbol={updateSearchResult} />
+    <div className='centerWrapper'>
+      <Searchbar searchSymbol={updateSearchResult} />
       {!isSearchPerformed &&
         stockData.length > 0 &&
         <Paginator currentPage={currentPage}
-                   changeCurrentPage={changeCurrentPage}
-                   changePaginateAmount={changePaginateAmount} />
+          changeCurrentPage={changeCurrentPage}
+          changePaginateAmount={changePaginateAmount} />
       }
-    <h1>{market}</h1>
-    <h2>{exchangeType}</h2>
-    {stockData.length > 0 ?
+
+      {stockData.length > 0 ?
         displayContent() : <p>Downloading data...</p>}
 
       {!isSearchPerformed &&
         stockData.length > 0 &&
         <Paginator currentPage={currentPage}
-                   changeCurrentPage={changeCurrentPage}
-                   changePaginateAmount={changePaginateAmount} />
+          changeCurrentPage={changeCurrentPage}
+          changePaginateAmount={changePaginateAmount} />
       }
     </div>
   )

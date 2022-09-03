@@ -1,11 +1,18 @@
 body {
     margin: 0;
-    background-color: lightgray;
+    background-color: #fff;
+    background-image: url("https://www.transparenttextures.com/patterns/shattered-dark.png");
 }
 
 .mainWrapper {
     margin-top: 3rem;
     padding-top: 0.5rem;
+}
+
+.centerWrapper{
+    margin: 0 auto;
+    width: 50%;
+    background-color: rgba(201, 201, 201, 0.3);
 }
 
 
@@ -68,9 +75,13 @@ input {
 }
 .symbolCardGridItem a{
     text-decoration: none;
+    color: black;
 }
 
 
+.cardWrapper:hover {
+    background-color: rgba(29, 185, 84, 0.8);
+}
 .symbolSubGridItem{
     padding: 1rem;
 }
@@ -99,6 +110,9 @@ input {
 
     .mainWrapper {
         margin-top: 5.5rem;
+    }
+    .centerWrapper{
+        width: 96%;
     }
 
     .responsiveGrid{

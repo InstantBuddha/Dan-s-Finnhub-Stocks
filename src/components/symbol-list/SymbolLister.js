@@ -78,7 +78,7 @@ function SymbolLister(props) {
   }
 
   return (
-    <div>
+    <div className='centerWrapper'>
       <Searchbar searchSymbol={updateSearchResult} />
       {!isSearchPerformed &&
         stockData.length > 0 &&
