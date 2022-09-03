@@ -25,3 +25,9 @@ export async function fetchExchange(exchangeType){
     let params = tokenParam
     return axios.get(paths.exchangeListerTypes[exchangeType], {params: params})
 }
+
+export async function fetchUniversalMarket(exchangeType, market){
+    let params = tokenParam
+    params.exchange = market
+    return axios.get(paths.symbolListerTypes[exchangeType], {params: params})
+}

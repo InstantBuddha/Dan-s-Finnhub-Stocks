@@ -1,12 +1,11 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
-import axios from 'axios'
 import { useEffect, useState } from 'react'
 import UniversalSymbolCard from './UniversalSymbolCard'
 import Searchbar from './Searchbar'
 import SearchMessage from './SearchMessage'
 import Paginator from './Paginator'
-import { apiUrlParts } from '../../utils/Constants'
+import { fetchUniversalMarket } from '../../services/StockApiService'
 
 
  function UniversalSymbolLister() {
@@ -18,9 +17,8 @@ import { apiUrlParts } from '../../utils/Constants'
   const [currentPage, setCurrentPage] = useState(0)
 
   useEffect(() => {
-    const url = `${apiUrlParts.base}${apiUrlParts.symbolListerTypes[exchangeType]}${market}${apiUrlParts.token}`
-    const fetchData = async (url) => {
-      await axios.get(url)
+    const fetchData = async () => {
+      await fetchUniversalMarket(exchangeType, market)
         .then(response => {
           const flatStockData = response.data.flat().sort((a, b) => {
             return a.symbol.localeCompare(b.symbol)
@@ -30,7 +28,7 @@ import { apiUrlParts } from '../../utils/Constants'
         })
         .catch(error => { console.log(error) })
     }
-    fetchData(url)
+    fetchData()
   }, [])
 
   const updateSearchResult = (searchTerm) => {
