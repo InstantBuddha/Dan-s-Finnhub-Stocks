@@ -14,17 +14,29 @@ function SymbolScreen() {
   const [companyData, setCompanyData] = useState({})
 
   useEffect(() => {
-    const companyDetailsUrl = `${apiUrlParts.base}${apiUrlParts.companyDetail}${symbol}${apiUrlParts.token}`
-    const fetchData = async (companyDetailsUrl) => {
-      await axios.get(companyDetailsUrl)
+    const fetchData = async () => {
+      const base = "https://finnhub.io/api/v1"
+      const token = "c1mrjdi37fktai5sgaog"
+      const companyDetails = `${base}/stock/profile2`
+      function companyDetailsParams(symbol) {
+        return {
+          symbol: symbol,
+          token: token
+        }
+      }
+
+      const axiosProps = companyDetailsParams(symbol)
+      await axios.get(companyDetails, { params: axiosProps })
         .then(response => {
-          setIsCompanyDataDownloaded(true)
           setCompanyData(response.data)
+          setIsCompanyDataDownloaded(true)
+          console.log(response.data)
         })
         .catch(error => { console.log(error) })
+
     }
 
-    fetchData(companyDetailsUrl)
+    fetchData()
   }, [])
 
   return (
@@ -33,8 +45,8 @@ function SymbolScreen() {
       <div className='gridContainer responsiveGrid'>
 
         <SymbolInformation companyData={companyData} />
-        <SymbolPrices company={symbol} 
-                      currency={companyData.currency}
+        <SymbolPrices company={symbol}
+          currency={companyData.currency}
         />
       </div>
     </div>
