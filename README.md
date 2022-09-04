@@ -14,5 +14,5 @@ Presently three subpages are available from the NavBar:
 - React
 - React Router
 - Axios for get requests
-- Axios for web sockets
-- Minimal CSS
+- Websockets
+- Responsive CSS

@@ -71,7 +71,7 @@ function UniSymbolScreen() {
           lastPrice={prices.newPrice}
           priceChangeDirection={prices.changeDirection} />
         :
-        <p>Data not yet available</p>
+        <p>Data becomes available at first price change</p>
       }
       <div className='gridContainer responsiveGrid'>
 

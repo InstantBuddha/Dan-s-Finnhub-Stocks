@@ -6,6 +6,7 @@ import Searchbar from './Searchbar'
 import SearchMessage from './SearchMessage'
 import Paginator from './Paginator'
 import { fetchUniversalMarket } from '../../services/StockApiService'
+import { updateSearchResults } from '../../services/SearchServices'
 
 
 function UniversalSymbolLister() {
@@ -32,17 +33,8 @@ function UniversalSymbolLister() {
   }, [])
 
   const updateSearchResult = (searchTerm) => {
-    const updatedSearchResults = stockData.filter(stockObject => {
-      return isTermIncluded(searchTerm, [stockObject.symbol, stockObject.description])
-    })
-    setSearchResults(updatedSearchResults)
+    setSearchResults(updateSearchResults(searchTerm, stockData))
     setIsSearchPerformed(true)
-  }
-
-  const isTermIncluded = (searchTerm, valuesToCheck) => {
-    return valuesToCheck.some(value => {
-      return value.toLowerCase().includes(searchTerm.toLowerCase())
-    })
   }
 
   const displayContent = () => {
