@@ -5,6 +5,7 @@ import Searchbar from '../universal/Searchbar'
 import SearchMessage from '../universal/SearchMessage'
 import Paginator from '../universal/Paginator'
 import { fetchStockExchange } from '../../services/StockApiService'
+import { updateSearchResults } from '../../services/SearchServices'
 
 function SymbolLister(props) {
   const [stockData, setStockData] = useState([])
@@ -29,17 +30,8 @@ function SymbolLister(props) {
   }, [])
 
   const updateSearchResult = (searchTerm) => {
-    const updatedSearchResults = stockData.filter(stockObject => {
-      return isTermIncluded(searchTerm, [stockObject.symbol, stockObject.description])
-    })
-    setSearchResults(updatedSearchResults)
+    setSearchResults(updateSearchResults(searchTerm, stockData))
     setIsSearchPerformed(true)
-  }
-
-  const isTermIncluded = (searchTerm, valuesToCheck) => {
-    return valuesToCheck.some(value => {
-      return value.toLowerCase().includes(searchTerm.toLowerCase())
-    })
   }
 
   const displayContent = () => {
