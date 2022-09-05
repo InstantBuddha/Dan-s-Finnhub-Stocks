@@ -4,12 +4,16 @@ body {
     background-image: url("https://www.transparenttextures.com/patterns/shattered-dark.png");
 }
 
+.App {
+    text-align: center;
+}
+
 .mainWrapper {
     margin-top: 3rem;
     padding-top: 0.5rem;
 }
 
-.centerWrapper{
+.centerWrapper {
     margin: 0 auto;
     width: 50%;
     background-color: rgba(201, 201, 201, 0.3);
@@ -26,6 +30,7 @@ body {
     width: 100%;
     height: 3rem;
 }
+
 .navLink {
     float: left;
     font-size: larger;
@@ -35,9 +40,11 @@ body {
     text-align: center;
     text-decoration: none;
 }
+
 .homeLink {
     background-color: #1db954;
 }
+
 .navLink:hover {
     background-color: #111;
 }
@@ -46,34 +53,40 @@ body {
 .searchBarMain {
     padding: 0.5rem;
 }
+
 button {
     margin: 0 0.5rem 0 0.5rem;
     border: 1px solid;
     border-radius: 0.30rem;
 }
+
 input {
     border: 1px solid;
     border-radius: 0.30rem;
 }
 
 
-.cardWrapper{
+.cardWrapper {
     border: 1px solid;
     padding: 0 0 1rem 0;
 }
-.cardWrapper h1{
+
+.cardWrapper h1 {
     margin: 0.5rem 0 0 0;
 }
+
 .gridContainer {
     display: flex;
     justify-content: center;
     flex-direction: row;
 }
+
 .symbolCardGridItem {
     font-weight: bold;
-    padding:0 0.5rem 0 0.5rem; 
+    padding: 0 0.5rem 0 0.5rem;
 }
-.symbolCardGridItem a{
+
+.symbolCardGridItem a {
     text-decoration: none;
     color: black;
 }
@@ -82,20 +95,23 @@ input {
 .cardWrapper:hover {
     background-color: rgba(29, 185, 84, 0.8);
 }
-.symbolSubGridItem{
+
+.symbolSubGridItem {
     padding: 1rem;
 }
-.leftAlignedInfo{
+
+.leftAlignedInfo {
     text-align: left;
 }
-.companyLogo{
+
+.companyLogo {
     width: auto;
     height: 100%;
     object-fit: fill;
     padding-right: 3rem;
 }
 
-.importantText{
+.importantText {
     font-weight: bold;
 }
 
@@ -103,6 +119,7 @@ input {
     .navbar {
         height: 5.5rem;
     }
+
     .navLink {
         padding: 0.5rem;
         float: none;
@@ -111,11 +128,12 @@ input {
     .mainWrapper {
         margin-top: 5.5rem;
     }
-    .centerWrapper{
+
+    .centerWrapper {
         width: 96%;
     }
 
-    .responsiveGrid{
+    .responsiveGrid {
         flex-direction: column;
     }
 }
