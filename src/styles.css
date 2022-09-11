@@ -52,7 +52,13 @@ body {
 .navToggleBtn {
     display: none;
     position: absolute;
-    right: 10px;
+    right: 0.5rem;
+    top: 0.5rem
+}
+
+.smallIcon {
+    height: 1rem;
+    margin-top: 0.1rem;
 }
 
 .searchBarMain {

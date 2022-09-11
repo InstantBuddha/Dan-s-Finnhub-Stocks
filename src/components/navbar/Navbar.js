@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
+import {ReactComponent as MenuIcon} from '../../assets/svg/menu.svg'
 import { isWindowLandscape } from '../../utils/IsWindowLandscape'
 
 export default function Navbar() {
@@ -24,7 +25,7 @@ export default function Navbar() {
   return (
     <div className='navbar'>
       <button onClick={toggleNav} className="navToggleBtn">
-        BTN
+        <MenuIcon className='smallIcon'/>
       </button>
       <Link to="/" className='navLink homeLink'>Dan's finnhub lister</Link>
       <Link to="/stock-market" className={linkItemClassname} onClick={toggleNav}>Stock exchange</Link>
