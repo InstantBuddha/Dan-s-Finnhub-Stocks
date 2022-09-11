@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import "../../styles.css"
 import { isWindowLandscape } from '../../utils/IsWindowLandscape'
 
 export default function Navbar() {

@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import { useEffect, useState } from 'react'
 import SymbolCard from './SymbolCard'
-import Searchbar from '../universal/Searchbar'
-import SearchMessage from '../universal/SearchMessage'
-import Paginator from '../universal/Paginator'
+import Searchbar from '../searchbar-paginator/Searchbar'
+import SearchMessage from '../searchbar-paginator/SearchMessage'
+import Paginator from '../searchbar-paginator/Paginator'
 import { fetchStockExchange } from '../../services/StockApiService'
 import { updateSearchResults } from '../../services/SearchServices'
 
