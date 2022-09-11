@@ -1,5 +1,3 @@
-export const menuIconSymbol = "&#9776;"
-
 export const directions = {
     increase: "increase",
     decrease: "decrease",
