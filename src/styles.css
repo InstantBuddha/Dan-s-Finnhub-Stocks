@@ -49,6 +49,11 @@ body {
     background-color: #111;
 }
 
+.navToggleBtn {
+    display: none;
+    position: absolute;
+    right: 10px;
+}
 
 .searchBarMain {
     padding: 0.5rem;
@@ -117,7 +122,7 @@ input {
 
 @media only screen and (orientation: portrait) {
     .navbar {
-        height: 5.5rem;
+        height: auto;
     }
 
     .navLink {
@@ -125,6 +130,13 @@ input {
         float: none;
     }
 
+    .navToggleBtn{
+        display: block;
+    }
+
+    .hidden{
+        display: none;
+    }
     .mainWrapper {
         margin-top: 5.5rem;
     }
