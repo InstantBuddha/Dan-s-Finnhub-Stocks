@@ -59,6 +59,10 @@ body {
     padding: 0.5rem;
 }
 
+.paginator {
+    padding-bottom: 0.5rem;
+}
+
 button {
     margin: 0 0.5rem 0 0.5rem;
     border: 1px solid;
@@ -137,10 +141,7 @@ input {
     .hidden{
         display: none;
     }
-    .mainWrapper {
-        margin-top: 5.5rem;
-    }
-
+    
     .centerWrapper {
         width: 96%;
     }

@@ -28,9 +28,9 @@ export default function Navbar() {
         BTN
       </button>
       <Link to="/" className='navLink homeLink'>Dan's finnhub lister</Link>
-      <Link to="/stock-market" className={linkItemClassname}>Stock exchange</Link>
-      <Link to="/crypto" className={linkItemClassname}>Crypto</Link>
-      <Link to="/forex" className={linkItemClassname}>Forex</Link>
+      <Link to="/stock-market" className={linkItemClassname} onClick={toggleNav}>Stock exchange</Link>
+      <Link to="/crypto" className={linkItemClassname} onClick={toggleNav}>Crypto</Link>
+      <Link to="/forex" className={linkItemClassname} onClick={toggleNav}>Forex</Link>
 
     </div>
   )
