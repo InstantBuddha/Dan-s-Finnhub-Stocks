@@ -40,7 +40,7 @@ function SymbolList(props) {
     setSearchResults(updateSearchResults(searchTerm, stockData))
     setIsSearchPerformed(true)
   }
-  
+
   const displayContent = () => {
     if (isSearchPerformed && searchResults.length < 1) {
       return <SearchMessage message={"Nothing found"} />
@@ -54,17 +54,18 @@ function SymbolList(props) {
       return mapSymbolResults(symbols)
     }
   }
-  
+
   const mapSymbolResults = (symbolsToMap) => {
-    if(exchangeType === "stock-market"){
+    if (exchangeType === "stock-market") {
       return symbolsToMap.map(
-        symbol => <SymbolCard 
+        symbol => <SymbolCard
           key={symbol.symbol}
           symbol={symbol.symbol}
           currency={symbol.currency}
           description={symbol.description}
           type={symbol.type} />
-    )}
+      )
+    }
 
     return symbolsToMap.map(
       symbol => <UniversalSymbolCard
@@ -76,20 +77,20 @@ function SymbolList(props) {
         market={market} />
     )
   }
-   
+
   const changeCurrentPage = (isAddition) => {
     isAddition ?
-      setCurrentPage(currentPage+1)
+      setCurrentPage(currentPage + 1)
       :
-      currentPage>0 && setCurrentPage(currentPage-1)
+      currentPage > 0 && setCurrentPage(currentPage - 1)
   }
-   
-  const changePaginateAmount = (newAmount) =>{
+
+  const changePaginateAmount = (newAmount) => {
     return setPaginateAmount(newAmount)
   }
 
   useEffect(() => {
-    if(exchangeType !== presentExchange){
+    if (exchangeType !== presentExchange) {
       setIsListDownloaded(false)
       fetchData()
     }
@@ -103,24 +104,25 @@ function SymbolList(props) {
 
   return (
     <div className='centerWrapper'>
-      <Searchbar searchSymbol={updateSearchResult} />
-      {!isSearchPerformed &&
-        isListDownloaded &&
-        stockData.length > 0 &&
-        <Paginator currentPage={currentPage}
-                   changeCurrentPage={changeCurrentPage}
-                   changePaginateAmount={changePaginateAmount} />
-      }
+      {isListDownloaded ?
+        <div>
+          <Searchbar searchSymbol={updateSearchResult} />
+          {!isSearchPerformed &&
+            <Paginator currentPage={currentPage}
+              changeCurrentPage={changeCurrentPage}
+              changePaginateAmount={changePaginateAmount} />
+          }
 
-      {stockData.length > 0 && isListDownloaded ?
-        displayContent() : <p>Downloading data...</p>}
+          {displayContent()}
 
-      {!isSearchPerformed &&
-        isListDownloaded &&
-        stockData.length > 0 &&
-        <Paginator currentPage={currentPage}
-                   changeCurrentPage={changeCurrentPage}
-                   changePaginateAmount={changePaginateAmount} />
+          {!isSearchPerformed &&
+            <Paginator currentPage={currentPage}
+              changeCurrentPage={changeCurrentPage}
+              changePaginateAmount={changePaginateAmount} />
+          }
+        </div>
+        :
+        <p>Downloading data...</p>
       }
     </div>
   )
