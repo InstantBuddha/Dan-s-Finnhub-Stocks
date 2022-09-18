@@ -28,7 +28,7 @@ export default function Navbar() {
         <MenuIcon className='smallIcon'/>
       </button>
       <Link to="/" className='navLink homeLink'>Dan's finnhub lister</Link>
-      <Link to="/stock-market" className={linkItemClassname} onClick={toggleNav}>Stock exchange</Link>
+      <Link to="/stock-market/US" className={linkItemClassname} onClick={toggleNav}>Stock exchange</Link>
       <Link to="/crypto" className={linkItemClassname} onClick={toggleNav}>Crypto</Link>
       <Link to="/forex" className={linkItemClassname} onClick={toggleNav}>Forex</Link>
 

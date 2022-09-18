@@ -9,6 +9,7 @@ export const paths = {
     forex: `${base}/forex/exchange`
   },
   symbolListerTypes: {
+    "stock-market" : `${base}/stock/symbol`,
     crypto: `${base}/crypto/symbol`,
     forex: `${base}/forex/symbol`
   },
