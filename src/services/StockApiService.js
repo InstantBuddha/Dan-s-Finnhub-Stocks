@@ -15,12 +15,6 @@ export async function fetchCompanyQuote(company){
     return axios.get(paths.quoteSymbol, {params: params})
 }
 
-/*export async function fetchStockExchange(country){
-    let params = tokenParam
-    params.exchange = country
-    return axios.get(paths.stockSymbols, {params: params})
-}*/
-
 export async function fetchExchange(exchangeType){
     let params = tokenParam
     return axios.get(paths.exchangeListerTypes[exchangeType], {params: params})

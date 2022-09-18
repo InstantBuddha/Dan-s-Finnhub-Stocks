@@ -4,8 +4,7 @@ import Home from './components/Home';
 import Navbar from './components/navbar/Navbar';
 import SymbolList from './components/symbol-list/SymbolList';
 import SymbolScreen from './components/symbol-sub/SymbolScreen';
-import ExchangeLister from './components/exchanges/ExchangeList';
-import UniversalSymbolLister from './components/universal/UniversalSymbolLister';
+import ExchangeList from './components/exchanges/ExchangeList';
 import UniSymbolScreen from './components/uni-symbol-sub/UniSymbolScreen';
 
 function App() {
@@ -17,7 +16,7 @@ function App() {
         <Routes>
           <Route exact path="/" element={<Home />} />
           <Route exact path="/stock-market/US/:symbol" element={<SymbolScreen />} />
-          <Route exact path='/:exchange' element={<ExchangeLister />} />
+          <Route exact path='/:exchange' element={<ExchangeList />} />
           <Route exact path='/:exchangeType/:market' element={<SymbolList />} />
           <Route exact path="/:exchangeType/:market/:symbol" element={<UniSymbolScreen />} />
         </Routes>

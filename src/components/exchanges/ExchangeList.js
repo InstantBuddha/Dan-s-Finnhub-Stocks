@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom'
 import ExchangeCard from './ExchangeCard';
 import { fetchExchange } from '../../services/StockApiService';
 
-function ExchangeLister() {
+function ExchangeList() {
   const { exchange } = useParams()
   const [isListDownloaded, setIsListDownloaded] = useState(false)
   const [exchangeList, setExchangeList] = useState([])
@@ -49,5 +49,5 @@ function ExchangeLister() {
   )
 }
 
-export default React.memo(ExchangeLister)
+export default React.memo(ExchangeList)
 
