@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
+import SymbolScreen from './symbol-sub/SymbolScreen'
 
 class Home extends Component {
   constructor(props) {
@@ -11,7 +13,7 @@ class Home extends Component {
 
   render() {
     return <div>
-      <h1>Finnhub Stocks</h1>
+      <h1>Dan's Finnhub Stocks</h1>
     </div>
   }
 }

@@ -5,9 +5,9 @@ function Paginator(props) {
     const rightArrow = "-->"
 
     return (
-        <div>
+        <div className='paginator'>
             <button onClick={() => props.changeCurrentPage(false)}>{leftArrow}</button>
-            page: {props.currentPage}
+            page: {`${props.currentPage} `} 
             <select onChange={(e) => props.changePaginateAmount(e.target.value)} >
                 <option value={25}>25</option>
                 <option value={50}>50</option>
