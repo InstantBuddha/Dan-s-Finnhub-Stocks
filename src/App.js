@@ -15,10 +15,10 @@ function App() {
       <div className='mainWrapper'>
         <Routes>
           <Route exact path="/" element={<Home />} />
-          <Route exact path="/stock-market/US/:symbol" element={<SymbolScreen />} />
           <Route exact path='/:exchange' element={<ExchangeList />} />
           <Route exact path='/:exchangeType/:market' element={<SymbolList />} />
-          <Route exact path="/:exchangeType/:market/:symbol" element={<UniSymbolScreen />} />
+          <Route exact path="/:exchangeType/:market/:symbol" element={<UniSymbolScreen />} />          
+          <Route exact path="/stock-market/US/:symbol" element={<SymbolScreen />} />
         </Routes>
       </div>
     </div>
