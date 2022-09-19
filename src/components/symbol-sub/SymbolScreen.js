@@ -1,6 +1,6 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
-import { useState, useEffect, useRef } from "react"
+import { useState, useEffect} from "react"
 import SymbolInformation from './SymbolInformation'
 import SymbolPrices from './SymbolPrices'
 import SymbolTitle from './SymbolTitle'
@@ -11,7 +11,7 @@ function SymbolScreen() {
   const [isCompanyDataDownloaded, setIsCompanyDataDownloaded] = useState(false)
   const [companyData, setCompanyData] = useState({})
 
-  const fetchData = async () => {      
+  const fetchData = async () => {
     await fetchCompanyDetails(symbol)
       .then(response => {
         setCompanyData(response.data)
@@ -20,20 +20,27 @@ function SymbolScreen() {
       .catch(error => { console.log(error) })
   }
 
-  useEffect(() => {    
+  useEffect(() => {
     fetchData()
   }, [])
 
   return (
     <div className='centerWrapper'>
-      <SymbolTitle companyData={companyData} />
-      <div className='gridContainer responsiveGrid'>
+      {isCompanyDataDownloaded ?
+        <div>
+          <SymbolTitle companyData={companyData} />
+          <div className='gridContainer responsiveGrid'>
 
-        <SymbolInformation companyData={companyData} />
-        <SymbolPrices company={symbol}
-          currency={companyData.currency}
-        />
-      </div>
+            <SymbolInformation companyData={companyData} />
+            <SymbolPrices company={symbol}
+              currency={companyData.currency}
+            />
+          </div>
+        </div>
+      :
+        <p>Downloading data for {symbol}</p>
+      }
+
     </div>
 
   )
