@@ -4,16 +4,18 @@ import FavCard from './FavCard'
 
 const defaultFavList = [
     {symbol: "TSLA", type: favTypes.company},
-    {symbol: "APPL", type: favTypes.company}
+    {symbol: "AAPL", type: favTypes.company}
 ]
 
 const displayFavList = (listToDisplay) =>{
   return listToDisplay.map(
-    favItem => <FavCard symbol={favItem.symbol}/>
+    favItem => <FavCard 
+                  key={favItem.symbol}
+                  symbol={favItem.symbol}/>
   )
 }
 export default function FavList() {
   return (
-    <div>{displayFavList(defaultFavList)}</div>
+    <div className='favList'>{displayFavList(defaultFavList)}</div>
   )
 }
