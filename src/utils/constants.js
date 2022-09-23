@@ -9,3 +9,9 @@ export const changeSymbols = {
     decrease: <p>&#9660;</p>,
     noChange: <p> </p>
   }
+
+export const favTypes = {
+    company: "company",
+    crypto: "crypto",
+    forex: "forex"
+}  
