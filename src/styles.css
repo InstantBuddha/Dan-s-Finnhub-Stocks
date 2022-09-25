@@ -56,6 +56,19 @@ body {
     top: 0.5rem
 }
 
+.favList {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.favCard {
+    width: fit-content;
+    padding: 1rem;
+    margin: 1rem;
+    border: 2px solid black;
+    border-radius: 5px;
+}
+
 .smallIcon {
     height: 1rem;
     margin-top: 0.1rem;
@@ -79,7 +92,6 @@ input {
     border: 1px solid;
     border-radius: 0.30rem;
 }
-
 
 .cardWrapper {
     border: 1px solid;
@@ -148,6 +160,16 @@ input {
         display: none;
     }
     
+    .favList {
+        flex-direction: column;
+        flex-wrap: nowrap;
+        }
+
+    .favCard {
+        width: 80%;
+        margin: 0.5rem auto;
+    }
+
     .centerWrapper {
         width: 96%;
     }

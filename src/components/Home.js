@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
+import FavList from './favourites/FavList'
 import SymbolScreen from './symbol-sub/SymbolScreen'
 
 class Home extends Component {
@@ -13,7 +14,8 @@ class Home extends Component {
 
   render() {
     return <div>
-      <h1>Dan's Finnhub Stocks</h1>
+      <div><h1>Dan's Finnhub Stocks</h1></div>
+      <FavList />
     </div>
   }
 }
