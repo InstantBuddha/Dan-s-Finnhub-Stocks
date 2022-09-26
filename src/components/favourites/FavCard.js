@@ -1,32 +1,42 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
-import { fetchCompanyDetails } from '../../services/StockApiService'
+import { fetchCompanyDetails, fetchCompanyQuote } from '../../services/StockApiService'
+import FavCardContent from './FavCardContent'
 
 function FavCard(props) {
-  const [isCompanyDataDownloaded, setIsCompanyDataDownloaded] = useState(false)
   const [companyData, setCompanyData] = useState({})
+  const [quoteData, setQuoteData] = useState({})
 
   const fetchData = async () => {
     await fetchCompanyDetails(props.symbol)
       .then(response => {
         setCompanyData(response.data)
-        setIsCompanyDataDownloaded(true)
       })
       .catch(error => { console.log(error) })
   }
 
+  const fetchQuoteData = async () => {
+    await fetchCompanyQuote(props.symbol)
+    .then(response => {
+      setQuoteData(response.data)
+    })
+    .catch(error => { console.log(error) })
+  }
+
   useEffect(() => {
     fetchData()
+    fetchQuoteData()
   }, [])
 
-  console.log(companyData)
+  console.log(companyData, quoteData)
   return (
     <div className='favCard'>
-      {isCompanyDataDownloaded ?
-        <div>
-          <h1>{props.symbol}</h1>
-          <h2>{companyData.name}</h2>
-        </div>
+      { companyData.name && quoteData.c ?
+        <FavCardContent logo={companyData.logo}
+              name={companyData.name}
+              price={quoteData.c}
+              currency={companyData.currency}
+              change={quoteData.dp} />
       :
         <p>Downloading data for {props.symbol}</p>
       }
@@ -36,4 +46,4 @@ function FavCard(props) {
   )
 }
 
-export default React.memo(FavCard)
+export default FavCard
