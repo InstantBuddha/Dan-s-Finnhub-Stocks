@@ -36,6 +36,7 @@ function SymbolScreen() {
               currency={companyData.currency}
             />
           </div>
+          <button className='favButton'>A</button>
         </div>
       :
         <p>Downloading data for {symbol}</p>
