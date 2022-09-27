@@ -28,7 +28,6 @@ function FavCard(props) {
     fetchQuoteData()
   }, [])
 
-  console.log(companyData, quoteData)
   return (
     <div className='favCard'>
       { companyData.name && quoteData.c ?

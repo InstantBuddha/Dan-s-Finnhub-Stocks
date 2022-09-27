@@ -1,21 +1,19 @@
-import React from 'react'
-import { favTypes } from '../../utils/Constants'
+import React, { useState } from 'react'
+import { getFromLocalStorage } from '../../utils/UseLocalStorage'
 import FavCard from './FavCard'
 
-const defaultFavList = [
-    {symbol: "TSLA", type: favTypes.company},
-    {symbol: "AAPL", type: favTypes.company}
-]
-
-const displayFavList = (listToDisplay) =>{
-  return listToDisplay.map(
-    favItem => <FavCard 
-                  key={favItem.symbol}
-                  symbol={favItem.symbol}/>
-  )
-}
 export default function FavList() {
+  const [favouritesList, setFavouritesList] = useState(getFromLocalStorage)
+
+  const displayFavList = (listToDisplay) =>{
+    return listToDisplay.map(
+      favItem => <FavCard 
+                    key={favItem.symbol}
+                    symbol={favItem.symbol}/>
+    )
+  }
+
   return (
-    <div className='favList'>{displayFavList(defaultFavList)}</div>
+    <div className='favList'>{displayFavList(favouritesList)}</div>
   )
 }

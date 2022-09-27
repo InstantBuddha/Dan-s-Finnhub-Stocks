@@ -5,6 +5,8 @@ import SymbolInformation from './SymbolInformation'
 import SymbolPrices from './SymbolPrices'
 import SymbolTitle from './SymbolTitle'
 import { fetchCompanyDetails } from '../../services/StockApiService'
+import { addToLocalStorage } from '../../utils/UseLocalStorage'
+import {favTypes} from "../../utils/Constants"
 
 function SymbolScreen() {
   const { symbol } = useParams()
@@ -36,7 +38,8 @@ function SymbolScreen() {
               currency={companyData.currency}
             />
           </div>
-          <button className='favButton'>A</button>
+          <button className='favButton'
+                  onClick={()=> addToLocalStorage({symbol: symbol, type: favTypes.company})}>A</button>
         </div>
       :
         <p>Downloading data for {symbol}</p>
