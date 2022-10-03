@@ -17,7 +17,7 @@ function SymbolScreen() {
     await fetchCompanyDetails(symbol)
       .then(response => {
         setCompanyData(response.data)
-        setIsCompanyDataDownloaded(true)
+        if(response.data.name){setIsCompanyDataDownloaded(true)}
       })
       .catch(error => { console.log(error) })
   }

@@ -18,10 +18,10 @@ function FavCard(props) {
 
   const fetchQuoteData = async () => {
     await fetchCompanyQuote(props.symbol)
-    .then(response => {
-      setQuoteData(response.data)
-    })
-    .catch(error => { console.log(error) })
+      .then(response => {
+        setQuoteData(response.data)
+      })
+      .catch(error => { console.log(error) })
   }
 
   useEffect(() => {
@@ -29,28 +29,28 @@ function FavCard(props) {
     fetchQuoteData()
   }, [])
 
-  const onDelete = ()=>{
-    console.log("onDelete")
+  const onDelete = () => {
     deleteFromFavourites(props.symbol)
     props.updateFavList()
   }
 
   return (
     <div className='favCard'>
-      { companyData.name && quoteData.c ?
+      {companyData.name && quoteData.c ?
         <FavCardContent logo={companyData.logo}
-              key={props.symbol}
-              symbol={props.symbol}
-              name={companyData.name}
-              price={quoteData.c}
-              currency={companyData.currency}
-              change={quoteData.dp}
-              onDelete={onDelete} />
-      :
+          key={props.symbol}
+          symbol={props.symbol}
+          name={companyData.name}
+          price={quoteData.c}
+          currency={companyData.currency}
+          change={quoteData.dp}
+          onDelete={onDelete} />
+        :
         <p>Downloading data for {props.symbol}</p>
       }
+      <button className='favButton'
+        onClick={onDelete}>R</button>
 
-      
     </div>
   )
 }

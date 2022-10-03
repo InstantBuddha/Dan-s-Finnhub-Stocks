@@ -23,10 +23,7 @@ function FavCardContent(props) {
           <div className='favCompInfo'><p>{props.change}%  </p></div>
           <div className='favCompInfo'>{changeSymbol()}</div>
         </div>
-
       </div>
-      <button className='favButton' 
-              onClick={props.onDelete}>R</button>
     </div>
   )
 }

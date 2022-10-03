@@ -12,8 +12,15 @@ export const getFromLocalStorage = () => {
 }
 
 export const addToLocalStorage = (itemToAdd) => {
-    let favouritesString = getFromLocalStorage().concat(itemToAdd)
-    localStorage.setItem("favourites", JSON.stringify(favouritesString))
+    if(!isItemThere(itemToAdd)){
+        let favouritesString = getFromLocalStorage().concat(itemToAdd)
+        localStorage.setItem("favourites", JSON.stringify(favouritesString))
+    }
+    
+}
+
+const isItemThere = (itemToCheck) => {
+    return getFromLocalStorage().find( item =>{return item.symbol === itemToCheck.symbol})
 }
 
 export const deleteFromFavourites = (itemToRemove) => {
