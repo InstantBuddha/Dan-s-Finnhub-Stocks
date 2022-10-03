@@ -7,6 +7,7 @@ import SymbolTitle from './SymbolTitle'
 import { fetchCompanyDetails } from '../../services/StockApiService'
 import { addToLocalStorage } from '../../utils/UseLocalStorage'
 import {favTypes} from "../../utils/Constants"
+import { ReactComponent as AddIcon } from '../../assets/svg/add.svg'
 
 function SymbolScreen() {
   const { symbol } = useParams()
@@ -38,8 +39,11 @@ function SymbolScreen() {
               currency={companyData.currency}
             />
           </div>
-          <button className='favButton'
-                  onClick={()=> addToLocalStorage({symbol: symbol, type: favTypes.company})}>A</button>
+          <button className='addButton'
+                  onClick={()=> addToLocalStorage({symbol: symbol, type: favTypes.company})}
+                  title="Add to favourites" >
+                    <AddIcon className='addIcon'/>
+                  </button>
         </div>
       :
         <p>Downloading data for {symbol}</p>

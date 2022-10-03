@@ -1,6 +1,5 @@
 import React from 'react'
 import { changeSymbols } from '../../utils/Constants'
-import { deleteFromFavourites } from '../../utils/UseLocalStorage'
 
 function FavCardContent(props) {
   const changeSymbol = () => {

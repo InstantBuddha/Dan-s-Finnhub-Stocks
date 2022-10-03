@@ -1,9 +1,4 @@
-import { favTypes } from "./Constants"
-
-const defaultFavList = [
-    { symbol: "TSLA", type: favTypes.company },
-    { symbol: "AAPL", type: favTypes.company }
-]
+import { favTypes, defaultFavList } from "./Constants"
 
 export const getFromLocalStorage = () => {
     const storedFavourites = JSON.parse(localStorage.getItem("favourites"))

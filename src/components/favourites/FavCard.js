@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react'
 import { fetchCompanyDetails, fetchCompanyQuote } from '../../services/StockApiService'
 import { deleteFromFavourites } from '../../utils/UseLocalStorage'
 import FavCardContent from './FavCardContent'
+import { ReactComponent as TrashIcon } from '../../assets/svg/trash.svg'
 
 function FavCard(props) {
   const [companyData, setCompanyData] = useState({})
@@ -49,7 +50,10 @@ function FavCard(props) {
         <p>Downloading data for {props.symbol}</p>
       }
       <button className='favButton'
-        onClick={onDelete}>R</button>
+        onClick={onDelete}
+        title="Delete item">
+          <TrashIcon className='smallIcon'/>
+        </button>
 
     </div>
   )
