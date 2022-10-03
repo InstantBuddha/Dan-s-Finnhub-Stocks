@@ -187,6 +187,7 @@ input {
 @media only screen and (orientation: portrait) {
     .navbar {
         height: auto;
+        z-index: 5000;
     }
 
     .navLink {
