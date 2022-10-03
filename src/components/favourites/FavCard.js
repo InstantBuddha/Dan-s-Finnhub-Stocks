@@ -1,6 +1,7 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
 import { fetchCompanyDetails, fetchCompanyQuote } from '../../services/StockApiService'
+import { deleteFromFavourites } from '../../utils/UseLocalStorage'
 import FavCardContent from './FavCardContent'
 
 function FavCard(props) {
@@ -28,14 +29,23 @@ function FavCard(props) {
     fetchQuoteData()
   }, [])
 
+  const onDelete = ()=>{
+    console.log("onDelete")
+    deleteFromFavourites(props.symbol)
+    props.updateFavList()
+  }
+
   return (
     <div className='favCard'>
       { companyData.name && quoteData.c ?
         <FavCardContent logo={companyData.logo}
+              key={props.symbol}
+              symbol={props.symbol}
               name={companyData.name}
               price={quoteData.c}
               currency={companyData.currency}
-              change={quoteData.dp} />
+              change={quoteData.dp}
+              onDelete={onDelete} />
       :
         <p>Downloading data for {props.symbol}</p>
       }

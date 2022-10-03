@@ -15,3 +15,11 @@ export const addToLocalStorage = (itemToAdd) => {
     let favouritesString = getFromLocalStorage().concat(itemToAdd)
     localStorage.setItem("favourites", JSON.stringify(favouritesString))
 }
+
+export const deleteFromFavourites = (itemToRemove) => {
+    function removeItem(){
+        return getFromLocalStorage().filter((obj) => obj.symbol !== itemToRemove)
+    }
+    localStorage.setItem("favourites", JSON.stringify(removeItem()))
+}
+

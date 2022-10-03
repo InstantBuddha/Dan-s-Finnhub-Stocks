@@ -1,5 +1,6 @@
 import React from 'react'
 import { changeSymbols } from '../../utils/Constants'
+import { deleteFromFavourites } from '../../utils/UseLocalStorage'
 
 function FavCardContent(props) {
   const changeSymbol = () => {
@@ -24,7 +25,8 @@ function FavCardContent(props) {
         </div>
 
       </div>
-      <button className='favButton'>R</button>
+      <button className='favButton' 
+              onClick={props.onDelete}>R</button>
     </div>
   )
 }
