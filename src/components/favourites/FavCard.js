@@ -1,39 +1,62 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
-import { fetchCompanyDetails } from '../../services/StockApiService'
+import { fetchCompanyDetails, fetchCompanyQuote } from '../../services/StockApiService'
+import { deleteFromFavourites } from '../../utils/UseLocalStorage'
+import FavCardContent from './FavCardContent'
+import { ReactComponent as TrashIcon } from '../../assets/svg/trash.svg'
 
 function FavCard(props) {
-  const [isCompanyDataDownloaded, setIsCompanyDataDownloaded] = useState(false)
   const [companyData, setCompanyData] = useState({})
+  const [quoteData, setQuoteData] = useState({})
 
   const fetchData = async () => {
     await fetchCompanyDetails(props.symbol)
       .then(response => {
         setCompanyData(response.data)
-        setIsCompanyDataDownloaded(true)
+      })
+      .catch(error => { console.log(error) })
+  }
+
+  const fetchQuoteData = async () => {
+    await fetchCompanyQuote(props.symbol)
+      .then(response => {
+        setQuoteData(response.data)
       })
       .catch(error => { console.log(error) })
   }
 
   useEffect(() => {
     fetchData()
+    fetchQuoteData()
   }, [])
 
-  console.log(companyData)
+  const onDelete = () => {
+    deleteFromFavourites(props.symbol)
+    props.updateFavList()
+  }
+
   return (
     <div className='favCard'>
-      {isCompanyDataDownloaded ?
-        <div>
-          <h1>{props.symbol}</h1>
-          <h2>{companyData.name}</h2>
-        </div>
-      :
+      {companyData.name && quoteData.c ?
+        <FavCardContent logo={companyData.logo}
+          key={props.symbol}
+          symbol={props.symbol}
+          name={companyData.name}
+          price={quoteData.c}
+          currency={companyData.currency}
+          change={quoteData.dp}
+          onDelete={onDelete} />
+        :
         <p>Downloading data for {props.symbol}</p>
       }
+      <button className='favButton'
+        onClick={onDelete}
+        title="Delete item">
+          <TrashIcon className='smallIcon'/>
+        </button>
 
-      
     </div>
   )
 }
 
-export default React.memo(FavCard)
+export default FavCard

@@ -17,6 +17,7 @@ body {
     margin: 0 auto;
     width: 50%;
     background-color: rgba(201, 201, 201, 0.3);
+    position: relative;
 }
 
 
@@ -63,15 +64,56 @@ body {
 
 .favCard {
     width: fit-content;
-    padding: 1rem;
-    margin: 1rem;
+    padding: 0.5rem;
+    margin: 0.2rem;
     border: 2px solid black;
     border-radius: 5px;
+    position: relative;
+}
+
+.favContentWrapper {
+    display: flex;
+    flex-direction: row;    
+}
+
+.favCompLogo {
+    width: 100%;
+    height: auto;
+    object-fit: fill;
+    padding-right: 3rem;
+}
+
+.favCompInfo {
+    margin: 0 0 0 0.2rem;
+}
+
+.favButton {
+    position: absolute;
+    right: 0;
+    bottom: 0.3rem;
 }
 
 .smallIcon {
     height: 1rem;
     margin-top: 0.1rem;
+}
+
+.addButton {
+    position: absolute;
+    right: 0.8rem;
+    bottom: 1rem;
+    border-radius: 50%;
+    border: 10px;
+    height: 3rem;
+    width: 3rem;
+    cursor: pointer;
+    background-color: #1db954;
+    padding: 0;    
+}
+
+.addIcon {
+    width: 100%;
+    height: 100%; 
 }
 
 .searchBarMain {
@@ -145,6 +187,7 @@ input {
 @media only screen and (orientation: portrait) {
     .navbar {
         height: auto;
+        z-index: 5000;
     }
 
     .navLink {

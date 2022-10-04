@@ -5,6 +5,9 @@ import SymbolInformation from './SymbolInformation'
 import SymbolPrices from './SymbolPrices'
 import SymbolTitle from './SymbolTitle'
 import { fetchCompanyDetails } from '../../services/StockApiService'
+import { addToLocalStorage } from '../../utils/UseLocalStorage'
+import {favTypes} from "../../utils/Constants"
+import { ReactComponent as AddIcon } from '../../assets/svg/add.svg'
 
 function SymbolScreen() {
   const { symbol } = useParams()
@@ -15,7 +18,7 @@ function SymbolScreen() {
     await fetchCompanyDetails(symbol)
       .then(response => {
         setCompanyData(response.data)
-        setIsCompanyDataDownloaded(true)
+        if(response.data.name){setIsCompanyDataDownloaded(true)}
       })
       .catch(error => { console.log(error) })
   }
@@ -36,6 +39,11 @@ function SymbolScreen() {
               currency={companyData.currency}
             />
           </div>
+          <button className='addButton'
+                  onClick={()=> addToLocalStorage({symbol: symbol, type: favTypes.company})}
+                  title="Add to favourites" >
+                    <AddIcon className='addIcon'/>
+                  </button>
         </div>
       :
         <p>Downloading data for {symbol}</p>
