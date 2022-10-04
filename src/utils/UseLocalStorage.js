@@ -1,4 +1,4 @@
-import { favTypes, defaultFavList } from "./Constants"
+import { defaultFavList } from "./Constants"
 
 export const getFromLocalStorage = () => {
     const storedFavourites = JSON.parse(localStorage.getItem("favourites"))
@@ -7,21 +7,18 @@ export const getFromLocalStorage = () => {
 }
 
 export const addToLocalStorage = (itemToAdd) => {
-    if(!isItemThere(itemToAdd)){
-        let favouritesString = getFromLocalStorage().concat(itemToAdd)
-        localStorage.setItem("favourites", JSON.stringify(favouritesString))
-    }
-    
+    if (isAlreadyAdded(itemToAdd)) { return }
+    let favouritesString = getFromLocalStorage().concat(itemToAdd)
+    localStorage.setItem("favourites", JSON.stringify(favouritesString))
 }
 
-const isItemThere = (itemToCheck) => {
-    return getFromLocalStorage().find( item =>{return item.symbol === itemToCheck.symbol})
+const isAlreadyAdded = (itemToCheck) => {
+    return getFromLocalStorage().find(item => { return item.symbol === itemToCheck.symbol })
 }
 
 export const deleteFromFavourites = (itemToRemove) => {
-    function removeItem(){
-        return getFromLocalStorage().filter((obj) => obj.symbol !== itemToRemove)
-    }
-    localStorage.setItem("favourites", JSON.stringify(removeItem()))
+
+    const updatedFavourites = getFromLocalStorage().filter((obj) => obj.symbol !== itemToRemove)
+    localStorage.setItem("favourites", JSON.stringify(updatedFavourites))
 }
 
