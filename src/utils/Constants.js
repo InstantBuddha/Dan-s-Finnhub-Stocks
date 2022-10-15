@@ -5,8 +5,8 @@ export const directions = {
 }
 
 export const changeSymbols = {
-    increase: <p>&#9650;</p>,
-    decrease: <p>&#9660;</p>,
+    increase: <p style={{color: "green"}}>&#9650;</p>,
+    decrease: <p style={{color: "red"}}>&#9660;</p>,
     noChange: <p> </p>
   }
 
