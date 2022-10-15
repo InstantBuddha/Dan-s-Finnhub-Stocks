@@ -18,5 +18,7 @@ export const favTypes = {
 
 export const defaultFavList = [
     { symbol: "TSLA", type: favTypes.company },
-    { symbol: "AAPL", type: favTypes.company }
+    { symbol: "AAPL", type: favTypes.company },
+    { symbol: "MSFT", type: favTypes.company },
+    { symbol: "GOOGL", type: favTypes.company }
 ]

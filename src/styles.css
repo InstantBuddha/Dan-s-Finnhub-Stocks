@@ -85,6 +85,14 @@ body {
 
 .favCompInfo {
     margin: 0 0 0 0.2rem;
+    margin-right: 1rem;
+}
+
+.favCompLink {
+    font-size: larger;
+    text-decoration: none;
+    font-weight: bold;
+    color: black;
 }
 
 .favButton {
