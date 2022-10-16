@@ -1,5 +1,6 @@
 import React from 'react'
 import { changeSymbols } from '../../utils/Constants'
+import { Link } from 'react-router-dom'
 
 function FavCardContent(props) {
   const changeSymbol = () => {
@@ -16,7 +17,9 @@ function FavCardContent(props) {
           className='favCompLogo' />
       </div>
       <div className='favCompInfo'>
-        <h2 className='favCompInfo'>{props.name}</h2>
+        <Link to={`/stock-market/US/${props.symbol}`} 
+              className="favCompInfo favCompLink"
+              title="Open Datasheet" >{props.name}</Link>
         <h3 className='favCompInfo'>{props.price} {props.currency}</h3>
         <div className='favContentWrapper favCompInfo'>
           <div className='favCompInfo'><p>{props.change}%  </p></div>

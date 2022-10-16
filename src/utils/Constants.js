@@ -5,8 +5,8 @@ export const directions = {
 }
 
 export const changeSymbols = {
-    increase: <p>&#9650;</p>,
-    decrease: <p>&#9660;</p>,
+    increase: <p style={{color: "green"}}>&#9650;</p>,
+    decrease: <p style={{color: "red"}}>&#9660;</p>,
     noChange: <p> </p>
   }
 
@@ -18,5 +18,7 @@ export const favTypes = {
 
 export const defaultFavList = [
     { symbol: "TSLA", type: favTypes.company },
-    { symbol: "AAPL", type: favTypes.company }
+    { symbol: "AAPL", type: favTypes.company },
+    { symbol: "MSFT", type: favTypes.company },
+    { symbol: "GOOGL", type: favTypes.company }
 ]

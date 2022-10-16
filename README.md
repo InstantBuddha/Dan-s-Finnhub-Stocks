@@ -2,6 +2,8 @@
 
 This app was created to showcase my practical knowledge of React and other technologies. I focus on writing clean and concise code.
 
+[Open the live demo on Netlify](https://keen-zabaione-726f0d.netlify.app/)
+
 ## Overview
 
 Presently three subpages are available from the NavBar:

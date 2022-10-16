@@ -85,6 +85,14 @@ body {
 
 .favCompInfo {
     margin: 0 0 0 0.2rem;
+    margin-right: 1rem;
+}
+
+.favCompLink {
+    font-size: larger;
+    text-decoration: none;
+    font-weight: bold;
+    color: black;
 }
 
 .favButton {
@@ -108,7 +116,13 @@ body {
     width: 3rem;
     cursor: pointer;
     background-color: #1db954;
-    padding: 0;    
+    padding: 10px;
+    transition: 0.2s all;    
+}
+
+button:active {
+    transform: scale(0.8);
+    box-shadow: 3px 2px 22px 1px rgba(0, 0, 0, 0.24);
 }
 
 .addIcon {
