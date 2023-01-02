@@ -2,7 +2,10 @@ import React from 'react'
 
 function SearchMessage(props) {
   return (
-    <h2>{props.message}</h2>
+    <div className='message error'>
+      <span className="closebtn">&times;</span>
+      {props.message}
+    </div>
   )
 }
 

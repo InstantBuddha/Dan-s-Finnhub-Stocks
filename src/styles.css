@@ -1,237 +1,262 @@
 body {
-    margin: 0;
-    background-color: #fff;
-    background-image: url("https://www.transparenttextures.com/patterns/shattered-dark.png");
+  margin: 0;
+  background-color: #fff;
+  background-image: url("https://www.transparenttextures.com/patterns/shattered-dark.png");
 }
 
 .App {
-    text-align: center;
+  text-align: center;
 }
 
 .mainWrapper {
-    margin-top: 3rem;
-    padding-top: 0.5rem;
+  margin-top: 3rem;
+  padding-top: 0.5rem;
 }
 
 .centerWrapper {
-    margin: 0 auto;
-    width: 50%;
-    background-color: rgba(201, 201, 201, 0.3);
-    position: relative;
+  margin: 0 auto;
+  width: 50%;
+  background-color: rgba(201, 201, 201, 0.3);
+  position: relative;
 }
 
-
 .navbar {
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    background-color: #333;
-    position: fixed;
-    top: 0;
-    width: 100%;
-    height: 3rem;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 3rem;
 }
 
 .navLink {
-    float: left;
-    font-size: larger;
-    padding: 1rem;
-    display: block;
-    color: white;
-    text-align: center;
-    text-decoration: none;
+  float: left;
+  font-size: larger;
+  padding: 1rem;
+  display: block;
+  color: white;
+  text-align: center;
+  text-decoration: none;
 }
 
 .homeLink {
-    background-color: #1db954;
+  background-color: #1db954;
 }
 
 .navLink:hover {
-    background-color: #111;
+  background-color: #111;
 }
 
 .navToggleBtn {
-    display: none;
-    position: absolute;
-    right: 0.5rem;
-    top: 0.5rem
+  display: none;
+  position: absolute;
+  right: 0.5rem;
+  top: 0.5rem;
 }
 
 .favList {
-    display: flex;
-    flex-wrap: wrap;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .favCard {
-    width: fit-content;
-    padding: 0.5rem;
-    margin: 0.2rem;
-    border: 2px solid black;
-    border-radius: 5px;
-    position: relative;
+  width: fit-content;
+  padding: 0.5rem;
+  margin: 0.2rem;
+  border: 2px solid black;
+  border-radius: 5px;
+  position: relative;
 }
 
 .favContentWrapper {
-    display: flex;
-    flex-direction: row;    
+  display: flex;
+  flex-direction: row;
 }
 
 .favCompLogo {
-    width: 100%;
-    height: auto;
-    object-fit: fill;
-    padding-right: 3rem;
+  width: 100%;
+  height: auto;
+  object-fit: fill;
+  padding-right: 3rem;
 }
 
 .favCompInfo {
-    margin: 0 0 0 0.2rem;
-    margin-right: 1rem;
+  margin: 0 0 0 0.2rem;
+  margin-right: 1rem;
 }
 
 .favCompLink {
-    font-size: larger;
-    text-decoration: none;
-    font-weight: bold;
-    color: black;
+  font-size: larger;
+  text-decoration: none;
+  font-weight: bold;
+  color: black;
 }
 
 .favButton {
-    position: absolute;
-    right: 0;
-    bottom: 0.3rem;
+  position: absolute;
+  right: 0;
+  bottom: 0.3rem;
 }
 
 .smallIcon {
-    height: 1rem;
-    margin-top: 0.1rem;
+  height: 1rem;
+  margin-top: 0.1rem;
 }
 
 .addButton {
-    position: absolute;
-    right: 0.8rem;
-    bottom: 1rem;
-    border-radius: 50%;
-    border: 10px;
-    height: 3rem;
-    width: 3rem;
-    cursor: pointer;
-    background-color: #1db954;
-    padding: 10px;
-    transition: 0.2s all;    
+  position: absolute;
+  right: 0.8rem;
+  bottom: 1rem;
+  border-radius: 50%;
+  border: 10px;
+  height: 3rem;
+  width: 3rem;
+  cursor: pointer;
+  background-color: #1db954;
+  padding: 10px;
+  transition: 0.2s all;
 }
 
 button:active {
-    transform: scale(0.8);
-    box-shadow: 3px 2px 22px 1px rgba(0, 0, 0, 0.24);
+  transform: scale(0.8);
+  box-shadow: 3px 2px 22px 1px rgba(0, 0, 0, 0.24);
 }
 
 .addIcon {
-    width: 100%;
-    height: 100%; 
+  width: 100%;
+  height: 100%;
 }
 
 .searchBarMain {
-    padding: 0.5rem;
+  padding: 0.5rem;
 }
 
 .paginator {
-    padding-bottom: 0.5rem;
+  padding-bottom: 0.5rem;
 }
 
 button {
-    margin: 0 0.5rem 0 0.5rem;
-    border: 1px solid;
-    border-radius: 0.30rem;
+  margin: 0 0.5rem 0 0.5rem;
+  border: 1px solid;
+  border-radius: 0.3rem;
 }
 
 input {
-    border: 1px solid;
-    border-radius: 0.30rem;
+  border: 1px solid;
+  border-radius: 0.3rem;
 }
 
 .cardWrapper {
-    border: 1px solid;
-    padding: 0 0 1rem 0;
+  border: 1px solid;
+  padding: 0 0 1rem 0;
 }
 
 .cardWrapper h1 {
-    margin: 0.5rem 0 0 0;
+  margin: 0.5rem 0 0 0;
 }
 
 .gridContainer {
-    display: flex;
-    justify-content: center;
-    flex-direction: row;
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
 }
 
 .symbolCardGridItem {
-    font-weight: bold;
-    padding: 0 0.5rem 0 0.5rem;
+  font-weight: bold;
+  padding: 0 0.5rem 0 0.5rem;
 }
 
 .symbolCardGridItem a {
-    text-decoration: none;
-    color: black;
+  text-decoration: none;
+  color: black;
 }
 
-
 .cardWrapper:hover {
-    background-color: rgba(29, 185, 84, 0.8);
+  background-color: rgba(29, 185, 84, 0.8);
 }
 
 .symbolSubGridItem {
-    padding: 1rem;
+  padding: 1rem;
 }
 
 .leftAlignedInfo {
-    text-align: left;
+  text-align: left;
 }
 
 .companyLogo {
-    width: auto;
-    height: 100%;
-    object-fit: fill;
-    padding-right: 3rem;
+  width: auto;
+  height: 100%;
+  object-fit: fill;
+  padding-right: 3rem;
 }
 
 .importantText {
-    font-weight: bold;
+  font-weight: bold;
+}
+
+.message {
+  padding: 20px;
+  background-color: gray;
+  color: white;
+  opacity: 1;
+  transition: opacity 0.6s;
+  margin-bottom: 15px;
+}
+
+.message.info {background-color: #2196F3;}
+.message.error {background-color: #f44336;}
+
+.closebtn {
+  margin-left: 15px;
+  color: white;
+  font-weight: bold;
+  float: right;
+  font-size: 22px;
+  line-height: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.closebtn:hover {
+  color: black;
 }
 
 @media only screen and (orientation: portrait) {
-    .navbar {
-        height: auto;
-        z-index: 5000;
-    }
+  .navbar {
+    height: auto;
+    z-index: 5000;
+  }
 
-    .navLink {
-        padding: 0.5rem;
-        float: none;
-    }
+  .navLink {
+    padding: 0.5rem;
+    float: none;
+  }
 
-    .navToggleBtn{
-        display: block;
-    }
+  .navToggleBtn {
+    display: block;
+  }
 
-    .hidden{
-        display: none;
-    }
-    
-    .favList {
-        flex-direction: column;
-        flex-wrap: nowrap;
-        }
+  .hidden {
+    display: none;
+  }
 
-    .favCard {
-        width: 80%;
-        margin: 0.5rem auto;
-    }
+  .favList {
+    flex-direction: column;
+    flex-wrap: nowrap;
+  }
 
-    .centerWrapper {
-        width: 96%;
-    }
+  .favCard {
+    width: 80%;
+    margin: 0.5rem auto;
+  }
 
-    .responsiveGrid {
-        flex-direction: column;
-    }
+  .centerWrapper {
+    width: 96%;
+  }
+
+  .responsiveGrid {
+    flex-direction: column;
+  }
 }
