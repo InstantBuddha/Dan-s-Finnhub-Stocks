@@ -1,9 +1,12 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 function SearchMessage(props) {
+  //add onClick to change css to .hidden
+  const [ cssClassName, setCssClassName ] = useState("message error")
+
   return (
-    <div className='message error'>
-      <span className="closebtn">&times;</span>
+    <div className={cssClassName}>
+      <span className="closebtn" onClick={() => setCssClassName("hidden")}>&times;</span>
       {props.message}
     </div>
   )

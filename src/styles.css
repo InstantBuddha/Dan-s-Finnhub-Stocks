@@ -217,10 +217,15 @@ input {
   line-height: 20px;
   cursor: pointer;
   transition: 0.3s;
+  display: inherit;
 }
 
 .closebtn:hover {
   color: black;
+}
+
+.hidden {
+  display: none;
 }
 
 @media only screen and (orientation: portrait) {
@@ -236,10 +241,6 @@ input {
 
   .navToggleBtn {
     display: block;
-  }
-
-  .hidden {
-    display: none;
   }
 
   .favList {
