@@ -46,13 +46,18 @@ function SymbolList(props) {
       return <SearchMessage message={"Nothing found"} />
     } else {
       const symbols = searchResults.length > 0 ?
-        searchResults
+        paginationSlicer(searchResults)
         :
-        stockData.slice(currentPage * paginateAmount,
-          (currentPage + 1) * paginateAmount)
+        paginationSlicer(stockData)
 
       return mapSymbolResults(symbols)
     }
+  }
+
+  const paginationSlicer = (arrayToSlice) => {
+    console.log(arrayToSlice)
+    return arrayToSlice.slice(currentPage * paginateAmount,
+      (currentPage + 1) * paginateAmount)
   }
 
   const mapSymbolResults = (symbolsToMap) => {
@@ -107,19 +112,16 @@ function SymbolList(props) {
       {isListDownloaded ?
         <div>
           <Searchbar searchSymbol={updateSearchResult} />
-          {!isSearchPerformed &&
             <Paginator currentPage={currentPage}
               changeCurrentPage={changeCurrentPage}
               changePaginateAmount={changePaginateAmount} />
-          }
-
+          
           {displayContent()}
 
-          {!isSearchPerformed &&
             <Paginator currentPage={currentPage}
               changeCurrentPage={changeCurrentPage}
               changePaginateAmount={changePaginateAmount} />
-          }
+          
         </div>
         :
         <p>Downloading data...</p>
