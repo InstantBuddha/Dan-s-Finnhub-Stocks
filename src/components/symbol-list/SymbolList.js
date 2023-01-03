@@ -1,6 +1,7 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
 import { useEffect, useState } from 'react'
+import { useCallback } from 'react'
 import SymbolCard from './SymbolCard'
 import UniversalSymbolCard from '../universal/UniversalSymbolCard'
 import Searchbar from '../searchbar-paginator/Searchbar'
@@ -19,11 +20,7 @@ function SymbolList(props) {
   const [paginateAmount, setPaginateAmount] = useState(25)
   const [currentPage, setCurrentPage] = useState(0)
 
-  useEffect(() => {
-    fetchData()
-  }, [])
-
-  const fetchData = async () => {
+  const fetchData = useCallback(async () => {
     await fetchUniversalMarket(exchangeType, market)
       .then(response => {
         const flatStockData = response.data.flat().sort((a, b) => {
@@ -34,7 +31,11 @@ function SymbolList(props) {
         setIsListDownloaded(true)
       })
       .catch(error => { console.log(error) })
-  }
+  },[exchangeType, market])
+
+  useEffect(() => {
+    fetchData()
+  }, [fetchData])
 
   const updateSearchResult = (searchTerm) => {
     setSearchResults(updateSearchResults(searchTerm, stockData))
@@ -46,16 +47,16 @@ function SymbolList(props) {
       return <SearchMessage message={"Nothing found"} />
     } else {
       const symbols = searchResults.length > 0 ?
-        paginationSlicer(searchResults)
+        sliceForPagination(searchResults)
         :
-        paginationSlicer(stockData)
+        sliceForPagination(stockData)
 
       return mapSymbolResults(symbols)
     }
   }
 
-  const paginationSlicer = (arrayToSlice) => {
-    console.log(arrayToSlice)
+  const sliceForPagination = (arrayToSlice) => {
+    //console.log(arrayToSlice)
     return arrayToSlice.slice(currentPage * paginateAmount,
       (currentPage + 1) * paginateAmount)
   }
@@ -99,7 +100,7 @@ function SymbolList(props) {
       setIsListDownloaded(false)
       fetchData()
     }
-  })
+  },[exchangeType, presentExchange, fetchData])
 
   useEffect(() => {
     return () => {
