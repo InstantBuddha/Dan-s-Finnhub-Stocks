@@ -62,7 +62,6 @@ function UniSymbolScreen() {
     }
   }, [])
 
-  console.log(prices.newPrice)
   return (
     <div className='centerWrapper'>
       <UniSymbolTitle symbol={symbol} />
