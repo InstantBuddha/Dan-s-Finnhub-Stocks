@@ -1,11 +1,13 @@
-import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
-import {ReactComponent as MenuIcon} from '../../assets/svg/menu.svg'
-import { isWindowLandscape } from '../../utils/IsWindowLandscape'
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { ReactComponent as MenuIcon } from "../../assets/svg/menu.svg";
+import { isWindowLandscape } from "../../utils/IsWindowLandscape";
 
 export default function Navbar() {
-  const [navbarVisible, setNavbarVisible] = useState(false)
-  const [isWindowLandscapeBool, setIsWindowLandscapeBool] = useState(isWindowLandscape(window.innerWidth, window.innerHeight))
+  const [navbarVisible, setNavbarVisible] = useState(false);
+  const [isWindowLandscapeBool, setIsWindowLandscapeBool] = useState(
+    isWindowLandscape(window.innerWidth, window.innerHeight)
+  );
 
   const toggleNav = () => {
     setNavbarVisible(!navbarVisible);
@@ -13,14 +15,17 @@ export default function Navbar() {
 
   useEffect(() => {
     function handleResize() {
-      setIsWindowLandscapeBool(isWindowLandscape(window.innerWidth, window.innerHeight))
+      setIsWindowLandscapeBool(
+        isWindowLandscape(window.innerWidth, window.innerHeight)
+      );
     }
 
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  const linkItemClassname = (navbarVisible || isWindowLandscapeBool) ? 'navLink' : 'hidden'
+  const linkItemClassname =
+    navbarVisible || isWindowLandscapeBool ? "navLink" : "hidden";
 
   return (
     <div className='navbar'>
@@ -31,7 +36,6 @@ export default function Navbar() {
       <Link to="/stock-market/US" className={linkItemClassname} onClick={toggleNav}>Stock exchange</Link>
       <Link to="/crypto" className={linkItemClassname} onClick={toggleNav}>Crypto</Link>
       <Link to="/forex" className={linkItemClassname} onClick={toggleNav}>Forex</Link>
-
-    </div>
-  )
+      </div>
+  );
 }
