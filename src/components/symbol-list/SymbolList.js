@@ -7,7 +7,10 @@ import UniversalSymbolCard from "../universal/UniversalSymbolCard";
 import Searchbar from "../searchbar-paginator/Searchbar";
 import SearchMessage from "../searchbar-paginator/SearchMessage";
 import Paginator from "../searchbar-paginator/Paginator";
-import { fetchUniversalMarket } from "../../services/StockApiService";
+import {
+  abortController,
+  fetchUniversalMarket,
+} from "../../services/StockApiService";
 import { updateSearchResults } from "../../services/SearchServices";
 
 function SymbolList(props) {
@@ -104,11 +107,18 @@ function SymbolList(props) {
     ));
   };
 
+  const unmountCleanup = () => {
+    setIsSearchPerformed(false);
+    isListDownloaded && abortController.abort();
+    setIsListDownloaded(false)
+  };
+
   useEffect(() => {
     if (exchangeType !== presentExchange) {
       setIsListDownloaded(false);
     }
     fetchData();
+    return () => unmountCleanup();
   }, [exchangeType, presentExchange, fetchData]);
 
   return (
