@@ -1,13 +1,17 @@
-import React from 'react'
-import { changeSymbols } from '../../utils/Constants'
-import { Link } from 'react-router-dom'
+import React from "react";
+import { changeSymbols } from "../../utils/Constants";
+import { Link } from "react-router-dom";
 
 function FavCardContent(props) {
   const changeSymbol = () => {
-    if (props.change > 0) { return changeSymbols.increase }
-    if (props.change < 0) { return changeSymbols.decrease }
-    return changeSymbols.noChange
-  }
+    if (props.change > 0) {
+      return changeSymbols.increase;
+    }
+    if (props.change < 0) {
+      return changeSymbols.decrease;
+    }
+    return changeSymbols.noChange;
+  };
 
   return (
     <div className='favContentWrapper leftAlignedInfo'>
@@ -27,7 +31,7 @@ function FavCardContent(props) {
         </div>
       </div>
     </div>
-  )
+  );
 }
 
-export default React.memo(FavCardContent)
+export default React.memo(FavCardContent);

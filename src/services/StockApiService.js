@@ -2,6 +2,7 @@ import { paths, token } from "../utils/ApiUrlPaths";
 import axios from "axios";
 
 const tokenParam = {token: token}
+export const abortController = new AbortController();
 
 export async function fetchCompanyDetails(symbol) {
     let params = tokenParam
@@ -23,5 +24,6 @@ export async function fetchExchange(exchangeType){
 export async function fetchUniversalMarket(exchangeType, market){
     let params = tokenParam
     params.exchange = market
-    return axios.get(paths.symbolListerTypes[exchangeType], {params: params})
+    return axios.get(paths.symbolListerTypes[exchangeType], {params: params,
+        signal: abortController.signal})
 }
