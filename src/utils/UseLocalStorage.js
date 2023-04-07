@@ -12,8 +12,8 @@ export const addToLocalStorage = (itemToAdd) => {
     localStorage.setItem("favourites", JSON.stringify(favouritesString))
 }
 
-const isAlreadyAdded = (itemToCheck) => {
-    return getFromLocalStorage().find(item => { return item.symbol === itemToCheck.symbol })
+export const isAlreadyAdded = (itemToCheck) => {
+    return getFromLocalStorage().some(item => { return item.symbol === itemToCheck.symbol })
 }
 
 export const deleteFromFavourites = (itemToRemove) => {
