@@ -260,4 +260,9 @@ input {
   .responsiveGrid {
     flex-direction: column;
   }
+
+  .companyLogo {
+    height: 70%;
+    margin-top: 30%;
+  }
 }
