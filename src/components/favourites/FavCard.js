@@ -7,6 +7,7 @@ import {
 import { deleteFromFavourites } from "../../utils/UseLocalStorage";
 import FavCardContent from "./FavCardContent";
 import { ReactComponent as TrashIcon } from "../../assets/svg/trash.svg";
+import { ReactComponent as Spinner } from "../../assets/svg/spinner.svg";
 
 function FavCard(props) {
   const [companyData, setCompanyData] = useState({});
@@ -56,7 +57,7 @@ function FavCard(props) {
           onDelete={onDelete}
         />
       ) : (
-        <p>Downloading data for {props.symbol}</p>
+        <Spinner className="spinner spinner-small" />
       )}
       <button className="favButton" onClick={onDelete} title="Delete item">
         <TrashIcon className="smallIcon" />

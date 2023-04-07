@@ -10,7 +10,7 @@ function SymbolTitle(props) {
             <div>
                 <h1>{props.companyData.company}</h1>
                 <h2>{props.companyData.name}</h2>
-                <a href={props.companyData.weburl} target="_blank" >{props.companyData.weburl}</a>
+                <a href={props.companyData.weburl} target="_blank" rel="noreferrer" >{props.companyData.weburl}</a>
             </div>
 
         </div>

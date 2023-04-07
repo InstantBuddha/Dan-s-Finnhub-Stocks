@@ -23,7 +23,6 @@ function LastPrice(props) {
 
 
     useEffect(() => {
-        //this is for componentDidMount        
         socket.current = new WebSocket(socketData.url)
         socket.current.addEventListener("open", (event) => {
             socket.current.send(JSON.stringify(socketData.subscribeJSON))
@@ -57,7 +56,6 @@ function LastPrice(props) {
 
     useEffect(() => {
         return () => {
-            //this is for componentWillUnmount
             socket.current.send(JSON.stringify(socketData.unsubscribeJSON))
             socket.current.close()
         }
