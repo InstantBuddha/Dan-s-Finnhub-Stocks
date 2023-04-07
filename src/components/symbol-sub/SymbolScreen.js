@@ -64,7 +64,7 @@ function SymbolScreen() {
           </button>
         </div>
       ) : (
-        <Spinner className="spinner"/>
+        <Spinner className="spinner" />
       )}
     </div>
   );

@@ -7,6 +7,7 @@ import UniversalSymbolCard from "../universal/UniversalSymbolCard";
 import Searchbar from "../searchbar-paginator/Searchbar";
 import SearchMessage from "../searchbar-paginator/SearchMessage";
 import Paginator from "../searchbar-paginator/Paginator";
+import { ReactComponent as Spinner } from "../../assets/svg/spinner.svg";
 import {
   abortController,
   fetchUniversalMarket,
@@ -110,7 +111,7 @@ function SymbolList(props) {
   const unmountCleanup = () => {
     setIsSearchPerformed(false);
     isListDownloaded && abortController.abort();
-    setIsListDownloaded(false)
+    setIsListDownloaded(false);
   };
 
   useEffect(() => {
@@ -141,7 +142,7 @@ function SymbolList(props) {
           />
         </div>
       ) : (
-        <p>Downloading data...</p>
+        <Spinner className="spinner" />
       )}
     </div>
   );

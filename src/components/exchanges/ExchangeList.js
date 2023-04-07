@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import ExchangeCard from "./ExchangeCard";
 import { fetchExchange } from "../../services/StockApiService";
+import { ReactComponent as Spinner } from "../../assets/svg/spinner.svg";
 
 function ExchangeList() {
   const { exchange } = useParams();
@@ -39,7 +40,7 @@ function ExchangeList() {
 
   return (
     <div className="centerWrapper">
-      {isListDownloaded ? exchangeDisplayList : "Downloading list..."}
+      {isListDownloaded ? exchangeDisplayList : <Spinner className="spinner" />}
     </div>
   );
 }

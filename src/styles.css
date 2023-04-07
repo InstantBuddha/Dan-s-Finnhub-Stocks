@@ -253,8 +253,13 @@ input {
 .spinner {
   width: 3rem;
   height: auto;
-  margin-top: 3rem;
+  margin: 3rem 0 3rem 0;
   animation: rotate 2s linear infinite;
+}
+
+.spinner-small {
+  width: 2rem;
+  margin: 2rem 0 2rem 0;
 }
 
 @keyframes rotate {
