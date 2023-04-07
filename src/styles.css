@@ -39,10 +39,14 @@ body {
   color: white;
   text-align: center;
   text-decoration: none;
+  font-family: sans-serif;
+  font-size: 1.2rem;
+  font-weight: 500;
+  transition: background-color 0.2s ease-in-out;
 }
 
 .homeLink {
-  background-color: #1db954;
+  background: linear-gradient(to right, #1db954, #1aa63e);
 }
 
 .navLink:hover {
@@ -54,6 +58,13 @@ body {
   position: absolute;
   right: 0.5rem;
   top: 0.5rem;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.burgerIcon {
+  fill: whitesmoke;
 }
 
 .favList {
@@ -79,7 +90,8 @@ body {
   width: 100%;
   height: auto;
   object-fit: fill;
-  padding-right: 3rem;
+  margin-right: 3rem;
+  border-radius: 5px;
 }
 
 .favCompInfo {
@@ -97,12 +109,18 @@ body {
 .favButton {
   position: absolute;
   right: 0;
-  bottom: 0.3rem;
+  bottom: 0.5rem;
+  border: none;
+  padding: 8px;
+  border-radius: 5px;
+  cursor: pointer;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+  transition: all 0.3s ease;
+  background-color: #c8d1c8;
 }
 
 .smallIcon {
-  height: 1rem;
-  margin-top: 0.1rem;
+  height: 1.2rem;
 }
 
 .addButton {
@@ -205,8 +223,12 @@ input {
   margin-bottom: 15px;
 }
 
-.message.info {background-color: #2196F3;}
-.message.error {background-color: #f44336;}
+.message.info {
+  background-color: #2196f3;
+}
+.message.error {
+  background-color: #f44336;
+}
 
 .closebtn {
   margin-left: 15px;
@@ -237,10 +259,13 @@ input {
   .navLink {
     padding: 0.5rem;
     float: none;
+    font-size: 2rem;
+    font-weight: 350;
   }
 
   .navToggleBtn {
     display: block;
+    font-size:2rem;
   }
 
   .favList {

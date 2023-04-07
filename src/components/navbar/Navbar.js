@@ -43,7 +43,7 @@ function Navbar() {
   return (
     <nav className="navbar">
       <button onClick={toggleNav} className="navToggleBtn" ref={navbarRef}>
-        <MenuIcon className="smallIcon" />
+        <MenuIcon className="smallIcon burgerIcon" />
       </button>
       <Link to="/" className="navLink homeLink" onClick={closeNav}>
         Dan's finnhub lister
@@ -65,4 +65,4 @@ function Navbar() {
   );
 }
 
-export default Navbar
+export default Navbar;
