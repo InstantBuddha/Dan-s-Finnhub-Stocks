@@ -4,12 +4,12 @@ import { useState, useEffect } from "react";
 import SymbolInformation from "./SymbolInformation";
 import SymbolPrices from "./SymbolPrices";
 import SymbolTitle from "./SymbolTitle";
-//import { isAlreadyAdded } from "../../utils/UseLocalStorage";
 import { fetchCompanyDetails } from "../../services/StockApiService";
 import { addToLocalStorage, isAlreadyAdded } from "../../utils/UseLocalStorage";
 import { favTypes } from "../../utils/Constants";
 import { ReactComponent as AddIcon } from "../../assets/svg/add.svg";
 import { ReactComponent as AddedIcon } from "../../assets/svg/added.svg";
+import { ReactComponent as Spinner } from "../../assets/svg/spinner.svg";
 
 function SymbolScreen() {
   const { symbol } = useParams();
@@ -64,7 +64,7 @@ function SymbolScreen() {
           </button>
         </div>
       ) : (
-        <p>Downloading data for {symbol}</p>
+        <Spinner className="spinner"/>
       )}
     </div>
   );
