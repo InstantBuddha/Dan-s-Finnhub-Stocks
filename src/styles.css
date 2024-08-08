@@ -88,6 +88,7 @@ body {
 
 .favCompLogo {
   width: 100%;
+  max-width: 12rem;
   height: auto;
   object-fit: fill;
   margin-right: 3rem;
@@ -205,6 +206,7 @@ input {
 
 .companyLogo {
   width: auto;
+  max-width: 10rem;
   height: 100%;
   object-fit: fill;
   padding-right: 3rem;
