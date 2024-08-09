@@ -5,7 +5,11 @@ import SymbolInformation from "./SymbolInformation";
 import SymbolPrices from "./SymbolPrices";
 import SymbolTitle from "./SymbolTitle";
 import { fetchCompanyDetails } from "../../services/StockApiService";
-import { addToLocalStorage, isAlreadyAdded } from "../../utils/UseLocalStorage";
+import {
+  addToLocalStorage,
+  deleteFromFavourites,
+  isAlreadyAdded,
+} from "../../utils/UseLocalStorage";
 import { favTypes } from "../../utils/Constants";
 import { ReactComponent as AddIcon } from "../../assets/svg/add.svg";
 import { ReactComponent as AddedIcon } from "../../assets/svg/added.svg";
@@ -33,15 +37,18 @@ function SymbolScreen() {
   };
 
   const handleAddButton = () => {
-    addToLocalStorage({ symbol: symbol, type: favTypes.company });
-    setIsCompanyFav(true);
-  };
+    isCompanyFav
+      ? deleteFromFavourites(symbol)
+      : addToLocalStorage({ symbol: symbol, type: favTypes.company });
+    
+    setIsCompanyFav(!isCompanyFav);
+};
+
 
   useEffect(() => {
     fetchData();
   }, []);
 
-  console.log(isAlreadyAdded({ symbol: symbol }));
   return (
     <div className="centerWrapper">
       {isCompanyDataDownloaded ? (

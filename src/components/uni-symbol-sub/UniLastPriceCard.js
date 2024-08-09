@@ -1,17 +1,17 @@
-import React from 'react'
-import { changeSymbols } from '../../utils/Constants'
+import React from "react";
+import { changeSymbols } from "../../utils/Constants";
 
 function UniLastPriceCard(props) {
-    return (
-        <div className='gridContainer responsiveGrid'>
-            <div>
-                <p className='importantText'>{props.lastPrice} {props.currency} </p>
-            </div>
-            <div>
-                {changeSymbols[props.priceChangeDirection]}
-            </div>
-        </div>
-    )
+  return (
+    <div>
+      <p className="importantText">
+        {props.lastPrice} {props.currency}
+      </p>
+      <p className={`change-symbol ${props.priceChangeDirection}`}>
+        {changeSymbols[props.priceChangeDirection]}
+      </p>
+    </div>
+  );
 }
 
-export default UniLastPriceCard
+export default UniLastPriceCard;

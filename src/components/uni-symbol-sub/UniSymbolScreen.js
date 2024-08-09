@@ -1,6 +1,6 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import UniSymbolTitle from "./UniSymbolTitle";
 import { directions } from "../../utils/Constants";
 import UniLastPriceCard from "./UniLastPriceCard";
@@ -21,36 +21,37 @@ function UniSymbolScreen() {
     changeDirection: directions.noChange,
   });
 
-  const socket = useRef();
 
   useEffect(() => {
-    socket.current = new WebSocket(socketData.url);
-    socket.current.addEventListener("open", (event) => {
-      socket.current.send(JSON.stringify(socketData.subscribeJSON));
+    const socket = new WebSocket(socketData.url);
+    socket.addEventListener("open", (event) => {
+      socket.send(JSON.stringify(socketData.subscribeJSON));
     });
-    socket.current.addEventListener("message", (event) => {
+    socket.addEventListener("message", (event) => {
       try {
         const tempData = JSON.parse(event.data);
         if (tempData.type !== "ping") {
-          setPrices((prevPrices) => {
-            return {
-              newPrice: tempData.data[0].p,
-              oldPrice: prevPrices.newPrice,
-              changeDirection: newPriceChangeDirection(
-                tempData.data[0].p,
-                prevPrices.newPrice
-              ),
-            };
-          });
+          console.log(tempData.data[0].p);
+          setPrices((prevPrices) => ({
+            newPrice: tempData.data[0].p,
+            oldPrice: prevPrices.newPrice,
+            changeDirection: newPriceChangeDirection(
+              tempData.data[0].p,
+              prevPrices.newPrice
+            ),
+          }));
           setDataDownloaded(true);
         }
       } catch (error) {
         console.log(error);
       }
     });
+    // Cleanup function to close connection on unmount
     return () => {
-      socket.current.send(JSON.stringify(socketData.unsubscribeJSON));
-      socket.current.close();
+      if (socket.current?.readyState === WebSocket.OPEN) {
+        socket.send(JSON.stringify(socketData.unsubscribeJSON));
+        socket.close();
+      }
     };
   }, []);
 
