@@ -2,6 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { directions } from "../../../utils/Constants";
+import { priceChangeDirection } from "../../../utils/StockUtils";
 import UniLastPriceCard from "../../uni-symbol-sub/UniLastPriceCard";
 
 function LastPrice(props) {
@@ -30,7 +31,7 @@ function LastPrice(props) {
           setPrices((prevPrices) => ({
             newPrice: tempData.data[0].p,
             oldPrice: prevPrices.newPrice,
-            changeDirection: newPriceChangeDirection(
+            changeDirection: priceChangeDirection(
               tempData.data[0].p,
               prevPrices.newPrice
             ),
@@ -49,16 +50,6 @@ function LastPrice(props) {
       }
     };
   }, []);
-
-  const newPriceChangeDirection = (newPrice, oldPrice) => {
-    if (newPrice > oldPrice) {
-      return directions.increase;
-    }
-    if (newPrice < oldPrice) {
-      return directions.decrease;
-    }
-    return directions.noChange;
-  };
 
   return (
     <div>

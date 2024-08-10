@@ -7,7 +7,6 @@ Use the following command:
 ```bash
 docker run -it --rm --name dan-s-finnhub-stocks -p 3000:3000 -v $(pwd):/$(basename $(pwd)) -w /$(basename $(pwd)) node:21-alpine sh -c "npm install && npm start"
 ```
-The container needs to be manually removed after use.
 
 ## To sh in
 

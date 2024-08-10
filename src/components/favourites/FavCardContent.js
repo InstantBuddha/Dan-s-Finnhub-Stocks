@@ -3,15 +3,13 @@ import { changeSymbols } from "../../utils/Constants";
 import { Link } from "react-router-dom";
 
 function FavCardContent(props) {
-  const changeSymbol = () => {
-    if (props.change > 0) {
-      return changeSymbols.increase;
-    }
-    if (props.change < 0) {
-      return changeSymbols.decrease;
-    }
-    return changeSymbols.noChange;
-  };
+  const changeSymbol = () => (
+    props.change > 0
+      ? "increase"
+      : props.change < 0
+      ? "decrease"
+      : "noChange"
+  );
 
   return (
     <div className='favContentWrapper leftAlignedInfo'>
@@ -26,8 +24,7 @@ function FavCardContent(props) {
               title="Open Datasheet" >{props.name}</Link>
         <h3 className='favCompInfo'>{props.price} {props.currency}</h3>
         <div className='favContentWrapper favCompInfo'>
-          <div className='favCompInfo'><p>{props.change}%  </p></div>
-          <div className='favCompInfo'>{changeSymbol()}</div>
+          <p className={changeSymbol()}>{`${props.change}% ${changeSymbols[changeSymbol()]}`}</p>
         </div>
       </div>
     </div>

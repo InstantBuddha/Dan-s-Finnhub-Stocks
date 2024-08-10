@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import UniSymbolTitle from "./UniSymbolTitle";
 import { directions } from "../../utils/Constants";
 import UniLastPriceCard from "./UniLastPriceCard";
+import { priceChangeDirection } from "../../utils/StockUtils";
 
 function UniSymbolScreen() {
   const { symbol } = useParams();
@@ -35,7 +36,7 @@ function UniSymbolScreen() {
           setPrices((prevPrices) => ({
             newPrice: tempData.data[0].p,
             oldPrice: prevPrices.newPrice,
-            changeDirection: newPriceChangeDirection(
+            changeDirection: priceChangeDirection(
               tempData.data[0].p,
               prevPrices.newPrice
             ),
@@ -54,16 +55,6 @@ function UniSymbolScreen() {
       }
     };
   }, []);
-
-  const newPriceChangeDirection = (newPrice, oldPrice) => {
-    if (newPrice > oldPrice) {
-      return directions.increase;
-    }
-    if (newPrice < oldPrice) {
-      return directions.decrease;
-    }
-    return directions.noChange;
-  };
 
   return (
     <div className="centerWrapper">
