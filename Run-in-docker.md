@@ -2,10 +2,14 @@
 
 ## Run in a Docker container
 
-Use the following command:
+You need to create a valid .env with an API key. Unfortunately websockets might not work with a free private API key:
 
 ```bash
-docker run -it --rm --name dan-s-finnhub-stocks -p 3000:3000 -v $(pwd):/$(basename $(pwd)) -w /$(basename $(pwd)) node:21-alpine sh -c "npm install && npm start"
+docker run -it --rm --name dan-s-finnhub-stocks -p 3000:3000 \
+  -v $(pwd):/$(basename $(pwd)) \
+  -w /$(basename $(pwd)) \
+  --env-file .env \
+  node:21-alpine sh -c "npm install && npm start"
 ```
 
 ## To sh in

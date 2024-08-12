@@ -5,13 +5,14 @@ import UniSymbolTitle from "./UniSymbolTitle";
 import { directions } from "../../utils/Constants";
 import UniLastPriceCard from "./UniLastPriceCard";
 import { priceChangeDirection } from "../../utils/StockUtils";
+import { socketUrl } from "../../utils/ApiUrlPaths";
 
 function UniSymbolScreen() {
   const { symbol } = useParams();
   const [dataDownloaded, setDataDownloaded] = useState(false);
 
   const socketData = {
-    url: "wss://ws.finnhub.io?token=c1mrjdi37fktai5sgaog",
+    url: socketUrl,
     subscribeJSON: { type: "subscribe", symbol: symbol },
     unsubscribeJSON: { type: "unsubscribe", symbol: symbol },
   };
@@ -32,7 +33,6 @@ function UniSymbolScreen() {
       try {
         const tempData = JSON.parse(event.data);
         if (tempData.type !== "ping") {
-          console.log(tempData.data[0].p);
           setPrices((prevPrices) => ({
             newPrice: tempData.data[0].p,
             oldPrice: prevPrices.newPrice,

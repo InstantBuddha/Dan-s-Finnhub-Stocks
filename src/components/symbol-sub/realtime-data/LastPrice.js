@@ -4,11 +4,12 @@ import { useParams } from "react-router-dom";
 import { directions } from "../../../utils/Constants";
 import { priceChangeDirection } from "../../../utils/StockUtils";
 import UniLastPriceCard from "../../uni-symbol-sub/UniLastPriceCard";
+import { socketUrl } from "../../../utils/ApiUrlPaths";
 
 function LastPrice(props) {
   const { symbol } = useParams();
   const socketData = {
-    url: "wss://ws.finnhub.io?token=c1mrjdi37fktai5sgaog",
+    url: socketUrl,
     subscribeJSON: { type: "subscribe", symbol: symbol },
     unsubscribeJSON: { type: "unsubscribe", symbol: symbol },
   };
