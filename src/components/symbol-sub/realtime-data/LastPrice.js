@@ -1,5 +1,5 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
 import { directions } from "../../../utils/Constants";
 import { priceChangeDirection } from "../../../utils/StockUtils";
@@ -8,11 +8,14 @@ import { socketUrl } from "../../../utils/ApiUrlPaths";
 
 function LastPrice(props) {
   const { symbol } = useParams();
+
   const socketData = {
     url: socketUrl,
     subscribeJSON: { type: "subscribe", symbol: symbol },
     unsubscribeJSON: { type: "unsubscribe", symbol: symbol },
   };
+
+  const socket = useRef(null);
 
   const [prices, setPrices] = useState({
     newPrice: props?.lastKnownPrice,
@@ -21,11 +24,14 @@ function LastPrice(props) {
   });
 
   useEffect(() => {
-    const socket = new WebSocket(socketData.url);
-    socket.addEventListener("open", (event) => {
-      socket.send(JSON.stringify(socketData.subscribeJSON));
+    socket.current = new WebSocket(socketData.url);
+    socket.current.addEventListener("open", (event) => {
+      if (socket.current && socket.current.readyState === WebSocket.OPEN) {
+        socket.current.send(JSON.stringify(socketData.subscribeJSON));
+      }
     });
-    socket.addEventListener("message", (event) => {
+
+    socket.current.addEventListener("message", (event) => {
       try {
         const tempData = JSON.parse(event.data);
         if (tempData.type !== "ping") {
@@ -43,14 +49,23 @@ function LastPrice(props) {
       }
     });
 
-    // Cleanup function to close connection on unmount
+    socket.current.addEventListener("error", (error) => {
+      console.error("WebSocket error:", error);
+    });
+
+    socket.current.addEventListener("close", () => {
+      console.log("WebSocket connection closed.");
+    });
+
     return () => {
-      if (socket.current?.readyState === WebSocket.OPEN) {
-        socket.send(JSON.stringify(socketData.unsubscribeJSON));
-        socket.close();
+      if (socket.current) {
+        if (socket.current.readyState === WebSocket.OPEN) {
+          socket.current.send(JSON.stringify(socketData.unsubscribeJSON));
+        }
+        socket.current.close();
       }
     };
-  }, []);
+  }, [symbol]);
 
   return (
     <div>

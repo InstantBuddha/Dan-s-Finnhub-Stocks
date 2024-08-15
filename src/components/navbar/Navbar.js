@@ -55,10 +55,10 @@ function Navbar() {
       >
         Stock exchange
       </Link>
-      <Link to="/crypto" className={linkItemClassname} onClick={closeNav}>
+      <Link to="/exchange/crypto" className={linkItemClassname} onClick={closeNav}>
         Crypto
       </Link>
-      <Link to="/forex" className={linkItemClassname} onClick={closeNav}>
+      <Link to="/exchange/forex" className={linkItemClassname} onClick={closeNav}>
         Forex
       </Link>
     </nav>

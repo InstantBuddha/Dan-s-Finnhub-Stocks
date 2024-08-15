@@ -2,26 +2,38 @@ import React from "react";
 import { useState, useEffect } from "react";
 import LastPrice from "./realtime-data/LastPrice";
 import { fetchCompanyQuote } from "../../services/StockApiService";
-import UniLastPriceCard from "../uni-symbol-sub/UniLastPriceCard";
+import { ReactComponent as Spinner } from "../../assets/svg/spinner.svg";
 
 function SymbolPrices(props) {
-  const [isDownloaded, setIsDownloaded] = useState(false);
   const [priceData, setPriceData] = useState({});
-
-  const fetchData = async () => {
-    await fetchCompanyQuote(props.company)
-      .then((response) => {
-        setPriceData(response.data);
-        setIsDownloaded(true);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
+    const abortController = new AbortController();
+
+    const fetchData = async () => {
+      try {
+        const response = await fetchCompanyQuote(props.company, {
+          signal: abortController.signal,
+        });
+        setPriceData(response.data);
+      } catch (error) {
+        if (error.name !== "CanceledError" && error.code !== "ERR_CANCELED") {
+          setError("Failed to load data. Please try again.");
+        }
+        console.log(error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
     fetchData();
-  }, []);
+
+    return () => {
+      abortController.abort();
+    };
+  }, [props.company]);
 
   const textToDisplay = [
     `Change: ${priceData.d} ${props.currency}`,
@@ -31,13 +43,21 @@ function SymbolPrices(props) {
     `Previous close price: ${priceData.pc} ${props.currency}`,
   ];
 
+  if (isLoading) {
+    return (
+      <div>
+        <Spinner className="spinner" />
+      </div>
+    );
+  }
+
+  if (error) {
+    return <div className="error-screen">Error loading price data.</div>;
+  }
+
   return (
     <div className="symbolSubGridItem leftAlignedInfo">
-      {isDownloaded ? (
-        <LastPrice lastKnownPrice={priceData.c} currency={props.currency} />
-      ) : (
-        <UniLastPriceCard lastPrice={0} currency={""} />
-      )}
+      <LastPrice lastKnownPrice={priceData.c} currency={props.currency} />
 
       {textToDisplay.map((textItem) => (
         <p key={textItem}>{textItem}</p>

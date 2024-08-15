@@ -47,7 +47,7 @@ function UniSymbolScreen() {
         console.log(error);
       }
     });
-    // Cleanup function to close connection on unmount
+    
     return () => {
       if (socket.current?.readyState === WebSocket.OPEN) {
         socket.send(JSON.stringify(socketData.unsubscribeJSON));
@@ -65,7 +65,7 @@ function UniSymbolScreen() {
           priceChangeDirection={prices.changeDirection}
         />
       ) : (
-        <p>Data becomes available at first price change</p>
+        <p>Data becomes available at first price change, which is only provided by Finnhub if the market is open.</p>
       )}
       <div className="gridContainer responsiveGrid"></div>
     </div>
