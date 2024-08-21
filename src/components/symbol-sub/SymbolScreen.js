@@ -5,11 +5,16 @@ import SymbolInformation from "./SymbolInformation";
 import SymbolPrices from "./SymbolPrices";
 import SymbolTitle from "./SymbolTitle";
 import { fetchCompanyDetails } from "../../services/StockApiService";
-import { addToLocalStorage, isAlreadyAdded } from "../../utils/UseLocalStorage";
+import {
+  addToLocalStorage,
+  deleteFromFavourites,
+  isAlreadyAdded,
+} from "../../utils/UseLocalStorage";
 import { favTypes } from "../../utils/Constants";
 import { ReactComponent as AddIcon } from "../../assets/svg/add.svg";
 import { ReactComponent as AddedIcon } from "../../assets/svg/added.svg";
 import { ReactComponent as Spinner } from "../../assets/svg/spinner.svg";
+import ErrorScreen from "../ErrorScreen";
 
 function SymbolScreen() {
   const { symbol } = useParams();
@@ -18,34 +23,51 @@ function SymbolScreen() {
   const [isCompanyFav, setIsCompanyFav] = useState(
     isAlreadyAdded({ symbol: symbol })
   );
+  const [error, setError] = useState(null);
 
-  const fetchData = async () => {
-    await fetchCompanyDetails(symbol)
-      .then((response) => {
+  useEffect(() => {
+    const abortController = new AbortController();
+
+    const fetchData = async () => {
+      try {
+        const response = await fetchCompanyDetails(symbol, {
+          signal: abortController.signal,
+        });
         setCompanyData(response.data);
         if (response.data.name) {
           setIsCompanyDataDownloaded(true);
         }
-      })
-      .catch((error) => {
+      } catch (error) {
+        if (error.name !== "CanceledError") {
+          setError("Failed to load company data. Please try again.");
+        }
         console.log(error);
-      });
-  };
+      }
+    };
+
+    fetchData();
+
+    return () => {
+      abortController.abort();
+    };
+  }, [symbol]);
 
   const handleAddButton = () => {
-    addToLocalStorage({ symbol: symbol, type: favTypes.company });
-    setIsCompanyFav(true);
+    isCompanyFav
+      ? deleteFromFavourites(symbol)
+      : addToLocalStorage({ symbol: symbol, type: favTypes.company });
+
+    setIsCompanyFav(!isCompanyFav);
   };
 
-  useEffect(() => {
-    fetchData();
-  }, []);
+  if (error) {
+    return <ErrorScreen errorMessage={error} />;
+  }
 
-  console.log(isAlreadyAdded({ symbol: symbol }));
   return (
     <div className="centerWrapper">
       {isCompanyDataDownloaded ? (
-        <div>
+        <div className="cardWrapper">
           <SymbolTitle companyData={companyData} />
           <div className="gridContainer responsiveGrid">
             <SymbolInformation companyData={companyData} />

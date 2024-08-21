@@ -8,11 +8,9 @@ import Searchbar from "../searchbar-paginator/Searchbar";
 import SearchMessage from "../searchbar-paginator/SearchMessage";
 import Paginator from "../searchbar-paginator/Paginator";
 import { ReactComponent as Spinner } from "../../assets/svg/spinner.svg";
-import {
-  abortController,
-  fetchUniversalMarket,
-} from "../../services/StockApiService";
+import { fetchUniversalMarket } from "../../services/StockApiService";
 import { updateSearchResults } from "../../services/SearchServices";
+import ErrorScreen from "../ErrorScreen";
 
 function SymbolList(props) {
   let { exchangeType, market } = useParams();
@@ -24,21 +22,29 @@ function SymbolList(props) {
   const [paginateAmount, setPaginateAmount] = useState(25);
   const [currentPage, setCurrentPage] = useState(0);
   const [lastPage, setLastPage] = useState();
+  const [error, setError] = useState(null);
 
   const fetchData = useCallback(async () => {
-    await fetchUniversalMarket(exchangeType, market)
-      .then((response) => {
-        const flatStockData = response.data.flat().sort((a, b) => {
-          return a.symbol.localeCompare(b.symbol);
-        });
-        setStockData(flatStockData);
-        setPresentExchange(exchangeType);
-        resetPagination(flatStockData.length);
-        setIsListDownloaded(true);
-      })
-      .catch((error) => {
-        console.log(error);
+    const abortController = new AbortController();
+    try {
+      const response = await fetchUniversalMarket(exchangeType, market, {
+        signal: abortController.signal,
       });
+      const flatStockData = response.data.flat().sort((a, b) => {
+        return a.symbol.localeCompare(b.symbol);
+      });
+
+      setStockData(flatStockData);
+      setPresentExchange(exchangeType);
+      resetPagination(flatStockData.length);
+      setIsListDownloaded(true);
+    } catch (error) {
+      if (error.name !== "CanceledError" && error.code !== "ERR_CANCELED") {
+        setError("Failed to load data. Please try again.");
+      }
+      console.log(error);
+    }
+    return () => abortController.abort();
   }, [exchangeType, market]);
 
   const updateSearchResult = (searchTerm) => {
@@ -109,8 +115,8 @@ function SymbolList(props) {
   };
 
   const unmountCleanup = () => {
+    setError(null);
     setIsSearchPerformed(false);
-    isListDownloaded && abortController.abort();
     setIsListDownloaded(false);
   };
 
@@ -120,7 +126,18 @@ function SymbolList(props) {
     }
     fetchData();
     return () => unmountCleanup();
-  }, [exchangeType, presentExchange, fetchData]);
+  }, [exchangeType, fetchData]);
+
+  const handleErrorReload = () => {
+    unmountCleanup();
+    fetchData();
+  };
+
+  if (error) {
+    return (
+      <ErrorScreen errorMessage={error} handleErrorReload={handleErrorReload} />
+    );
+  }
 
   return (
     <div className="centerWrapper">
@@ -148,4 +165,4 @@ function SymbolList(props) {
   );
 }
 
-export default React.memo(SymbolList);
+export default SymbolList;

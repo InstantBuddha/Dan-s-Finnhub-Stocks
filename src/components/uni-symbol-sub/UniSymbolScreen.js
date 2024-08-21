@@ -1,16 +1,18 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import UniSymbolTitle from "./UniSymbolTitle";
 import { directions } from "../../utils/Constants";
 import UniLastPriceCard from "./UniLastPriceCard";
+import { priceChangeDirection } from "../../utils/StockUtils";
+import { socketUrl } from "../../utils/ApiUrlPaths";
 
 function UniSymbolScreen() {
   const { symbol } = useParams();
   const [dataDownloaded, setDataDownloaded] = useState(false);
 
   const socketData = {
-    url: "wss://ws.finnhub.io?token=c1mrjdi37fktai5sgaog",
+    url: socketUrl,
     subscribeJSON: { type: "subscribe", symbol: symbol },
     unsubscribeJSON: { type: "unsubscribe", symbol: symbol },
   };
@@ -21,61 +23,54 @@ function UniSymbolScreen() {
     changeDirection: directions.noChange,
   });
 
-  const socket = useRef();
-
   useEffect(() => {
-    socket.current = new WebSocket(socketData.url);
-    socket.current.addEventListener("open", (event) => {
-      socket.current.send(JSON.stringify(socketData.subscribeJSON));
+    const socket = new WebSocket(socketData.url);
+    socket.addEventListener("open", (event) => {
+      socket.send(JSON.stringify(socketData.subscribeJSON));
     });
-    socket.current.addEventListener("message", (event) => {
+    socket.addEventListener("message", (event) => {
       try {
         const tempData = JSON.parse(event.data);
         if (tempData.type !== "ping") {
-          setPrices((prevPrices) => {
-            return {
-              newPrice: tempData.data[0].p,
-              oldPrice: prevPrices.newPrice,
-              changeDirection: newPriceChangeDirection(
-                tempData.data[0].p,
-                prevPrices.newPrice
-              ),
-            };
-          });
+          setPrices((prevPrices) => ({
+            newPrice: tempData.data[0].p,
+            oldPrice: prevPrices.newPrice,
+            changeDirection: priceChangeDirection(
+              tempData.data[0].p,
+              prevPrices.newPrice
+            ),
+          }));
           setDataDownloaded(true);
         }
       } catch (error) {
         console.log(error);
       }
     });
+
     return () => {
-      socket.current.send(JSON.stringify(socketData.unsubscribeJSON));
-      socket.current.close();
+      if (socket.current?.readyState === WebSocket.OPEN) {
+        socket.send(JSON.stringify(socketData.unsubscribeJSON));
+        socket.close();
+      }
     };
   }, []);
 
-  const newPriceChangeDirection = (newPrice, oldPrice) => {
-    if (newPrice > oldPrice) {
-      return directions.increase;
-    }
-    if (newPrice < oldPrice) {
-      return directions.decrease;
-    }
-    return directions.noChange;
-  };
-
   return (
     <div className="centerWrapper">
-      <UniSymbolTitle symbol={symbol} />
-      {dataDownloaded ? (
-        <UniLastPriceCard
-          lastPrice={prices.newPrice}
-          priceChangeDirection={prices.changeDirection}
-        />
-      ) : (
-        <p>Data becomes available at first price change</p>
-      )}
-      <div className="gridContainer responsiveGrid"></div>
+      <div className="cardWrapper">
+        <UniSymbolTitle symbol={symbol} />
+        {dataDownloaded ? (
+          <UniLastPriceCard
+            lastPrice={prices.newPrice}
+            priceChangeDirection={prices.changeDirection}
+          />
+        ) : (
+          <p>
+            Data becomes available at first price change, which is only provided
+            by Finnhub if the market is open.
+          </p>
+        )}
+      </div>
     </div>
   );
 }

@@ -1,7 +1,8 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, useCallback } from "react";
 import { Link } from "react-router-dom";
 import { ReactComponent as MenuIcon } from "../../assets/svg/menu.svg";
 import { isWindowLandscape } from "../../utils/IsWindowLandscape";
+import "../../styles/navbar.css";
 
 function Navbar() {
   const [navbarVisible, setNavbarVisible] = useState(false);
@@ -10,9 +11,9 @@ function Navbar() {
   );
   const navbarRef = useRef(null);
 
-  const toggleNav = () => {
-    setNavbarVisible(!navbarVisible);
-  };
+  const toggleNav = useCallback(() => {
+    setNavbarVisible((prev) => !prev);
+  }, []);
 
   const closeNav = () => {
     setNavbarVisible(false);
@@ -24,17 +25,20 @@ function Navbar() {
     );
   };
 
-  const handleClickOutside = (e) => {
+  const handleClickOutside = useCallback((e) => {
     if (navbarRef.current && !navbarRef.current.contains(e.target)) {
       setNavbarVisible(false);
     }
-  };
+  }, []);
 
   useEffect(() => {
     window.addEventListener("resize", handleResize);
     document.addEventListener("click", handleClickOutside);
 
-    return () => window.removeEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+      document.removeEventListener("click", handleClickOutside);
+    };
   }, []);
 
   const linkItemClassname =
@@ -55,10 +59,18 @@ function Navbar() {
       >
         Stock exchange
       </Link>
-      <Link to="/crypto" className={linkItemClassname} onClick={closeNav}>
+      <Link
+        to="/exchange/crypto"
+        className={linkItemClassname}
+        onClick={closeNav}
+      >
         Crypto
       </Link>
-      <Link to="/forex" className={linkItemClassname} onClick={closeNav}>
+      <Link
+        to="/exchange/forex"
+        className={linkItemClassname}
+        onClick={closeNav}
+      >
         Forex
       </Link>
     </nav>

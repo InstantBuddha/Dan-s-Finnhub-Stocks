@@ -1,5 +1,6 @@
 import React from 'react'
 import { useState } from 'react'
+import "../../styles/searchbar-paginator.css"
 
 function Searchbar(props) {
 
