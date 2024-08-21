@@ -67,7 +67,7 @@ function SymbolScreen() {
   return (
     <div className="centerWrapper">
       {isCompanyDataDownloaded ? (
-        <div>
+        <div className="cardWrapper">
           <SymbolTitle companyData={companyData} />
           <div className="gridContainer responsiveGrid">
             <SymbolInformation companyData={companyData} />

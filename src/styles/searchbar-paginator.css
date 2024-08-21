@@ -1,0 +1,86 @@
+.searchBarMain {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+  }
+  
+  .searchBarMain form {
+    display: flex;
+    align-items: center;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 0.2rem 0.1rem;
+    
+  }
+  
+  .searchBarMain input[type="text"] {
+    border: none;
+    outline: none;
+    font-size: 1rem;
+    border-radius: 8px;
+  }
+  
+  .searchBarMain input[type="text"]::placeholder {
+    color: #888;
+  }
+  
+  .searchBarMain button {
+    background-color: #1db954;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+  
+  .searchBarMain button:hover {
+    background-color: #17a444;
+    transform: scale(1.05);
+  }
+  
+  .searchBarMain button:active {
+    background-color: #14833a;
+  }
+  
+  .paginator {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .paginator button {
+    background-color: #f9f9f9;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    margin: 0 0.5rem;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+  
+  .paginator button:hover {
+    background-color: #e0e0e0;
+    transform: scale(1.05);
+  }
+  
+  .paginator button:active {
+    background-color: #d0d0d0;
+  }
+  
+  .paginator select {
+    padding: 0.5rem;
+    font-size: 1rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-left: 0.5rem;
+    transition: background-color 0.3s ease;
+  }
+  
+  .paginator select:hover {
+    background-color: #f0f0f0;
+  }
+  

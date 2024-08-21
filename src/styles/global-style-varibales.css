@@ -1,0 +1,15 @@
+:root {
+  --linear-primary-color: #157436;
+  --linear-secondary-color: #24a545;
+  --linear-transparent-primary-color: rgba(21, 116, 54, 0.5);
+  --linear-transparent-secondary-color: rgba(36, 165, 69, 0.5);
+  --background-primary-color: #5f5f5fe0;
+  --special-text-primary-color: #dbdbdb;
+  --special-text-secondary-color: #84afcb;
+  --text-highlight-background-color: #111;
+  --global-background-color: #f4f9fb;
+  --global-background-transparent-primary-color: rgba(78, 78, 78, 0.4);
+  --global-background-transparent-secondary-color: rgba(201, 201, 201, 0.3);
+  --transparent-background-color: rgba(0, 0, 0, 0.7);
+  --green-text-color: #446b00;
+}

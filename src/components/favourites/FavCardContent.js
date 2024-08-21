@@ -1,6 +1,7 @@
 import React from "react";
 import { changeSymbols } from "../../utils/Constants";
 import { Link } from "react-router-dom";
+import "../../styles/favourites.css";
 
 function FavCardContent(props) {
   const changeSymbol = () => (

@@ -23,7 +23,6 @@ function UniSymbolScreen() {
     changeDirection: directions.noChange,
   });
 
-
   useEffect(() => {
     const socket = new WebSocket(socketData.url);
     socket.addEventListener("open", (event) => {
@@ -47,7 +46,7 @@ function UniSymbolScreen() {
         console.log(error);
       }
     });
-    
+
     return () => {
       if (socket.current?.readyState === WebSocket.OPEN) {
         socket.send(JSON.stringify(socketData.unsubscribeJSON));
@@ -58,16 +57,20 @@ function UniSymbolScreen() {
 
   return (
     <div className="centerWrapper">
-      <UniSymbolTitle symbol={symbol} />
-      {dataDownloaded ? (
-        <UniLastPriceCard
-          lastPrice={prices.newPrice}
-          priceChangeDirection={prices.changeDirection}
-        />
-      ) : (
-        <p>Data becomes available at first price change, which is only provided by Finnhub if the market is open.</p>
-      )}
-      <div className="gridContainer responsiveGrid"></div>
+      <div className="cardWrapper">
+        <UniSymbolTitle symbol={symbol} />
+        {dataDownloaded ? (
+          <UniLastPriceCard
+            lastPrice={prices.newPrice}
+            priceChangeDirection={prices.changeDirection}
+          />
+        ) : (
+          <p>
+            Data becomes available at first price change, which is only provided
+            by Finnhub if the market is open.
+          </p>
+        )}
+      </div>
     </div>
   );
 }

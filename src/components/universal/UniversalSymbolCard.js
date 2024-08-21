@@ -17,7 +17,7 @@ function UniversalSymbolCard(props) {
       </div>
       <Link
         to={`/${props.exchangeType}/${props.market}/${urlSafeSymbol}`}
-        className="link"
+        className="link pseudo-button"
       >
         Open datasheet
       </Link>

@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 
 function SearchMessage(props) {
-  //add onClick to change css to .hidden
   const [ cssClassName, setCssClassName ] = useState("message error")
 
   return (

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { getFromLocalStorage } from "../../utils/UseLocalStorage";
+import "../../styles/favourites.css";
 import FavCard from "./FavCard";
 
 function FavList() {

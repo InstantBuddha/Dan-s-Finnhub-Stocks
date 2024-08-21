@@ -1,4 +1,5 @@
 import React from "react";
+import "../styles/error-and-not-found.css";
 
 function ErrorScreen({ errorMessage, handleErrorReload }) {
   return (

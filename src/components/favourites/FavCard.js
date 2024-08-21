@@ -6,6 +6,7 @@ import {
 } from "../../services/StockApiService";
 import { deleteFromFavourites } from "../../utils/UseLocalStorage";
 import FavCardContent from "./FavCardContent";
+import "../../styles/favourites.css";
 import { ReactComponent as TrashIcon } from "../../assets/svg/trash.svg";
 import { ReactComponent as Spinner } from "../../assets/svg/spinner.svg";
 
@@ -60,7 +61,7 @@ function FavCard(props) {
             change={quoteData.dp}
             onDelete={onDelete}
           />
-          <button className="favButton" onClick={onDelete} title="Delete item">
+          <button className="fav-delete-button" onClick={onDelete} title="Delete item">
             <TrashIcon className="smallIcon" />
           </button>
         </div>

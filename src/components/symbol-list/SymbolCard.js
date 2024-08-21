@@ -13,7 +13,7 @@ function SymbolCard(props) {
           <p> Stock type: {props.type}</p>
         </div>
       </div>
-      <Link to={`/stock-market/US/${props.symbol}`} className="link">Open datasheet</Link>
+      <Link to={`/stock-market/US/${props.symbol}`} className="link pseudo-button">Open datasheet</Link>
     </div>
   )
 }

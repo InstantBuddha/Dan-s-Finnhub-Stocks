@@ -1,5 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import "../styles/error-and-not-found.css";
 
 function NotFound404() {
   const navigate = useNavigate();
